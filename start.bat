@@ -14,22 +14,20 @@ if "%PLATFROM%"=="RDA8910" (
 ) else if "%PLATFROM%"=="ASR1603" (
     goto ASR1603
 ) else (
-    echo please input platfrom
-    pause
-    exit
+    %PLATFROM%=RDA8910
 )
 
 :: call tools/launch.bat project debug
 :RDA8910
-set CORE_INC="%PROJECT_ROOT%\platform\8910\core"
-set CORE_TRAN_MAIN="%PROJECT_ROOT%\platform\8910\core\trans_api"
+set CORE_INC="%PROJECT_ROOT%\platform\Air72x\core"
+set CORE_TRAN_MAIN="%PROJECT_ROOT%\platform\Air72x\core\trans_api"
 :: 转换头文件
 :: python38 %TRANS% transform -i "%PROJECT_ROOT%\platform\8910\core\core_api.h" -o "%PROJECT_ROOT%\user\include\core_api.h" -oc "%PROJECT_ROOT%\user\src\core_api.c"
 python38 %TRANS% "move" -f "%CORE_INC%\cs_types.h" "%CORE_INC%\am_openat_drv.h" "%CORE_TRAN_MAIN%\core_api.h" "%CORE_INC%\am_openat_common.h" "%CORE_INC%\am_openat_system.h" -d %USER_INC%
 python38 %TRANS% "move" -f "%CORE_TRAN_MAIN%\core_api.c" -d %USER_SRC%
 
-set CMAKE_LINKER=%PROJECT_ROOT%/platform/8910/win32/gcc-arm-none-eabi/bin/arm-none-eabi-ld.exe
-set CMAKE_C_COMPILER=%PROJECT_ROOT%/platform/8910/win32/gcc-arm-none-eabi/bin/arm-none-eabi-gcc.exe
+set CMAKE_LINKER=%PROJECT_ROOT%/platform/Air72x/compiler/win32/gcc-arm-none-eabi/bin/arm-none-eabi-ld.exe
+set CMAKE_C_COMPILER=%PROJECT_ROOT%/platform/Air72x/compiler/win32/gcc-arm-none-eabi/bin/arm-none-eabi-gcc.exe
 set CCOPTION="-mcpu=cortex-a5 -mtune=generic-armv7-a -mfpu=neon-vfpv4  -mthumb -mfloat-abi=hard -mno-unaligned-access  -g -Os -Wall -std=c11 -c" 
 goto BUILD
 
