@@ -18,14 +18,14 @@ NDK主要针对LuatOS闭源版本（例如LuatOS-Air/LuatOS-HMI/LuatOS-iRTU等)�
 ## 原理介绍
 用户使用NDK将C代码编译成lib库后，和lua脚本文件一起打包下载到硬件中。LuatOS系统将lib库动态加载到内存中运行，并将lib库中提供的API接口注册到系统中。这样lua脚本就可以通过dl模块进行加载，并使用这类接口。
 
-![输入图片说明](image.png)
+![输入图片说明](doc/arch.png)
 
 # 二、使用介绍
 
 
 ## NDK目录结构
 
-![image-20211218132443990](ndk-image.png)
+![image-20211218132443990](doc/file.png)
 
 ## 1. 添加源文件
 
@@ -196,7 +196,7 @@ LuatOS系统提供的lua虚拟机工作在单线程环境，如果添加的源�
 - 底层固件选择支持NDK的固件库。
 - 通过增加脚本文件按钮，选择lua脚本和NDK\out目录下的user.lib，如下图所示：
 
-![9988651c-2776-415c-8bb3-405357786099](download-image.png)
+![9988651c-2776-415c-8bb3-405357786099](doc/download.png)
 
 - 点击下载即可。
 
