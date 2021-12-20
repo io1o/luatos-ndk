@@ -42,7 +42,7 @@ NDK(Native Development Kit)是一种基于原生程序接口的软件开发工�
 
 ### 2.1 如何编写
 
-- 在NDK\platform\xxx\core 目录下存放的是底层的头文件，底层提供的接口会全部放在core_cpi.h里面。
+- 在NDK\platform\xxx\core 目录下存放的是底层的头文件，底层提供的接口会全部放在core_api.h里面。
 
 - 用户只能调用core_api.h提供的外部接口，包括标准库的接口。
 
