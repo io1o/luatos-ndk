@@ -3,7 +3,7 @@ cd ..
 set PROJECT_ROOT=%CD%
 set PLATFORM=%1
 set TRANS=%PROJECT_ROOT%\tools\transform.py
-set TRANS_DIR=%PROJECT_ROOT%\platform\8910\core
+set TRANS_DIR=%PROJECT_ROOT%\platform\Air72x\core
 call tools\launch.bat
 
 :: 转换头文件

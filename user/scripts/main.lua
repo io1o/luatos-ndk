@@ -49,6 +49,15 @@ if handle then
     print("ret_string", ret_string);
     print("ret_number1", ret_number1);
     print("ret_string1", ret_string1);
+
+    print("---------------------")
+    --第一个参数是lua调用的时候使用的lib名，第二个参数是C库中的注册表名
+    dl.register(handle,"userlib","user_lib")
+
+    local a,b,c = userlib.test_lib(1000,"123456789")
+    local t = userlib.test_table()
+    print("!!!!!!!!!! ",a,b,c)
+    print("table return: ",t.num,t.str,t.bool)
     
     --dl.close(handle)
 end

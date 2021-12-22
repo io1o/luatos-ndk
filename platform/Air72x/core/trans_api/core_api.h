@@ -1,6 +1,7 @@
 #include "cs_types.h"
 #include "am_openat_drv.h"
 #include "am_openat_system.h"
+#include "lua_type.h"
 extern void (*OPENAT_lua_print)(char * fmt,
 ...);
 extern bool (*OPENAT_msg_to_lua)(UINT8 msg_id,BOOL result,INT32 num,CHAR* data,UINT32 dataLen);
@@ -138,3 +139,26 @@ extern BOOL (*OPENAT_stop_timer)(                             /* 停止定时器接口 
 extern UINT64 (*OPENAT_timer_remaining)(
 							HANDLE hTimer
 						);
+extern int (*lua_gettop)(void *L);
+extern int (*luaL_optinteger)(void *L, int narg, int def);
+extern char *(*luaL_checklstring)(void *L, int numArg,
+                                                          size_t *l);
+extern char *(*luaL_optlstring)(void *L, int numArg,
+                                          const char *def, size_t *l);
+extern long (*luaL_checknumber)(void *L, int numArg);
+extern long (*luaL_optnumber)(void *L, int nArg, long def);
+extern int (*luaL_checkinteger)(void *L, int numArg);
+extern void (*luaL_checktype)(void *L, int narg, int t);
+extern void (*lua_createtable)(void *L, int narray, int nrec);
+extern void (*setfieldInt)(void *L, const char *key, int value);
+extern void (*setfieldBool)(void *L, const char *key, int value);
+extern void (*setfieldString)(void* L, const char* key, const char* str, const size_t len);
+extern void (*lua_pushinteger)(void *L, int n);
+extern void (*lua_pushlstring)(void *L, const char *s, size_t len);
+extern void (*lua_pushnumber)(void *L, long n);
+extern void (*lua_pushboolean)(void *L, int b);
+extern void (*lua_gettable)(void *L, int idx);
+extern int (*lua_isnumber)(void *L, int idx);
+extern int (*lua_isstring)(void *L, int idx);
+extern int (*lua_iscfunction)(void *L, int idx);
+extern char *(*lua_typename)(void *L, int t);

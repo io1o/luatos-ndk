@@ -1,7 +1,7 @@
 #include "cs_types.h"
 #include "am_openat_drv.h"
 #include "am_openat_system.h"
-
+#include "lua_type.h"
 
 void OPENAT_lua_print(char * fmt,
 ...);
@@ -189,5 +189,46 @@ UINT64 OPENAT_timer_remaining(
 							HANDLE hTimer
 						);
 
+int lua_gettop (void *L); /*获取栈顶元素*/
 
+int luaL_optinteger (void *L, int narg, int def); /*获取参数，如果没有设置默认值*/
 
+const char *luaL_checklstring (void *L, int numArg,
+                                                          size_t *l);  /*获取参数*/ 
+
+const char *luaL_optlstring (void *L, int numArg,
+                                          const char *def, size_t *l);   /*获取参数，如果没有设置默认值*/
+
+long luaL_checknumber (void *L, int numArg);  /*获取参数*/   
+
+long luaL_optnumber (void *L, int nArg, long def); /*获取参数，如果没有设置默认值*/
+
+int luaL_checkinteger (void *L, int numArg); /*设置表key为bool类型的值*/    
+
+void luaL_checktype (void *L, int narg, int t); /*获取参数类型*/
+
+void lua_createtable (void *L, int narray, int nrec); /*创建表*/
+
+void setfieldInt(void *L, const char *key, int value); /*设置表key为bool类型的值*/
+
+void setfieldBool(void *L, const char *key, int value); /*设置表key为bool类型的值*/
+
+void setfieldString(void* L, const char* key, const char* str, const size_t len); /*设置表key为string类型的值*/
+
+void lua_pushinteger (void *L, int n); /*压入int类型*/
+
+void lua_pushlstring (void *L, const char *s, size_t len); /*压入string类型*/
+
+void lua_pushnumber (void *L, long n); /*压入numbert类型*/
+
+void lua_pushboolean (void *L, int b); /*压入bool类型*/
+
+void lua_gettable (void *L, int idx); /*获取表*/
+
+int lua_isnumber (void *L, int idx); /*判断是否number*/
+
+int lua_isstring (void *L, int idx); /*判断是否string*/
+
+int lua_iscfunction (void *L, int idx);  /*判断是否是函数*/
+
+const char *lua_typename (void *L, int t); /*参数类型*/

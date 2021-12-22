@@ -19,6 +19,7 @@ char* fun4(char *string)
     return string;
 }
 
+/*测试函数：建立task并不断发送消息给lua虚拟机*/
 HANDLE task_handle = 0;
 
 void lua_msg_test_task(void *pParameter)
@@ -44,3 +45,4 @@ int send_msg_to_lua_test(void)
                                       "lua_msg_test_task"); 
     return 1;
 }
+

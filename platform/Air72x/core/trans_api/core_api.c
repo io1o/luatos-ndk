@@ -1,6 +1,7 @@
 #include "cs_types.h"
 #include "am_openat_drv.h"
 #include "am_openat_system.h"
+#include "lua_type.h"
 void (*OPENAT_lua_print)(char * fmt,
 ...) = (void*) 0xFFFFFFFF;
 bool (*OPENAT_msg_to_lua)(UINT8 msg_id,BOOL result,INT32 num,CHAR* data,UINT32 dataLen) = (void*) 0xFFFFFFFF;
@@ -138,3 +139,26 @@ BOOL (*OPENAT_stop_timer)(                             /* 停止定时器接口 */
 UINT64 (*OPENAT_timer_remaining)(
 							HANDLE hTimer
 						) = (void*) 0xFFFFFFFF;
+int (*lua_gettop)(void *L) = (void*) 0xFFFFFFFF;
+int (*luaL_optinteger)(void *L, int narg, int def) = (void*) 0xFFFFFFFF;
+char *(*luaL_checklstring)(void *L, int numArg,
+                                                          size_t *l) = (void*) 0xFFFFFFFF;
+char *(*luaL_optlstring)(void *L, int numArg,
+                                          const char *def, size_t *l) = (void*) 0xFFFFFFFF;
+long (*luaL_checknumber)(void *L, int numArg) = (void*) 0xFFFFFFFF;
+long (*luaL_optnumber)(void *L, int nArg, long def) = (void*) 0xFFFFFFFF;
+int (*luaL_checkinteger)(void *L, int numArg) = (void*) 0xFFFFFFFF;
+void (*luaL_checktype)(void *L, int narg, int t) = (void*) 0xFFFFFFFF;
+void (*lua_createtable)(void *L, int narray, int nrec) = (void*) 0xFFFFFFFF;
+void (*setfieldInt)(void *L, const char *key, int value) = (void*) 0xFFFFFFFF;
+void (*setfieldBool)(void *L, const char *key, int value) = (void*) 0xFFFFFFFF;
+void (*setfieldString)(void* L, const char* key, const char* str, const size_t len) = (void*) 0xFFFFFFFF;
+void (*lua_pushinteger)(void *L, int n) = (void*) 0xFFFFFFFF;
+void (*lua_pushlstring)(void *L, const char *s, size_t len) = (void*) 0xFFFFFFFF;
+void (*lua_pushnumber)(void *L, long n) = (void*) 0xFFFFFFFF;
+void (*lua_pushboolean)(void *L, int b) = (void*) 0xFFFFFFFF;
+void (*lua_gettable)(void *L, int idx) = (void*) 0xFFFFFFFF;
+int (*lua_isnumber)(void *L, int idx) = (void*) 0xFFFFFFFF;
+int (*lua_isstring)(void *L, int idx) = (void*) 0xFFFFFFFF;
+int (*lua_iscfunction)(void *L, int idx) = (void*) 0xFFFFFFFF;
+char *(*lua_typename)(void *L, int t) = (void*) 0xFFFFFFFF;

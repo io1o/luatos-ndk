@@ -23,7 +23,7 @@ set CORE_INC="%PROJECT_ROOT%\platform\Air72x\core"
 set CORE_TRAN_MAIN="%PROJECT_ROOT%\platform\Air72x\core\trans_api"
 :: 转换头文件
 :: python38 %TRANS% transform -i "%PROJECT_ROOT%\platform\8910\core\core_api.h" -o "%PROJECT_ROOT%\user\include\core_api.h" -oc "%PROJECT_ROOT%\user\src\core_api.c"
-python38 %TRANS% "move" -f "%CORE_INC%\cs_types.h" "%CORE_INC%\am_openat_drv.h" "%CORE_TRAN_MAIN%\core_api.h" "%CORE_INC%\am_openat_common.h" "%CORE_INC%\am_openat_system.h" -d %USER_INC%
+python38 %TRANS% "move" -f "%CORE_INC%\cs_types.h" "%CORE_INC%\am_openat_drv.h" "%CORE_TRAN_MAIN%\core_api.h" "%CORE_INC%\am_openat_common.h" "%CORE_INC%\am_openat_system.h" "%CORE_INC%\lua_type.h" -d %USER_INC%
 python38 %TRANS% "move" -f "%CORE_TRAN_MAIN%\core_api.c" -d %USER_SRC%
 
 set CMAKE_LINKER=%PROJECT_ROOT%/platform/Air72x/compiler/win32/gcc-arm-none-eabi/bin/arm-none-eabi-ld.exe
@@ -51,7 +51,7 @@ gnumake clean
 
 :: 删除转换后的头文件
 if "%PLATFROM%"=="RDA8910" (
-	python38 %TRANS% clear -f %USER_INC%\core_api.h %USER_SRC%\core_api.c %USER_INC%\cs_types.h %USER_INC%\am_openat_drv.h %USER_INC%\am_openat_common.h %USER_INC%\am_openat_system.h
+	python38 %TRANS% clear -f %USER_INC%\core_api.h %USER_SRC%\core_api.c %USER_INC%\cs_types.h %USER_INC%\am_openat_drv.h %USER_INC%\am_openat_common.h %USER_INC%\am_openat_system.h %USER_INC%\lua_type.h
 )
 
 cd ..
