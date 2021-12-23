@@ -41,7 +41,7 @@ NDK主要针对LuatOS闭源版本（例如LuatOS-Air/LuatOS-HMI/LuatOS-iRTU等)�
 
 - 用户如果想调用底层的接口，只需要在源码中添加#include "core_api.h" 即可
 
-- ~~ 编写好的C库文件仅需要为lua提供相应函数即可。~~
+- 编写好的C库文件仅需要为lua提供相应函数即可。
 
 ```c
 /*test.c*/
@@ -65,7 +65,39 @@ char* fun2(char *string)
 
 ### 2.2 API接口转化为Lua接口
 
-- [ ] TODO
+NDK提供了便捷的API接口转化为Lua接口的方式，通过该方式转换后，用户可以直接使用lib库.xxx的方式调用底层接口，实际使用起来方便很多，具体的实例可以参考`c_to_luaLib_test.c`demo文件。下面主要介绍下转换的几个重要步骤：
+
+1. 定义一个C转lua的接口
+
+   demo中我们定义了`int test_lib(void *L)`接口，注意该接口的参数固定为`void *L`,函数参数不可以变化。是因为lua的调用关系都维护在lua状态机中，我们通过特定的接口就可以获取lua传入的参数了。
+
+2. 获取lua传入的参数
+
+   lua传参的时候通过特定的接口就可以获取到参数了，如`luaL_checkinteger(L,1); `第一个参数就是状态机，lua虚拟机运行的时候传入，第二个参数就是参数索引。这个函数的作用就是获取第几个索引的`int`型参数。**注意：lua的参数索引从1开始**
+
+3. 返回值
+
+   C转lua的接口返回并不能像C函数一样直接`return`，而是需要先压入栈中，再返回参数个数，压入栈的时候要根据参数的不同选择不同的函数。如`lua_pushnumber(L,1000);`代表返回的一个参数为`number`型的数据1000。**注意：压入栈的顺序代表返回参数的顺序**
+
+4. 注册为lua库
+
+   - 先注册表
+
+     ```lua
+     luaL_Reg user_lib[] = {
+         {"test_lib",test_lib},
+         {"test_table",test_table},
+         {NULL,NULL}
+     };
+     ```
+
+     该数组是个结构体数组，结构体中两个元素，第一个代表lua调用时的函数名，第二个代表实际的C转lua函数（第一步中建立的函数）。另外表名也很重要注册的时候需要用。
+     
+   - 注册为库
+   
+     lua脚本运行的时候先导入lib，之后获取`handle`，下面会说。获取到`handle`之后调用`dl.register(handle,"userlib","user_lib")`就可以注册lua库了。这里除了传入了`handle`还传入了两个字符串，第一个代表lua调用库时使用的库名，第二个字符串就是上一步的表名。
+   
+     lua调用方式：`userlib.test_lib`，具体操作可以参考demo。
 
 ### 2.3 多线程处理
 

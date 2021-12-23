@@ -26,13 +26,8 @@ int test_lib(void *L)
     lua_pushnumber(L,1000); //压入参数
     /*第三个返回值为bool*/
     lua_pushboolean(L,1); //非0为true,0为false
-    /*第四个返回值为表*/
-    lua_createtable(L,0,0);
-    setfieldInt(L,"num",100);
-    setfieldBool(L,"bool",0);
-    setfieldString(L,"str","table return",strlen("table return"));
-
-    return 4; //代表有三个返回值
+    
+    return 3; //代表有三个返回值
 }
 
 /*注意table作为返回值只能有一个*/
