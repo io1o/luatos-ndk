@@ -16,7 +16,6 @@ char 	*(*strcat)(char *__restrict, const char *__restrict) = (void*) 0xFFFFFFFF;
 void *	(*memcpy)(void *__restrict, const void *__restrict, size_t) = (void*) 0xFFFFFFFF;
 int 	(*memcmp)(const void *, const void *, size_t) = (void*) 0xFFFFFFFF;
 void *	(*memmove)(void *, const void *, size_t) = (void*) 0xFFFFFFFF;
-void *	(*memset)(void *, int, size_t) = (void*) 0xFFFFFFFF;
 void *	(*memchr)(const void *, int, size_t) = (void*) 0xFFFFFFFF;
 void *(*OPENAT_malloc)(size_t size) = (void*) 0xFFFFFFFF;
 void (*OPENAT_free)(void *ptr) = (void*) 0xFFFFFFFF;
