@@ -13,14 +13,14 @@ require "sys"
 rtos.sleep(3000)
 --[[
 dl模块接口定义
-函数：handle=dl.open(libpath) 
+函数：handle=dl.open(libpath)
 功能：加载c编译的lib文件
 参数：
     --path:lib的路径,string类型
 返回值：
     --handle:成功返回句柄，失败返回nil
-    
-函数： ret = dl.sym(handle,fun,ret_type,arg1,arg2,arg3....) 
+
+函数： ret = dl.sym(handle,fun,ret_type,arg1,arg2,arg3....)
 功能：运行c函数
     参数：
         handle:dl.open的返回值
@@ -29,21 +29,21 @@ dl模块接口定义
                              dl.RETURN_STRING(返回一个字符串)
         arg1-arg10:c函数的参数，可以是number类型和string类型
     返回值：
-        ret:更加ret_type类型返回number或者string    
-        
+        ret:更加ret_type类型返回number或者string
+
  函数： ret = dl.close(handle)
  功能：卸载lib
     参数：
         handle:dl.open的返回值
-    返回值：nil    
+    返回值：nil
 ]]
 local handle = dl.open("/lua/user.lib")
-if handle then  
+if handle then
     local ret_number = dl.sym(handle, "uart_test", 1)
 
     local ret_number1 = dl.sym(handle, "fun3", 1, 40)
     local ret_string1 = dl.sym(handle, "fun4", 2, "world")
-    dl.sym(handle, "send_msg_to_lua_test", 1)
+    --dl.sym(handle, "send_msg_to_lua_test", 1)
 
     print("ret_number", ret_number);
     print("ret_string", ret_string);
@@ -51,6 +51,16 @@ if handle then
     print("ret_string1", ret_string1);
 
     print("---------------------")
+
+    --添加测试demo
+    --dl.sym(handle, "test_msg", 1,10000)
+    --dl.sym(handle, "test_timer", 1)
+    --dl.sym(handle, "test_task", 1)
+    --点亮LTE灯,uart2发lightled启动,亮2秒，灭1秒，闪10次
+    --pmd.ldoset(1,pmd.LDO_VLCD)
+    --dl.sym(handle, "test_lightled", 1, 2,1,10)
+    --cjson示例
+
     --第一个参数是lua调用的时候使用的lib名，第二个参数是C库中的注册表名
     dl.register(handle,"userlib","user_lib")
 
@@ -58,7 +68,7 @@ if handle then
     local t = userlib.test_table()
     print("!!!!!!!!!! ",a,b,c)
     print("table return: ",t.num,t.str,t.bool)
-    
+
     --dl.close(handle)
 end
 
