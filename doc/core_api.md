@@ -20,7 +20,7 @@ char*  strstr(const char *, const char *);
 
 char*  strncpy(char *,const char *, size_t);
 
-char*  strcat(char *__restrict, const char *__restrict);
+char*  strcat(char *restrict, const char *restrict);
 
 int	   strcmp(const char *,const char *);
 
@@ -32,6 +32,8 @@ int 	  sscanf(const char * buf, const char * fmt, ...);
 
 int   	snprintf(char * buf, size_t len, const char *fmt, ...);
 
+void    OPENAT_lua_print(char * fmt, ...); /* lua日志打印*/
+
 存储操作相关接口：
 
 void * memset (void *, int, size_t);
@@ -40,7 +42,7 @@ void * memchr (const void *, int, size_t);
 
 void * memmove (void *, const void *, size_t);
 
-void * memcpy (void *__restrict, const void *__restrict, size_t);
+void * memcpy (void *restrict, const void *restrict, size_t);
 
 int       memcmp (const void *, const void *, size_t);
 
@@ -68,15 +70,18 @@ void    OPENAT_free(void *ptr);
 
 - 参数描述
 
-  |          参数           |       解释       | 取值                                                         |
-  | :---------------------: | :--------------: | ------------------------------------------------------------ |
-  |          port           |     GPIO编号     |                                                              |
-  |           cfg           |     GPIO配置     |                                                              |
-  |        cfg->mode        |     GPIO模式     | OPENAT_GPIO_INVALID_MODE,<br/>OPENAT_GPIO_INPUT, <br/>OPENAT_GPIO_OUTPUT,<br/>OPENAT_GPIO_INPUT_INT,<br/>OPENAT_GPIO_INPUT_INT2 |
-  |       cfg->param        |     GPIO参数     |                                                              |
-  | cfg->param.defaultState | GPIO默认电平状态 | 0/1，低电平/高电平                                           |
-  |    cfg->param.intCfg    | GPIO中断触发方式 | OPENAT_GPIO_NO_INT,<br/>OPENAT_GPIO_INT_HIGH_LEVEL,<br/>OPENAT_GPIO_INT_LOW_LEVEL,<br/>OPENAT_GPIO_INT_BOTH_EDGE,<br/>OPENAT_GPIO_INT_FALLING_EDGE,<br/>OPENAT_GPIO_INT_RAISING_EDGE, |
-  |  cfg->param.pullState   | GPIO配置上拉下拉 | OPENAT_GPIO_NO_PULL,<br/>OPENAT_GPIO_PULLDOWN, <br/>OPENAT_GPIO_PULLUP |
+  |            参数            |       解释       | 取值                                                         |
+  | :------------------------: | :--------------: | ------------------------------------------------------------ |
+  |            port            |     GPIO编号     |                                                              |
+  |            cfg             |     GPIO配置     |                                                              |
+  |         cfg->mode          |     GPIO模式     | OPENAT_GPIO_INVALID_MODE,<br/>OPENAT_GPIO_INPUT, <br/>OPENAT_GPIO_OUTPUT,<br/>OPENAT_GPIO_INPUT_INT,<br/>OPENAT_GPIO_INPUT_INT2 |
+  |         cfg->param         |     GPIO参数     |                                                              |
+  |  cfg->param.defaultState   | GPIO默认电平状态 | 0/1，低电平/高电平                                           |
+  |     cfg->param.intCfg      |   GPIO中断配置   |                                                              |
+  | cfg->param.intCfg.debounce |     防抖延时     | 单位ms                                                       |
+  |    param.intCfg.intType    |     中断类型     | OPENAT_GPIO_NO_INT,<br/>OPENAT_GPIO_INT_HIGH_LEVEL,<br/>OPENAT_GPIO_INT_LOW_LEVEL,<br/>OPENAT_GPIO_INT_BOTH_EDGE,<br/>OPENAT_GPIO_INT_FALLING_EDGE,<br/>OPENAT_GPIO_INT_RAISING_EDGE, |
+  |     param.intCfg.intCb     | 中断回调处理函数 | typedef void (*OPENAT_GPIO_EVT_HANDLE)(E_OPENAT_DRV_EVT evt, E_AMOPENAT_GPIO_PORT gpioPort,unsigned char state); |
+  |    cfg->param.pullState    | GPIO配置上拉下拉 | OPENAT_GPIO_NO_PULL,<br/>OPENAT_GPIO_PULLDOWN, <br/>OPENAT_GPIO_PULLUP |
 
 - 返回值
 
@@ -235,7 +240,7 @@ void    OPENAT_free(void *ptr);
   |   cfg->dataBits   |         数据位          | /* 6-8 */                                                    |
   |   cfg->stopBits   |         停止位          | /* 1-2 */                                                    |
   |    cfg->parity    |         校验位          | OPENAT_UART_NO_PARITY,<br/>  OPENAT_UART_ODD_PARITY,<br/>  OPENAT_UART_EVEN_PARITY |
-  | cfg->flowControl  |          流控           | OPENAT_UART_FLOWCONTROL_NONE = 1,<br/>  OPENAT_UART_FLOWCONTROL_HW,<br/>  OPENAT_UART_FLOWCONTROL_SW, |
+  | cfg->flowControl  |          流控           | OPENAT_UART_FLOWCONTROL_NONE,<br/>  OPENAT_UART_FLOWCONTROL_HW,<br/>  OPENAT_UART_FLOWCONTROL_SW, |
   | cfg->uartMsgHande |        回调函数         | typedef void (\*PUART_MESSAGE)(T_AMOPENAT_UART_MESSAGE* evt); |
   | cfg->txDoneReport | 判断是否上报UART TXDONE | TRUE/FALSE                                                   |
 
@@ -680,7 +685,45 @@ void    OPENAT_free(void *ptr);
 
 ​		FALSE：失败
 
-### 2.5 OPENAT_available_message
+### 2.5 OPENAT_msg_to_lua
+
+- 接口功能
+
+  发送消息给lua虚拟机
+
+- 接口定义
+
+  bool OPENAT_msg_to_lua(
+
+  ​              UINT8 msg_id,
+
+  ​              BOOL result,
+
+  ​              INT32 num,
+
+  ​              CHAR* data,
+
+  ​              UINT32 dataLen
+
+  )
+
+- 参数描述
+
+  |  参数   |      解释      |
+  | :-----: | :------------: |
+  | msg_id  |     消息ID     |
+  | result  |                |
+  |   num   |                |
+  |  data   | 消息体数据指针 |
+  | dataLen | 消息体数据长度 |
+
+- 返回值
+
+​		TRUE：成功
+
+​		FALSE：失败
+
+### 2.6 OPENAT_available_message
 
 - 接口功能
 
@@ -692,7 +735,7 @@ void    OPENAT_free(void *ptr);
 
   ​              HANDLE hTask 
 
-  );
+  )
 
 - 参数描述
 
@@ -898,7 +941,7 @@ void    OPENAT_free(void *ptr);
 
 - 返回值
 
-​		定时器剩余时间
+​		定时器剩余时间，单位ms;<br/>		如果定时器已经结束，返回0
 
 ### 3.8 OPENAT_stop_timer
 
