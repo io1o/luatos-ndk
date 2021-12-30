@@ -2,7 +2,6 @@
 #include "am_openat_drv.h"
 #include "am_openat_system.h"
 #include "lua_type.h"
-#include "std.h"
 
 void OPENAT_lua_print(char * fmt,...);
 bool OPENAT_msg_to_lua(UINT8 msg_id,BOOL result,INT32 num,CHAR* data,UINT32 dataLen);
