@@ -58,7 +58,7 @@ if handle then
     --dl.sym(handle, "test_task", 1)
     --点亮LTE灯,uart2发lightled启动,亮2秒，灭1秒，闪10次
     --pmd.ldoset(1,pmd.LDO_VLCD)
-    --dl.sym(handle, "test_lightled", 1, 2,1,10)
+    --dl.sym(handle, "test_lightLED", 1)
     --cjson示例
 
     --第一个参数是lua调用的时候使用的lib名，第二个参数是C库中的注册表名
