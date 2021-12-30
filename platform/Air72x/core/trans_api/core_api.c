@@ -159,6 +159,8 @@ void (*luaL_checktype)(void *L, int nArg, int t) = (void*) 0xFFFFFFFF;
 int (*luaL_checkinteger)(void *L, int nArg) = (void*) 0xFFFFFFFF;
 long (*luaL_checknumber)(void *L, int nArg) = (void*) 0xFFFFFFFF;
 char *(*luaL_checklstring)(void *L,int nArg, size_t *l) = (void*) 0xFFFFFFFF;
+void (*luaI_openlib)(void *L, const char *libname,
+                              const luaL_Reg *l, int nup) = (void*) 0xFFFFFFFF;
 void *(*lua_newstate)(lua_Alloc f, void *ud) = (void*) 0xFFFFFFFF;
 void (*lua_close)(void *L) = (void*) 0xFFFFFFFF;
 void *(*lua_newthread)(void *L) = (void*) 0xFFFFFFFF;

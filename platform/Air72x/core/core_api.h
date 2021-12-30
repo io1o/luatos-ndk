@@ -211,6 +211,9 @@ int luaL_checkinteger (void *L, int nArg);                      /*设置表key�
 long luaL_checknumber (void *L, int nArg);                      /*获取参数*/
 const char *luaL_checklstring (void *L,int nArg, size_t *l);    /*获取参数*/
 
+void luaI_openlib (void *L, const char *libname,
+                              const luaL_Reg *l, int nup);
+
 /* state manipulation*/
 void *lua_newstate(lua_Alloc f, void *ud);
 void  lua_close(void *L);

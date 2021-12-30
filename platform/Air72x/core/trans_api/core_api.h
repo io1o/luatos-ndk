@@ -159,6 +159,8 @@ extern void (*luaL_checktype)(void *L, int nArg, int t);
 extern int (*luaL_checkinteger)(void *L, int nArg);
 extern long (*luaL_checknumber)(void *L, int nArg);
 extern char *(*luaL_checklstring)(void *L,int nArg, size_t *l);
+extern void (*luaI_openlib)(void *L, const char *libname,
+                              const luaL_Reg *l, int nup);
 extern void *(*lua_newstate)(lua_Alloc f, void *ud);
 extern void (*lua_close)(void *L);
 extern void *(*lua_newthread)(void *L);
