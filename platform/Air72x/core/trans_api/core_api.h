@@ -17,7 +17,7 @@ extern int   (*strncmp)(const char *,const char *,size_t);
 extern int   (*sscanf)(const char * buf, const char * fmt, ...);
 extern int   (*snprintf)(char * buf, size_t len, const char *fmt, ...);
 extern int   (*fprintf)(void *err, const char *fmt, ...);
-extern void *(*memset)(void *, int, size_t);
+extern int   (*vsnprintf)(char *buf, size_t size, const char *fmt, ...);
 extern void *(*memchr)(const void *, int, size_t);
 extern void *(*memmove)(void *, const void *, size_t);
 extern void *(*memcpy)(void *__restrict, const void *__restrict, size_t);
