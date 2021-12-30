@@ -2,10 +2,8 @@
 #include "am_openat_drv.h"
 #include "am_openat_system.h"
 #include "lua_type.h"
-#include "std.h"
 void (*OPENAT_lua_print)(char * fmt,...) = (void*) 0xFFFFFFFF;
 bool (*OPENAT_msg_to_lua)(UINT8 msg_id,BOOL result,INT32 num,CHAR* data,UINT32 dataLen) = (void*) 0xFFFFFFFF;
-void* (*__getreent)(void) = (void*) 0xFFFFFFFF;
 size_t (*strlen)(const char *) = (void*) 0xFFFFFFFF;
 char* (*strchr)(const char *,int) = (void*) 0xFFFFFFFF;
 char* (*strcpy)(char *,const char *) = (void*) 0xFFFFFFFF;
@@ -19,7 +17,6 @@ int   (*strncmp)(const char *,const char *,size_t) = (void*) 0xFFFFFFFF;
 int   (*sscanf)(const char * buf, const char * fmt, ...) = (void*) 0xFFFFFFFF;
 int   (*snprintf)(char * buf, size_t len, const char *fmt, ...) = (void*) 0xFFFFFFFF;
 int   (*fprintf)(void *err, const char *fmt, ...) = (void*) 0xFFFFFFFF;
-int   (*vsnprintf)(char *buf, size_t size, const char *fmt, va_list ap) = (void*) 0xFFFFFFFF;
 void *(*memset)(void *, int, size_t) = (void*) 0xFFFFFFFF;
 void *(*memchr)(const void *, int, size_t) = (void*) 0xFFFFFFFF;
 void *(*memmove)(void *, const void *, size_t) = (void*) 0xFFFFFFFF;
@@ -162,10 +159,6 @@ void (*luaL_checktype)(void *L, int nArg, int t) = (void*) 0xFFFFFFFF;
 int (*luaL_checkinteger)(void *L, int nArg) = (void*) 0xFFFFFFFF;
 long (*luaL_checknumber)(void *L, int nArg) = (void*) 0xFFFFFFFF;
 char *(*luaL_checklstring)(void *L,int nArg, size_t *l) = (void*) 0xFFFFFFFF;
-int (*lua_isnumber)(void *L, int idx) = (void*) 0xFFFFFFFF;
-int (*lua_isstring)(void *L, int idx) = (void*) 0xFFFFFFFF;
-int (*lua_iscfunction)(void *L, int idx) = (void*) 0xFFFFFFFF;
-char *(*lua_typename)(void *L, int t) = (void*) 0xFFFFFFFF;
 void *(*lua_newstate)(lua_Alloc f, void *ud) = (void*) 0xFFFFFFFF;
 void (*lua_close)(void *L) = (void*) 0xFFFFFFFF;
 void *(*lua_newthread)(void *L) = (void*) 0xFFFFFFFF;

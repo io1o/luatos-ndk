@@ -7,7 +7,6 @@ void OPENAT_lua_print(char * fmt,...);
 bool OPENAT_msg_to_lua(UINT8 msg_id,BOOL result,INT32 num,CHAR* data,UINT32 dataLen);
 
 /******************************** 标准库接口 ********************************/
-void* __getreent (void);
 
 
 size_t strlen (const char *);
@@ -23,7 +22,6 @@ int    strncmp(const char *,const char *,size_t);
 int    sscanf(const char * buf, const char * fmt, ...);
 int    snprintf(char * buf, size_t len, const char *fmt, ...);
 int    fprintf(void *err, const char *fmt, ...);
-int    vsnprintf(char *buf, size_t size, const char *fmt, va_list ap);
 
 void * memset (void *, int, size_t);
 void * memchr (const void *, int, size_t);
@@ -212,11 +210,6 @@ void luaL_checktype (void *L, int nArg, int t);                 /*获取参数�
 int luaL_checkinteger (void *L, int nArg);                      /*设置表key为bool类型的值*/
 long luaL_checknumber (void *L, int nArg);                      /*获取参数*/
 const char *luaL_checklstring (void *L,int nArg, size_t *l);    /*获取参数*/
-
-int lua_isnumber (void *L, int idx); /*判断是否number*/
-int lua_isstring (void *L, int idx); /*判断是否string*/
-int lua_iscfunction (void *L, int idx);  /*判断是否是函数*/
-const char *lua_typename (void *L, int t); /*参数类型*/
 
 /* state manipulation*/
 void *lua_newstate(lua_Alloc f, void *ud);

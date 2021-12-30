@@ -2,10 +2,8 @@
 #include "am_openat_drv.h"
 #include "am_openat_system.h"
 #include "lua_type.h"
-#include "std.h"
 extern void (*OPENAT_lua_print)(char * fmt,...);
 extern bool (*OPENAT_msg_to_lua)(UINT8 msg_id,BOOL result,INT32 num,CHAR* data,UINT32 dataLen);
-extern void* (*__getreent)(void);
 extern size_t (*strlen)(const char *);
 extern char* (*strchr)(const char *,int);
 extern char* (*strcpy)(char *,const char *);
@@ -19,7 +17,6 @@ extern int   (*strncmp)(const char *,const char *,size_t);
 extern int   (*sscanf)(const char * buf, const char * fmt, ...);
 extern int   (*snprintf)(char * buf, size_t len, const char *fmt, ...);
 extern int   (*fprintf)(void *err, const char *fmt, ...);
-extern int   (*vsnprintf)(char *buf, size_t size, const char *fmt, va_list ap);
 extern void *(*memset)(void *, int, size_t);
 extern void *(*memchr)(const void *, int, size_t);
 extern void *(*memmove)(void *, const void *, size_t);
@@ -162,10 +159,6 @@ extern void (*luaL_checktype)(void *L, int nArg, int t);
 extern int (*luaL_checkinteger)(void *L, int nArg);
 extern long (*luaL_checknumber)(void *L, int nArg);
 extern char *(*luaL_checklstring)(void *L,int nArg, size_t *l);
-extern int (*lua_isnumber)(void *L, int idx);
-extern int (*lua_isstring)(void *L, int idx);
-extern int (*lua_iscfunction)(void *L, int idx);
-extern char *(*lua_typename)(void *L, int t);
 extern void *(*lua_newstate)(lua_Alloc f, void *ud);
 extern void (*lua_close)(void *L);
 extern void *(*lua_newthread)(void *L);
