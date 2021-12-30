@@ -22,8 +22,8 @@ int    strncmp(const char *,const char *,size_t);
 int    sscanf(const char * buf, const char * fmt, ...);
 int    snprintf(char * buf, size_t len, const char *fmt, ...);
 int    fprintf(void *err, const char *fmt, ...);
+int    vsnprintf(char *buf, size_t size, const char *fmt, ...);
 
-void * memset (void *, int, size_t);
 void * memchr (const void *, int, size_t);
 void * memmove (void *, const void *, size_t);
 void * memcpy (void *__restrict, const void *__restrict, size_t);
