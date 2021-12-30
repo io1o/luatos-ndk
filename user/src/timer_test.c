@@ -4,7 +4,7 @@
  *
  * History:
  * Version     Date       Author       Notes
- * V0.1     2021-12-27    wangzm       the first version
+ * V0.1     2021-12-27    wang       the first version
  *********************************************************/
 #include "core_api.h"
 
@@ -51,7 +51,6 @@ int timer_sample(void)
         g_timer_handle_2 = OPENAT_create_timer(timeout_cb_2, NULL);
 
         if (g_timer_handle_2 != NULL){
-          OPENAT_lua_print("timer2 is start!");
           OPENAT_loop_start_timer(g_timer_handle_2,1000);
           OPENAT_lua_print("timer2 is start!");
         }
@@ -60,8 +59,8 @@ int timer_sample(void)
 }
 
 /*lua调用入口函数*/
-int test_timer(void)
+int test_timer(void *L)
 {
     timer_sample();
-    return 1;
+    return 0;
 }

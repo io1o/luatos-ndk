@@ -1,10 +1,10 @@
 /*********************************************************
  * Copyright (C), AirM2M Tech. Co., Ltd.
- * Hezhou Data:lightled_sample
+ * Hezhou Data:light_led_sample
  *
  * History:
  * Version     Date       Author       Notes
- * V0.1     2021-12-27    wangzm       the first version
+ * V0.1     2021-12-27    wang       the first version
  *********************************************************/
 #include "core_api.h"
 
@@ -89,8 +89,8 @@ int light_led_sample(void)
 }
 
 /*lua调用入口*/
-int test_lightLED(void)
+int test_light_led(void* L)
 {
     light_led_sample();
-    return 1;
+    return 0;
 }

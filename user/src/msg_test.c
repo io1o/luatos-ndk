@@ -4,7 +4,7 @@
  *
  * History:
  * Version     Date       Author       Notes
- * V0.1     2021-12-27    wangzm       the first version
+ * V0.1     2021-12-27    wang       the first version
  *********************************************************/
 #include "core_api.h"
 
@@ -42,7 +42,7 @@ void timeout_callback(void *param)
 }
 
 /* Task1入口函数 */
-static void task1_entry(void *param)
+static void test_msg_task1_entry(void *param)
 {
     char buf = 0;
     UINT8 cnt = 0;
@@ -90,7 +90,7 @@ static void task1_entry(void *param)
 }
 
 /* Task2入口函数 */
-static void task2_entry(void *param)
+static void test_msg_task2_entry(void *param)
 {
     msgBuff.evt = EVT_TIMER_REQ;
     msgBuff.para.timereq.timerId = 0;
@@ -125,28 +125,29 @@ int msg_sample(int num)
     if (NULL == g_msg_handle_1)
     {
         /*创建任务1,任务名为Task1,入口函数task1_entry*/
-        OPENAT_create_task(&g_msg_handle_1, task1_entry, NULL, NULL,
+        OPENAT_create_task(&g_msg_handle_1, test_msg_task1_entry, NULL, NULL,
                            4 * 1024, 24,
                            OPENAT_OS_CREATE_DEFAULT,
                            0,
-                           "Task1");
+                           "msg_Task1");
     }
 
     if (NULL == g_msg_handle_2)
     {
         /*创建任务2,任务名为Task2,入口函数task2_entry*/
-        OPENAT_create_task(&g_msg_handle_2, task2_entry, NULL, NULL,
+        OPENAT_create_task(&g_msg_handle_2, test_msg_task2_entry, NULL, NULL,
                            4 * 1024, 24,
                            OPENAT_OS_CREATE_DEFAULT,
                            0,
-                           "Task2");
+                           "msg_Task2");
     }
     return 0;
 }
 
 /*lua调用入口函数*/
-int test_msg(int num)
+int test_msg(void *L)
 {
+    int num = luaL_checknumber(L,1); //获取第一个参数,参数类型为number
     msg_sample(num);
-    return 1;
+    return 0;
 }

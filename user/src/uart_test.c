@@ -1,4 +1,11 @@
-/*test.c*/
+/*********************************************************
+ * Copyright (C), AirM2M Tech. Co., Ltd.
+ * Hezhou Data:uart_sample
+ *
+ * History:
+ * Version     Date       Author       Notes
+ * V0.1     2021-12-27    wang       the first version
+ *********************************************************/
 #include "core_api.h"
 
 UINT8 uartTestBuff[1024];
@@ -21,7 +28,7 @@ void uartTestCb(T_AMOPENAT_UART_MESSAGE* evt)
 	}
 }
 
-int uart_test(void)
+int test_uart(void* L)
 {
     T_AMOPENAT_UART_PARAM cfg;
 	
@@ -36,6 +43,6 @@ int uart_test(void)
     OPENAT_config_uart(OPENAT_UART_2,&cfg);
 
     OPENAT_write_uart(OPENAT_UART_2,"test_uart",strlen("test_uart"));
-    return 1;
+    return 0;
 }
 
