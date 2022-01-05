@@ -9,14 +9,12 @@ set USER_SRC=%PROJECT_ROOT%\user\src
 
 call tools\launch.bat
 
-if "%PLATFROM%"=="RDA8910" (
-    goto RDA8910
-) else if "%PLATFROM%"=="ASR1603" (
-    goto ASR1603
+if "%PLATFROM%"=="FLOAT" (
+    set DFLAG=-DLUA_USE_MTK_NUCLEUS -DLUAT_FLOATPOINT_SUPPORT
 ) else (
-    %PLATFROM%=RDA8910
+    set DFLAG=-DLUA_USE_MTK_NUCLEUS 
 )
-
+goto RDA8910
 :: call tools/launch.bat project debug
 :RDA8910
 set CORE_INC="%PROJECT_ROOT%\platform\Air72x\core"
@@ -36,7 +34,7 @@ goto BUILD
 :ASR1603
 set CMAKE_LINKER="C:/Program Files/DS-5/sw/ARMCompiler5.05/bin/armlink.exe"
 set CMAKE_C_COMPILER="C:/Program Files/DS-5/sw/ARMCompiler5.05/bin/armcc.exe"
-set CCOPTION="-c --c99 --cpu Cortex-R4 --no_unaligned_access -g -O2 --apcs /inter --diag_suppress 2084,1,2,177,550,6319 --gnu --thumb --loose_implicit_cast"
+set CCOPTION="-c --c99 --cpu Cortex-R4 --no_unaligned_access -g -O2 --apcs /inter --diag_suppress 2084,1,2,177,550,6319 --gnu --thumb --loose_implicit_cast %PLATFROM%"
 goto BUILD
 
 :BUILD

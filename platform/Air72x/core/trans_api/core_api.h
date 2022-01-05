@@ -10,6 +10,8 @@ extern void (*stderr)(void);
 extern void (*stdin)(void);
 extern void (*stdout)(void);
 extern int (*__aeabi_idiv)(int a1, int a2);
+extern int (*__aeabi_idivmod)(int a1, int a2);
+extern int (*__divsi3)(signed int a1, int a2);
 extern size_t (*strlen)(const char *);
 extern char* (*strchr)(const char *,int);
 extern char* (*strcpy)(char *,const char *);

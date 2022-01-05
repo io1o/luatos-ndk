@@ -14,7 +14,8 @@ void stderr(void);
 void stdin(void);
 void stdout(void);
 int  __aeabi_idiv(int a1, int a2);
-
+int  __aeabi_idivmod(int a1, int a2);
+int __divsi3(signed int a1, int a2);
 size_t strlen (const char *);
 char*  strchr(const char *,int);
 char*  strcpy(char *,const char *);

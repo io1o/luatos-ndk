@@ -1,7 +1,7 @@
 #ifndef _STD_TYPE_G_
 #define _STD_TYPE_G_
 
-#define INT_MAX                     (char *)(1<<31)
+#define INT_MAX                   0x7fffffff
 
 #define PRINTF(...) printf(__VA_ARGS__)
 #define vfprintf(fd, ...) PRINTF(__VA_ARGS__)
