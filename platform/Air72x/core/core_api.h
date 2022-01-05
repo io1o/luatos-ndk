@@ -2,8 +2,10 @@
 #include "stdarg.h"
 #include "am_openat_drv.h"
 #include "am_openat_system.h"
-#include "lua_type.h"
 #include "std_type.h"
+#include "lua_type.h"
+
+
 
 
 void OPENAT_lua_print(char * fmt,...);
@@ -35,13 +37,17 @@ int    vprintf(const char *fmt, ...);
 int    vsnprintf(char *buf, size_t size, const char *fmt, ...);
 int    printf(const char *fmt, ...);
 
-void * memchr (const void *, int, size_t);
-void * memmove (void *, const void *, size_t);
+void*  memchr (const void *, int, size_t);
+void*  memmove (void *, const void *, size_t);
 int    memcmp (const void *, const void *, size_t);
-void *OPENAT_malloc(size_t size);
-void *OPENAT_realloc(PVOID ptr, UINT32 size);
-void  OPENAT_free(void *ptr);
-void  OPENAT_panic(void);
+void*  OPENAT_malloc(size_t size);
+void*  OPENAT_realloc(PVOID ptr, UINT32 size);
+void   OPENAT_free(void *ptr);
+void   OPENAT_assert(                                           /* 断言接口 */
+                            char condition,                     /* 条件 */
+                            char *func,                         /* 函数名称 */
+                            unsigned int line                   /* 行数 */
+                            );
 
 void *L_MALLOC(size_t bytes);
 void  L_FREE(void* mem);

@@ -28,6 +28,14 @@
 
 #define inline
 
+#define PRINTF(...) printf(__VA_ARGS__)
+#define vfprintf(fd, ...) PRINTF(__VA_ARGS__)
+#define assert(__e) ((__e) ? (void)0 : OPENAT_assert (0,__FUNCTION__,__LINE__))
+#define ASSERT(cOND) {if (!(cOND)) {assert(__FILE__, (short)__LINE__);}}
+
+#define exit(x) (OPENAT_assert (0,__FUNCTION__,__LINE__))
+#define abort() (OPENAT_assert (0,__FUNCTION__,__LINE__))
+
 /* Size: Total bytes allocated to *buf
  * Length: String length, excluding optional NULL terminator.
  * Increment: Allocation increments when resizing the string buffer.

@@ -2,8 +2,8 @@
 #include "stdarg.h"
 #include "am_openat_drv.h"
 #include "am_openat_system.h"
-#include "lua_type.h"
 #include "std_type.h"
+#include "lua_type.h"
 void (*OPENAT_lua_print)(char * fmt,...) = (void*) 0xFFFFFFFF;
 bool (*OPENAT_msg_to_lua)(UINT8 msg_id,BOOL result,INT32 num,CHAR* data,UINT32 dataLen) = (void*) 0xFFFFFFFF;
 void (*stderr)(void) = (void*) 0xFFFFFFFF;
@@ -29,13 +29,17 @@ int   (*fprintf)(void *err, const char *fmt, ...) = (void*) 0xFFFFFFFF;
 int   (*vprintf)(const char *fmt, ...) = (void*) 0xFFFFFFFF;
 int   (*vsnprintf)(char *buf, size_t size, const char *fmt, ...) = (void*) 0xFFFFFFFF;
 int   (*printf)(const char *fmt, ...) = (void*) 0xFFFFFFFF;
-void *(*memchr)(const void *, int, size_t) = (void*) 0xFFFFFFFF;
-void *(*memmove)(void *, const void *, size_t) = (void*) 0xFFFFFFFF;
+void* (*memchr)(const void *, int, size_t) = (void*) 0xFFFFFFFF;
+void* (*memmove)(void *, const void *, size_t) = (void*) 0xFFFFFFFF;
 int   (*memcmp)(const void *, const void *, size_t) = (void*) 0xFFFFFFFF;
-void *(*OPENAT_malloc)(size_t size) = (void*) 0xFFFFFFFF;
-void *(*OPENAT_realloc)(PVOID ptr, UINT32 size) = (void*) 0xFFFFFFFF;
-void (*OPENAT_free)(void *ptr) = (void*) 0xFFFFFFFF;
-void (*OPENAT_panic)(void) = (void*) 0xFFFFFFFF;
+void* (*OPENAT_malloc)(size_t size) = (void*) 0xFFFFFFFF;
+void* (*OPENAT_realloc)(PVOID ptr, UINT32 size) = (void*) 0xFFFFFFFF;
+void  (*OPENAT_free)(void *ptr) = (void*) 0xFFFFFFFF;
+void  (*OPENAT_assert)(                                           /* 断言接口 */
+                            char condition,                     /* 条件 */
+                            char *func,                         /* 函数名称 */
+                            unsigned int line                   /* 行数 */
+                            ) = (void*) 0xFFFFFFFF;
 void *(*L_MALLOC)(size_t bytes) = (void*) 0xFFFFFFFF;
 void (*L_FREE)(void* mem) = (void*) 0xFFFFFFFF;
 void *(*L_REALLOC)(void* oldMem, size_t bytes) = (void*) 0xFFFFFFFF;

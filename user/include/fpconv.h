@@ -6,6 +6,8 @@
  * -1.7976931348623e+308 */
 # define FPCONV_G_FMT_BUFSIZE   32
 
+#define abort() (OPENAT_assert (0,__FUNCTION__,__LINE__))
+
 #define inline
 
 #ifdef USE_INTERNAL_FPCONV

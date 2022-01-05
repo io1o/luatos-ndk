@@ -2,8 +2,8 @@
 #include "stdarg.h"
 #include "am_openat_drv.h"
 #include "am_openat_system.h"
-#include "lua_type.h"
 #include "std_type.h"
+#include "lua_type.h"
 extern void (*OPENAT_lua_print)(char * fmt,...);
 extern bool (*OPENAT_msg_to_lua)(UINT8 msg_id,BOOL result,INT32 num,CHAR* data,UINT32 dataLen);
 extern void (*stderr)(void);
@@ -29,13 +29,17 @@ extern int   (*fprintf)(void *err, const char *fmt, ...);
 extern int   (*vprintf)(const char *fmt, ...);
 extern int   (*vsnprintf)(char *buf, size_t size, const char *fmt, ...);
 extern int   (*printf)(const char *fmt, ...);
-extern void *(*memchr)(const void *, int, size_t);
-extern void *(*memmove)(void *, const void *, size_t);
+extern void* (*memchr)(const void *, int, size_t);
+extern void* (*memmove)(void *, const void *, size_t);
 extern int   (*memcmp)(const void *, const void *, size_t);
-extern void *(*OPENAT_malloc)(size_t size);
-extern void *(*OPENAT_realloc)(PVOID ptr, UINT32 size);
-extern void (*OPENAT_free)(void *ptr);
-extern void (*OPENAT_panic)(void);
+extern void* (*OPENAT_malloc)(size_t size);
+extern void* (*OPENAT_realloc)(PVOID ptr, UINT32 size);
+extern void  (*OPENAT_free)(void *ptr);
+extern void  (*OPENAT_assert)(                                           /* 断言接口 */
+                            char condition,                     /* 条件 */
+                            char *func,                         /* 函数名称 */
+                            unsigned int line                   /* 行数 */
+                            );
 extern void *(*L_MALLOC)(size_t bytes);
 extern void (*L_FREE)(void* mem);
 extern void *(*L_REALLOC)(void* oldMem, size_t bytes);
