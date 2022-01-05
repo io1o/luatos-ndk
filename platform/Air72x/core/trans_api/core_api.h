@@ -1,9 +1,15 @@
 #include "cs_types.h"
+#include "stdarg.h"
 #include "am_openat_drv.h"
 #include "am_openat_system.h"
 #include "lua_type.h"
+#include "std_type.h"
 extern void (*OPENAT_lua_print)(char * fmt,...);
 extern bool (*OPENAT_msg_to_lua)(UINT8 msg_id,BOOL result,INT32 num,CHAR* data,UINT32 dataLen);
+extern void (*stderr)(void);
+extern void (*stdin)(void);
+extern void (*stdout)(void);
+extern int (*__aeabi_idiv)(int a1, int a2);
 extern size_t (*strlen)(const char *);
 extern char* (*strchr)(const char *,int);
 extern char* (*strcpy)(char *,const char *);
@@ -14,17 +20,24 @@ extern long  (*strtol)(const char *, char **, int);
 extern int   (*strcmp)(const char *,const char *);
 extern int   (*sprintf)(char *, const char *, ...);
 extern int   (*strncmp)(const char *,const char *,size_t);
+extern int   (*strncasecmp)(const char *, const char *, size_t);
 extern int   (*sscanf)(const char * buf, const char * fmt, ...);
 extern int   (*snprintf)(char * buf, size_t len, const char *fmt, ...);
 extern int   (*fprintf)(void *err, const char *fmt, ...);
+extern int   (*vprintf)(const char *fmt, ...);
 extern int   (*vsnprintf)(char *buf, size_t size, const char *fmt, ...);
+extern int   (*printf)(const char *fmt, ...);
 extern void *(*memchr)(const void *, int, size_t);
 extern void *(*memmove)(void *, const void *, size_t);
-extern void *(*memcpy)(void *__restrict, const void *__restrict, size_t);
 extern int   (*memcmp)(const void *, const void *, size_t);
 extern void *(*OPENAT_malloc)(size_t size);
 extern void *(*OPENAT_realloc)(PVOID ptr, UINT32 size);
 extern void (*OPENAT_free)(void *ptr);
+extern void (*OPENAT_panic)(void);
+extern void *(*L_MALLOC)(size_t bytes);
+extern void (*L_FREE)(void* mem);
+extern void *(*L_REALLOC)(void* oldMem, size_t bytes);
+extern double (*floor)(double);
 extern BOOL (*OPENAT_config_gpio)(
                             E_AMOPENAT_GPIO_PORT port,          /* GPIO±‡∫≈ */
                             T_AMOPENAT_GPIO_CFG *cfg            /*  ‰≥ˆªÚ ‰»Î */
@@ -151,6 +164,7 @@ extern BOOL (*OPENAT_stop_timer)(                                         /* Õ£÷
 extern UINT64 (*OPENAT_timer_remaining)(
                             HANDLE hTimer
                             );
+extern void (*luaI_openlib)(void *L, const char *libname, const luaL_Reg *l, int nup);
 extern int (*luaL_optinteger)(void *L, int nArg, int def);
 extern long (*luaL_optnumber)(void *L, int nArg, long def);
 extern char *(*luaL_optlstring)(void *L,                           /*ªÒ»°≤Œ ˝£¨»Áπ˚√ª”–…Ë÷√ƒ¨»œ÷µ*/
@@ -159,8 +173,11 @@ extern void (*luaL_checktype)(void *L, int nArg, int t);
 extern int (*luaL_checkinteger)(void *L, int nArg);
 extern long (*luaL_checknumber)(void *L, int nArg);
 extern char *(*luaL_checklstring)(void *L,int nArg, size_t *l);
-extern void (*luaI_openlib)(void *L, const char *libname,
-                              const luaL_Reg *l, int nup);
+extern void (*luaL_checkstack)(void *L, int space, const char *mes);
+extern int (*luaL_checkoption)(void *L, int narg, const char *def,
+                                 const char *const lst[]);
+extern int (*luaL_error)(void *L, const char *fmt, ...);
+extern int (*luaL_argerror)(void *L, int narg, const char *extramsg);
 extern void *(*lua_newstate)(lua_Alloc f, void *ud);
 extern void (*lua_close)(void *L);
 extern void *(*lua_newthread)(void *L);

@@ -1,9 +1,15 @@
 #include "cs_types.h"
+#include "stdarg.h"
 #include "am_openat_drv.h"
 #include "am_openat_system.h"
 #include "lua_type.h"
+#include "std_type.h"
 void (*OPENAT_lua_print)(char * fmt,...) = (void*) 0xFFFFFFFF;
 bool (*OPENAT_msg_to_lua)(UINT8 msg_id,BOOL result,INT32 num,CHAR* data,UINT32 dataLen) = (void*) 0xFFFFFFFF;
+void (*stderr)(void) = (void*) 0xFFFFFFFF;
+void (*stdin)(void) = (void*) 0xFFFFFFFF;
+void (*stdout)(void) = (void*) 0xFFFFFFFF;
+int (*__aeabi_idiv)(int a1, int a2) = (void*) 0xFFFFFFFF;
 size_t (*strlen)(const char *) = (void*) 0xFFFFFFFF;
 char* (*strchr)(const char *,int) = (void*) 0xFFFFFFFF;
 char* (*strcpy)(char *,const char *) = (void*) 0xFFFFFFFF;
@@ -14,17 +20,24 @@ long  (*strtol)(const char *, char **, int) = (void*) 0xFFFFFFFF;
 int   (*strcmp)(const char *,const char *) = (void*) 0xFFFFFFFF;
 int   (*sprintf)(char *, const char *, ...) = (void*) 0xFFFFFFFF;
 int   (*strncmp)(const char *,const char *,size_t) = (void*) 0xFFFFFFFF;
+int   (*strncasecmp)(const char *, const char *, size_t) = (void*) 0xFFFFFFFF;
 int   (*sscanf)(const char * buf, const char * fmt, ...) = (void*) 0xFFFFFFFF;
 int   (*snprintf)(char * buf, size_t len, const char *fmt, ...) = (void*) 0xFFFFFFFF;
 int   (*fprintf)(void *err, const char *fmt, ...) = (void*) 0xFFFFFFFF;
+int   (*vprintf)(const char *fmt, ...) = (void*) 0xFFFFFFFF;
 int   (*vsnprintf)(char *buf, size_t size, const char *fmt, ...) = (void*) 0xFFFFFFFF;
+int   (*printf)(const char *fmt, ...) = (void*) 0xFFFFFFFF;
 void *(*memchr)(const void *, int, size_t) = (void*) 0xFFFFFFFF;
 void *(*memmove)(void *, const void *, size_t) = (void*) 0xFFFFFFFF;
-void *(*memcpy)(void *__restrict, const void *__restrict, size_t) = (void*) 0xFFFFFFFF;
 int   (*memcmp)(const void *, const void *, size_t) = (void*) 0xFFFFFFFF;
 void *(*OPENAT_malloc)(size_t size) = (void*) 0xFFFFFFFF;
 void *(*OPENAT_realloc)(PVOID ptr, UINT32 size) = (void*) 0xFFFFFFFF;
 void (*OPENAT_free)(void *ptr) = (void*) 0xFFFFFFFF;
+void (*OPENAT_panic)(void) = (void*) 0xFFFFFFFF;
+void *(*L_MALLOC)(size_t bytes) = (void*) 0xFFFFFFFF;
+void (*L_FREE)(void* mem) = (void*) 0xFFFFFFFF;
+void *(*L_REALLOC)(void* oldMem, size_t bytes) = (void*) 0xFFFFFFFF;
+double (*floor)(double) = (void*) 0xFFFFFFFF;
 BOOL (*OPENAT_config_gpio)(
                             E_AMOPENAT_GPIO_PORT port,          /* GPIO编号 */
                             T_AMOPENAT_GPIO_CFG *cfg            /* 输出或输入 */
@@ -151,6 +164,7 @@ BOOL (*OPENAT_stop_timer)(                                         /* 停止定时器
 UINT64 (*OPENAT_timer_remaining)(
                             HANDLE hTimer
                             ) = (void*) 0xFFFFFFFF;
+void (*luaI_openlib)(void *L, const char *libname, const luaL_Reg *l, int nup) = (void*) 0xFFFFFFFF;
 int (*luaL_optinteger)(void *L, int nArg, int def) = (void*) 0xFFFFFFFF;
 long (*luaL_optnumber)(void *L, int nArg, long def) = (void*) 0xFFFFFFFF;
 char *(*luaL_optlstring)(void *L,                           /*获取参数，如果没有设置默认值*/
@@ -159,8 +173,11 @@ void (*luaL_checktype)(void *L, int nArg, int t) = (void*) 0xFFFFFFFF;
 int (*luaL_checkinteger)(void *L, int nArg) = (void*) 0xFFFFFFFF;
 long (*luaL_checknumber)(void *L, int nArg) = (void*) 0xFFFFFFFF;
 char *(*luaL_checklstring)(void *L,int nArg, size_t *l) = (void*) 0xFFFFFFFF;
-void (*luaI_openlib)(void *L, const char *libname,
-                              const luaL_Reg *l, int nup) = (void*) 0xFFFFFFFF;
+void (*luaL_checkstack)(void *L, int space, const char *mes) = (void*) 0xFFFFFFFF;
+int (*luaL_checkoption)(void *L, int narg, const char *def,
+                                 const char *const lst[]) = (void*) 0xFFFFFFFF;
+int (*luaL_error)(void *L, const char *fmt, ...) = (void*) 0xFFFFFFFF;
+int (*luaL_argerror)(void *L, int narg, const char *extramsg) = (void*) 0xFFFFFFFF;
 void *(*lua_newstate)(lua_Alloc f, void *ud) = (void*) 0xFFFFFFFF;
 void (*lua_close)(void *L) = (void*) 0xFFFFFFFF;
 void *(*lua_newthread)(void *L) = (void*) 0xFFFFFFFF;

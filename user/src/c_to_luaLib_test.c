@@ -1,6 +1,8 @@
 #include "core_api.h"
 #include "test.h"
 
+extern int luaopen_cjson(void *l);
+
 void test_print()
 {
     OPENAT_lua_print("test_print is ok");
@@ -63,7 +65,8 @@ int user_main(void *L)
 	/*C函数注册*/
 	luaI_openlib(L, "user", user_lib, 0);
 
-    /*其他初始化*/
+  /*其他初始化*/
+  luaopen_cjson(L);
 
-	return 0;
+  return 1;
 }

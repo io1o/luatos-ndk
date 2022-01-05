@@ -1,13 +1,19 @@
 #include "cs_types.h"
+#include "stdarg.h"
 #include "am_openat_drv.h"
 #include "am_openat_system.h"
 #include "lua_type.h"
+#include "std_type.h"
+
 
 void OPENAT_lua_print(char * fmt,...);
 bool OPENAT_msg_to_lua(UINT8 msg_id,BOOL result,INT32 num,CHAR* data,UINT32 dataLen);
 
 /******************************** 标准库接口 ********************************/
-
+void stderr(void);
+void stdin(void);
+void stdout(void);
+int  __aeabi_idiv(int a1, int a2);
 
 size_t strlen (const char *);
 char*  strchr(const char *,int);
@@ -19,18 +25,29 @@ long   strtol(const char *, char **, int);
 int    strcmp(const char *,const char *);
 int    sprintf(char *, const char *, ...);
 int    strncmp(const char *,const char *,size_t);
+int    strncasecmp(const char *, const char *, size_t);
+
 int    sscanf(const char * buf, const char * fmt, ...);
 int    snprintf(char * buf, size_t len, const char *fmt, ...);
 int    fprintf(void *err, const char *fmt, ...);
+int    vprintf(const char *fmt, ...);
 int    vsnprintf(char *buf, size_t size, const char *fmt, ...);
+int    printf(const char *fmt, ...);
 
 void * memchr (const void *, int, size_t);
 void * memmove (void *, const void *, size_t);
-void * memcpy (void *__restrict, const void *__restrict, size_t);
 int    memcmp (const void *, const void *, size_t);
 void *OPENAT_malloc(size_t size);
 void *OPENAT_realloc(PVOID ptr, UINT32 size);
 void  OPENAT_free(void *ptr);
+void  OPENAT_panic(void);
+
+void *L_MALLOC(size_t bytes);
+void  L_FREE(void* mem);
+void *L_REALLOC(void* oldMem, size_t bytes);
+
+/*math操作相关接口*/
+double floor (double);
 
 
 /******************************** GPIO操作接口 ********************************/
@@ -201,6 +218,8 @@ UINT64 OPENAT_timer_remaining(
                             );
 
 /****************************** lua虚拟机操作接口 ******************************/
+void luaI_openlib (void *L, const char *libname, const luaL_Reg *l, int nup);
+
 int luaL_optinteger (void *L, int nArg, int def);               /*获取参数，如果没有设置默认值*/
 long luaL_optnumber (void *L, int nArg, long def);              /*获取参数，如果没有设置默认值*/
 const char *luaL_optlstring (void *L,                           /*获取参数，如果没有设置默认值*/
@@ -211,8 +230,12 @@ int luaL_checkinteger (void *L, int nArg);                      /*设置表key�
 long luaL_checknumber (void *L, int nArg);                      /*获取参数*/
 const char *luaL_checklstring (void *L,int nArg, size_t *l);    /*获取参数*/
 
-void luaI_openlib (void *L, const char *libname,
-                              const luaL_Reg *l, int nup);
+void luaL_checkstack (void *L, int space, const char *mes);
+int luaL_checkoption (void *L, int narg, const char *def,
+                                 const char *const lst[]);
+
+int luaL_error (void *L, const char *fmt, ...);
+int luaL_argerror (void *L, int narg, const char *extramsg);
 
 /* state manipulation*/
 void *lua_newstate(lua_Alloc f, void *ud);

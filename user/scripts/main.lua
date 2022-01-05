@@ -28,21 +28,25 @@ dl模块接口定义
       返回值：nil
 ]]
 
-local function test()
+local function common_test()
   local handle = dl.open("/lua/user.lib","user_main")
   if handle then
       --添加测试demo
-      local ret_number = user.test_uart()
-      local ret_number1 = user.test_fun3(21)
-      local ret_string1 = user.test_fun4(21,"test")
+      local ret_number = user.test_fun3(21)
+      local ret_string = user.test_fun4(21,"test")
+      local ret1,ret2,ret3 = user.test_function(1000,"123456789")
+      local t = user.test_table()
 
       print("ret_number", ret_number);
       print("ret_string", ret_string);
-      print("ret_number1", ret_number1);
-      print("ret_string1", ret_string1);
+      print("ret1_string",ret1)
+      print("ret2_number",ret2)
+      print("ret3_boolean",ret3)
+      print("table return: ",t.num,t.str,t.bool)
 
       print("---------------------")
 
+      -- user.test_uart()
       -- user.send_msg_to_lua_test()
       -- user.test_msg(10000)
       -- user.test_timer()
@@ -55,12 +59,14 @@ local function test()
       -- local t = user.test_table()
       -- print("!!!!!!!!!! ",a,b,c)
       -- print("table return: ",t.num,t.str,t.bool)
-
-      --dl.close(handle)
+      -- dl.close(handle1)
   end
 end
 
-test();
+-- 常规测试
+common_test()
+-- cjson测试
+require "testJson"
 
 local function dl_msg_pro(msg)
     print(msg.msg,msg.num,msg.data,msg.result)
