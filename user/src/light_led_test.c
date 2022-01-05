@@ -8,6 +8,8 @@
  *********************************************************/
 #include "core_api.h"
 
+#define GPIO_1      1
+#define LED    GPIO_1
 
 UINT8 uartRxBuff[512];
 struct PWM_CFG
@@ -33,7 +35,7 @@ void uart_Callback(T_AMOPENAT_UART_MESSAGE* evt)
   cfg.param.intCfg.debounce = 20;
   cfg.param.pullState = OPENAT_GPIO_PULLUP;
 
-  OPENAT_config_gpio(1,&cfg);
+  OPENAT_config_gpio(LED,&cfg);
 	switch(evt->evtId)
 	{
 		case OPENAT_DRV_EVT_UART_RX_DATA_IND:
@@ -47,10 +49,10 @@ void uart_Callback(T_AMOPENAT_UART_MESSAGE* evt)
           pwm.freq = strtol(extent + 1, NULL, 10);
           OPENAT_lua_print("PWM_high_level_last:%d\nlow_level_last:%d\nfreq:",pwm.highs,pwm.lows,pwm.freq);
           for(i=0;i<pwm.freq;i++){
-            OPENAT_set_gpio(1,1);
+            OPENAT_set_gpio(LED,1);
             OPENAT_lua_print("LED_ON");
             OPENAT_sleep(pwm.highs*1000);
-            OPENAT_set_gpio(1,0);
+            OPENAT_set_gpio(LED,0);
             OPENAT_lua_print("LED_OFF");
             OPENAT_sleep(pwm.lows*1000);
           }

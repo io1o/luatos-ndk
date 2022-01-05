@@ -27,12 +27,13 @@ int test_fun3(void *L)
 int test_fun4(void *L)
 {
     int str_size = 0;
-    /*获取第二个参数,参数类型为string*/
+    /*获取第一个参数,参数类型为string*/
     char *data = luaL_checklstring(L,2, &str_size);
     OPENAT_lua_print("fun4 exe string=%s", data);
-	/*使用test_fun3获取第一个参数,参数类型为number,并执行*/
-    test_fun3(L);
-    return 0;
+
+    /*第一个返回值为字符串*/
+    lua_pushstring(L,data);
+    return 1;
 }
 
 /*测试函数：建立task并不断发送消息给lua虚拟机*/
@@ -54,11 +55,11 @@ void lua_msg_test_task(void *pParameter)
 
 int send_msg_to_lua_test(void *L)
 {
-     bool reg = OPENAT_create_task(&task_handle, lua_msg_test_task, NULL, NULL,
-                                      4 * 1024, 50,
-                                      0,
-                                      0,
-                                      "lua_msg_test_task");
+    bool reg = OPENAT_create_task(&task_handle, lua_msg_test_task, NULL, NULL,
+                                  4 * 1024, 50,
+                                  0,
+                                  0,
+                                  "lua_msg_test_task");
     return 0;
 }
 
