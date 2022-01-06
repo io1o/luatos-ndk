@@ -10,9 +10,9 @@ set USER_SRC=%PROJECT_ROOT%\user\src
 call tools\launch.bat
 
 if "%PLATFROM%"=="FLOAT" (
-    set DFLAG=-DLUA_USE_MTK_NUCLEUS -DLUAT_FLOATPOINT_SUPPORT
+    set DFLAG= -DLUA_CORE -DLUA_USE_MTK_NUCLEUS -DLUAT_FLOATPOINT_SUPPORT
 ) else (
-    set DFLAG=-DLUA_USE_MTK_NUCLEUS 
+    set DFLAG=-DLUA_CORE -DLUA_USE_MTK_NUCLEUS 
 )
 goto RDA8910
 :: call tools/launch.bat project debug

@@ -47,7 +47,7 @@
  * for call. */
 static char locale_decimal_point = '.';
 
-#if defined(LUAT_FLOATPOINT_SUPPORT)
+#if 0
 /* In theory multibyte decimal_points are possible, but
  * Lua CJSON only supports UTF-8 and known locales only have
  * single byte decimal points ([.,]).

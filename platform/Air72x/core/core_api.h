@@ -228,13 +228,13 @@ UINT64 OPENAT_timer_remaining(
 void luaI_openlib (void *L, const char *libname, const luaL_Reg *l, int nup);
 
 int luaL_optinteger (void *L, int nArg, int def);               /*获取参数，如果没有设置默认值*/
-long luaL_optnumber (void *L, int nArg, long def);              /*获取参数，如果没有设置默认值*/
+lua_Number luaL_optnumber (void *L, int nArg, lua_Number def);              /*获取参数，如果没有设置默认值*/
 const char *luaL_optlstring (void *L,                           /*获取参数，如果没有设置默认值*/
                         int nArg, const char *def, size_t *l);
 
 void luaL_checktype (void *L, int nArg, int t);                 /*获取参数类型*/
 int luaL_checkinteger (void *L, int nArg);                      /*设置表key为bool类型的值*/
-long luaL_checknumber (void *L, int nArg);                      /*获取参数*/
+lua_Number luaL_checknumber (void *L, int nArg);                      /*获取参数*/
 const char *luaL_checklstring (void *L,int nArg, size_t *l);    /*获取参数*/
 
 void luaL_checkstack (void *L, int space, const char *mes);

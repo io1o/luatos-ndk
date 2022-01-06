@@ -1,8 +1,6 @@
 #ifndef _STD_TYPE_G_
 #define _STD_TYPE_G_
 
-#define LUA_NUMBER_INTEGRAL /*非float版本控制,float版本请关闭*/
-
 #define INT_MAX                   0x7fffffff
 
 typedef va_list  va_list;
