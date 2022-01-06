@@ -455,4 +455,5 @@ table return:  100 table return false
 
 > 本运行结果仅展示cJSON示例结果，其他测试可自行打开演示。
 
-此外，如需删除代码中的该测试demo，可直接删除demo文件夹，并修改user/src目录下的Makefile文件，删除其中的demo路径即可。
+此外，如需删除该测试demo，可相应修改user/src目录下main.c文件中的入口注册函数，并删除user/src目录下Makefile文件中的demo路径即可。
+
