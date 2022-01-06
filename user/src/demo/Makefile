@@ -1,4 +1,4 @@
-DIRS := src
+DIRS := source
 SRCS :=	$(wildcard *.c)
 INCS := 
 
