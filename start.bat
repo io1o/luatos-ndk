@@ -19,6 +19,7 @@ goto RDA8910
 :RDA8910
 set CORE_INC="%PROJECT_ROOT%\platform\Air72x\core"
 set CORE_TRAN_MAIN="%PROJECT_ROOT%\platform\Air72x\core\trans_api"
+if not exist %USER_INC% mkdir %USER_INC%
 :: 转换头文件
 :: python38 %TRANS% transform -i "%PROJECT_ROOT%\platform\8910\core\core_api.h" -o "%PROJECT_ROOT%\user\include\core_api.h" -oc "%PROJECT_ROOT%\user\src\core_api.c"
 python38 %TRANS% "move" -f "%CORE_INC%\cs_types.h" "%CORE_INC%\am_openat_drv.h" "%CORE_TRAN_MAIN%\core_api.h" "%CORE_INC%\am_openat_common.h" "%CORE_INC%\am_openat_system.h" "%CORE_INC%\lua_type.h" "%CORE_INC%\std_type.h" "%CORE_INC%\luaconf.h" -d %USER_INC%
