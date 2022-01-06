@@ -33,11 +33,36 @@ NDK主要针对LuatOS闭源版本（例如LuatOS-Air/LuatOS-HMI/LuatOS-iRTU等)�
 
 ## 1. 添加源文件
 
-将源文件copy到NDK的`user/src`目录下，头文件相应放到`user/include`目录下。
+- 将源文件copy到NDK的`user/src`目录下，头文件相应放到`user/include`目录（如果没有可以手动创建，编译时自动生成）下。
 
-> 注意：目前的NDK环境默认支持Air72x平台，NDK自带该平台编译器。其他平台需要额外安装编译器，具体步骤待支持其他平台后再补充。
+	> 注意：目前的NDK环境默认支持Air72x平台，NDK自带该平台编译器。其他平台需要额外安装编译器，具体步骤待支持其他平台后再补充。
 
+- 如果项目`user/src`目录下包含子源文件夹，请修改该目录下的Makefile，DIRS后添加子源文件夹路径，同时在相应子源文件夹添加Makefile文件，Makefile参考如下：
 
+  ```makefile
+  DIRS := demo
+  SRCS :=	$(wildcard *.c)
+  INCS := 
+  
+  PACKAGE_INC_PATHS := 	$(BASE_INC_PATHS)
+  
+  include $(MAKE_INCLUDE)
+  ```
+
+- 如果项目`user/src`目录下还包含头文件夹，请修改该目录下的Makefile，BASE_INC_PATHS添加头文件夹路径，Makefile参考如下：
+
+  ```makefile
+  DIRS := source
+  SRCS :=	$(wildcard *.c)
+  INCS := 
+  
+  PACKAGE_INC_PATHS := 	$(BASE_INC_PATHS)
+  BASE_INC_PATHS += 	$(BUILD_ROOT)/src/demo/include
+  
+  export BASE_INC_PATHS
+  
+  include $(MAKE_INCLUDE)
+  ```
 
 ## 2. 修改源文件
 
@@ -51,7 +76,8 @@ NDK主要针对LuatOS闭源版本（例如LuatOS-Air/LuatOS-HMI/LuatOS-iRTU等)�
 
 ## 3. 生成lib库文件
 
-- 在NDK根目录下运行`start.bat`。
+- 在NDK根目录下运行`start.bat`，编译正常版本。
+- 在NDK根目录下运行`start.bat` `FLOAT`，编译生成float版本。
 - 运行结束后会在NDK的根目录下生成`out`文件夹，里面有`user.lib`，就是合成好的静态库。
 
 
@@ -179,22 +205,22 @@ lib库消息上报
 
   无
 
-#### lua_pushinteger
+#### lua_pushnumber
 
 返回lua_Integer类型参数
 
 - 语法
 
   ```
-  void lua_pushinteger (lua_State *L, lua_Integer n)
+  void lua_pushnumber (lua_State *L, lua_Number n)
   ```
 
 - 参数
 
-  | 传入值 | 释义                |
-  | ------ | ------------------- |
-  | L      | 状态机句柄          |
-  | s      | lua_Integer类型数值 |
+  | 传入值 | 释义               |
+  | ------ | ------------------ |
+  | L      | 状态机句柄         |
+  | n      | lua_Number类型数值 |
 
 - 返回值
 
@@ -215,7 +241,7 @@ lib库消息上报
   | 传入值 | 释义                |
   | ------ | ------------------- |
   | L      | 状态机句柄          |
-  | s      | lua_Integer类型数值 |
+  | n      | lua_Integer类型数值 |
 
 - 返回值
 
@@ -229,6 +255,8 @@ lib库消息上报
 ![9988651c-2776-415c-8bb3-405357786099](doc/download.png)
 
 - 点击下载即可。
+
+  > 需要注意的是，float版本的ndk需要对应float版本的core文件
 
 
 
@@ -317,3 +345,114 @@ string hello
 len 100
 ```
 
+## 测试demo
+
+目前支持的测试demo，包括常规测试和cJSON测试：
+
+常规测试，主要为针对一些硬件接口、系统接口和lua虚拟机接口进行的测试;
+
+> 例如：uart和gpio的硬件接口测试、task和message的系统接口测试以及参数获取和压栈操作的lua虚拟机接口的测试；
+
+cJSON测试，主要移植了`JSON`数据解析器进行测试，实现了`JSON`数据的`lua`编解码等接口。
+
+```lua
+PROJECT = "DL_TEST"
+VERSION = "1.0.0"
+
+--加载日志功能模块，并且设置日志输出等级
+--如果关闭调用log模块接口输出的日志，等级设置为log.LOG_SILENT即可
+require "log"
+LOG_LEVEL = log.LOGLEVEL_TRACE
+require "sys"
+
+rtos.sleep(3000)
+--[[
+dl模块接口定义
+函数：handle=dl.open(libpath,usermap)
+功能：加载c编译的lib文件
+  参数：
+      --path:lib的路径,string类型
+      --usermap:lua函数接口注册表
+  返回值：
+      --handle:成功返回句柄，失败返回nil
+
+  函数： ret = dl.close(handle)
+  功能：卸载lib
+      参数：
+          handle:dl.open的返回值
+      返回值：nil
+]]
+
+local function common_test()
+  local handle = dl.open("/lua/user.lib","user_main")
+  if handle then
+      --添加测试demo
+      local ret_number = user.test_fun3(21)
+      local ret_string = user.test_fun4(21,"test")
+      local ret1,ret2,ret3 = user.test_function(1000,"123456789")
+      local t = user.test_table()
+
+      print("ret_number", ret_number);
+      print("ret_string", ret_string);
+      print("ret1_string",ret1)
+      print("ret2_number",ret2)
+      print("ret3_boolean",ret3)
+      print("table return: ",t.num,t.str,t.bool)
+
+      print("---------------------")
+
+      -- user.test_uart()
+      -- user.send_msg_to_lua_test()
+      -- user.test_msg(10000)
+      -- user.test_timer()
+      -- user.test_task()
+      -- 点亮LED灯,uart2发lightLED:2,1,10,启动LED,亮2秒，灭1秒，闪10次
+      -- pmd.ldoset(1,pmd.LDO_VLCD)
+      -- user.test_light_led()
+
+      -- dl.close(handle)
+  end
+end
+
+-- 常规测试
+common_test()
+-- cjson测试
+require "testJson"
+
+local function dl_msg_pro(msg)
+    print(msg.msg,msg.num,msg.data,msg.result)
+end
+
+rtos.on(rtos.MSG_DL_INFO, dl_msg_pro)
+
+--启动系统框架
+sys.init(0, 0)
+sys.run()
+```
+
+运行结果：
+
+```
+fun3 exe number=21  4
+fun4 exe string=test
+test_print is ok
+ret_number 21
+ret_string test
+ret1_string test user string param = 123456789 9
+ret2_number 1000
+ret3_boolean true
+table return:  100 table return false
+---------------------
+[I]-[testJson.encode cjson ] table: 0x80b8b5f8
+[I]-[testJson.encode] {"KEY6":[1,2,3],"KEY3":"VALUE3","KEY4":"VALUE4","KEY2":"VALUE2","KEY1":"VALUE1","KEY5":{"KEY5_2":"VALU5_2","KEY5_1":"VALU5_1"}}
+[I]-[testJson.decode KEY1] VALUE1
+[I]-[testJson.decode KEY2] VALUE2
+[I]-[testJson.decode KEY3] VALUE3
+[I]-[testJson.decode KEY4] VALUE4
+[I]-[testJson.decode KEY5] VALU5_1 VALU5_2
+[I]-[testJson.decode KEY6] 1 2 3
+```
+
+> 本运行结果仅展示cJSON示例结果，其他测试可自行打开演示。
+
+此外，如需删除代码中的该测试demo，可直接删除demo文件夹，并修改user/src目录下的Makefile文件，删除其中的demo路径即可。
