@@ -51,11 +51,11 @@ local function common_test()
       -- user.test_msg(10000)
       -- user.test_timer()
       -- user.test_task()
-      -- 点亮LTE灯,uart2发lightLED:2,1,10,启动LED,亮2秒，灭1秒，闪10次
+      -- 点亮LED灯,uart2发lightLED:2,1,10,启动LED,亮2秒，灭1秒，闪10次
       -- pmd.ldoset(1,pmd.LDO_VLCD)
       -- user.test_light_led()
 
-      -- dl.close(handle1)
+      -- dl.close(handle)
   end
 end
 
