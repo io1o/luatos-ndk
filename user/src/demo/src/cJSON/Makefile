@@ -1,4 +1,4 @@
-DIRS := demo
+DIRS := 
 SRCS :=	$(wildcard *.c)
 INCS := 
 
