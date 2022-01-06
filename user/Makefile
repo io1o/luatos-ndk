@@ -12,7 +12,7 @@ endif
 
 LRFLAG := -r
 
-OUT_DIR := out out/include out/obj out/lib /include
+OUT_DIR := out out/include out/obj out/lib 
 
 out/lib/$(TARGET): subdirs
 	$(LR) $(LRFLAG) $(subst /,\,$(wildcard out/obj/*.o))   -o $(subst /,\,$@) 
