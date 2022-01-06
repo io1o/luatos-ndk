@@ -40,9 +40,6 @@ void  (*OPENAT_assert)(                                           /* 断言接口 */
                             char *func,                         /* 函数名称 */
                             unsigned int line                   /* 行数 */
                             ) = (void*) 0xFFFFFFFF;
-void *(*L_MALLOC)(size_t bytes) = (void*) 0xFFFFFFFF;
-void (*L_FREE)(void* mem) = (void*) 0xFFFFFFFF;
-void *(*L_REALLOC)(void* oldMem, size_t bytes) = (void*) 0xFFFFFFFF;
 double (*floor)(double) = (void*) 0xFFFFFFFF;
 BOOL (*OPENAT_config_gpio)(
                             E_AMOPENAT_GPIO_PORT port,          /* GPIO编号 */
@@ -172,12 +169,12 @@ UINT64 (*OPENAT_timer_remaining)(
                             ) = (void*) 0xFFFFFFFF;
 void (*luaI_openlib)(void *L, const char *libname, const luaL_Reg *l, int nup) = (void*) 0xFFFFFFFF;
 int (*luaL_optinteger)(void *L, int nArg, int def) = (void*) 0xFFFFFFFF;
-long (*luaL_optnumber)(void *L, int nArg, long def) = (void*) 0xFFFFFFFF;
+lua_Number (*luaL_optnumber)(void *L, int nArg, lua_Number def) = (void*) 0xFFFFFFFF;
 char *(*luaL_optlstring)(void *L,                           /*获取参数，如果没有设置默认值*/
                         int nArg, const char *def, size_t *l) = (void*) 0xFFFFFFFF;
 void (*luaL_checktype)(void *L, int nArg, int t) = (void*) 0xFFFFFFFF;
 int (*luaL_checkinteger)(void *L, int nArg) = (void*) 0xFFFFFFFF;
-long (*luaL_checknumber)(void *L, int nArg) = (void*) 0xFFFFFFFF;
+lua_Number (*luaL_checknumber)(void *L, int nArg) = (void*) 0xFFFFFFFF;
 char *(*luaL_checklstring)(void *L,int nArg, size_t *l) = (void*) 0xFFFFFFFF;
 void (*luaL_checkstack)(void *L, int space, const char *mes) = (void*) 0xFFFFFFFF;
 int (*luaL_checkoption)(void *L, int narg, const char *def,

@@ -28,6 +28,10 @@
 
 #define inline
 
+#define L_MALLOC  OPENAT_malloc
+#define L_FREE    OPENAT_free
+#define L_REALLOC OPENAT_realloc
+
 #define PRINTF(...) printf(__VA_ARGS__)
 #define vfprintf(fd, ...) PRINTF(__VA_ARGS__)
 #define assert(__e) ((__e) ? (void)0 : OPENAT_assert (0,__FUNCTION__,__LINE__))

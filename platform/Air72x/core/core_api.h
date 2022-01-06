@@ -49,10 +49,6 @@ void   OPENAT_assert(                                           /* 断言接口 
                             unsigned int line                   /* 行数 */
                             );
 
-void *L_MALLOC(size_t bytes);
-void  L_FREE(void* mem);
-void *L_REALLOC(void* oldMem, size_t bytes);
-
 /*math操作相关接口*/
 double floor (double);
 

@@ -15,8 +15,13 @@ char buffer[50] = {0};
 int test_fun3(void *L)
 {
     /*获取第一个参数,参数类型为number*/
-    int number = luaL_checknumber(L,1);
-    OPENAT_lua_print("fun3 exe number=%d", number);
+    lua_Number number = luaL_checknumber(L,1);
+    if (sizeof(lua_Number) == 8){
+      OPENAT_lua_print("fun3 exe number=%lf  %d", number, sizeof(lua_Number));
+    }
+    else{
+      OPENAT_lua_print("fun3 exe number=%d  %d", number, sizeof(lua_Number));
+    }
 
     /*第一个返回值为数值*/
     lua_pushnumber(L,number);

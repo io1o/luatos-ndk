@@ -6,7 +6,11 @@
  * -1.7976931348623e+308 */
 # define FPCONV_G_FMT_BUFSIZE   32
 
-#define abort() (OPENAT_assert (0,__FUNCTION__,__LINE__))
+#define L_MALLOC  OPENAT_malloc
+#define L_FREE    OPENAT_free
+#define L_REALLOC OPENAT_realloc
+
+#define abort()  (OPENAT_assert (0,__FUNCTION__,__LINE__))
 
 #define inline
 

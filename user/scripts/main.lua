@@ -55,10 +55,6 @@ local function common_test()
       -- pmd.ldoset(1,pmd.LDO_VLCD)
       -- user.test_light_led()
 
-      -- local a,b,c = user.test_function(1000,"123456789")
-      -- local t = user.test_table()
-      -- print("!!!!!!!!!! ",a,b,c)
-      -- print("table return: ",t.num,t.str,t.bool)
       -- dl.close(handle1)
   end
 end

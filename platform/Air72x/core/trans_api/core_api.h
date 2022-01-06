@@ -40,9 +40,6 @@ extern void  (*OPENAT_assert)(                                           /* 断言
                             char *func,                         /* 函数名称 */
                             unsigned int line                   /* 行数 */
                             );
-extern void *(*L_MALLOC)(size_t bytes);
-extern void (*L_FREE)(void* mem);
-extern void *(*L_REALLOC)(void* oldMem, size_t bytes);
 extern double (*floor)(double);
 extern BOOL (*OPENAT_config_gpio)(
                             E_AMOPENAT_GPIO_PORT port,          /* GPIO编号 */
@@ -172,12 +169,12 @@ extern UINT64 (*OPENAT_timer_remaining)(
                             );
 extern void (*luaI_openlib)(void *L, const char *libname, const luaL_Reg *l, int nup);
 extern int (*luaL_optinteger)(void *L, int nArg, int def);
-extern long (*luaL_optnumber)(void *L, int nArg, long def);
+extern lua_Number (*luaL_optnumber)(void *L, int nArg, lua_Number def);
 extern char *(*luaL_optlstring)(void *L,                           /*获取参数，如果没有设置默认值*/
                         int nArg, const char *def, size_t *l);
 extern void (*luaL_checktype)(void *L, int nArg, int t);
 extern int (*luaL_checkinteger)(void *L, int nArg);
-extern long (*luaL_checknumber)(void *L, int nArg);
+extern lua_Number (*luaL_checknumber)(void *L, int nArg);
 extern char *(*luaL_checklstring)(void *L,int nArg, size_t *l);
 extern void (*luaL_checkstack)(void *L, int space, const char *mes);
 extern int (*luaL_checkoption)(void *L, int narg, const char *def,
