@@ -27,7 +27,7 @@ typedef struct
     }para;
 }sMsgBuff,*pMsgBuff;
 
-sMsgBuff msgBuff;
+static INT16 period;
 HANDLE g_msg_handle_1 = NULL;
 HANDLE g_msg_handle_2 = NULL;
 HANDLE g_timer_handle = NULL;
@@ -35,6 +35,7 @@ HANDLE g_timer_handle = NULL;
 /*定时器超时处理*/
 void timeout_callback(void *param)
 {
+    sMsgBuff msgBuff;
     msgBuff.evt = EVT_TIMER_EXPIRY;
     msgBuff.para.timerexpiry.timerId = *((INT32*)param);
     msgBuff.para.timerexpiry.userValue = 0;
@@ -70,9 +71,9 @@ static void test_msg_task1_entry(void *param)
           }
           case EVT_TIMER_REMAINING:
           {
-            UINT64 remTime = OPENAT_timer_remaining(g_timer_handle);
+            UINT32 remTime = (UINT32)OPENAT_timer_remaining(g_timer_handle);
             OPENAT_lua_print("Timer has %d milliseconds left",remTime);
-            OPENAT_send_message(g_msg_handle_2, 1, &remTime, sizeof(UINT64));
+            OPENAT_send_message(g_msg_handle_2, 1, &remTime, sizeof(UINT32));
             break;
           }
           case EVT_TIMER_EXPIRY:
@@ -92,36 +93,35 @@ static void test_msg_task1_entry(void *param)
 /* Task2入口函数 */
 static void test_msg_task2_entry(void *param)
 {
+    sMsgBuff msgBuff;
     msgBuff.evt = EVT_TIMER_REQ;
     msgBuff.para.timereq.timerId = 0;
-    OPENAT_lua_print("period:%d",msgBuff.para.timereq.period);
+    msgBuff.para.timereq.period = period;
 
     int msgId;
-    UINT64 *remTime=NULL;
+    UINT32 *remTime=NULL;
     /* 发送消息到task1消息队列中 */
     OPENAT_sleep(1000);
-    OPENAT_send_message(g_msg_handle_1, 0, &msgBuff, sizeof(pMsgBuff));
+    OPENAT_send_message(g_msg_handle_1, 0, &msgBuff, sizeof(sMsgBuff));
     while (1)
     {
       OPENAT_sleep(1000);
       msgBuff.evt = EVT_TIMER_REMAINING;
-      OPENAT_send_message(g_msg_handle_1, 1, &msgBuff, sizeof(pMsgBuff));
-      if (msgBuff.evt == EVT_TIMER_EXPIRY)
+      OPENAT_send_message(g_msg_handle_1, 1, &msgBuff, sizeof(sMsgBuff));
+
+      OPENAT_wait_message(g_msg_handle_2, &msgId, (void **)&remTime, OPENAT_OS_SUSPENDED);
+      if (*remTime == 0)
       {
             OPENAT_lua_print("Task2 has been exit!");
             break;
       }
-      OPENAT_wait_message(g_msg_handle_2, &msgId, (void **)&remTime, OPENAT_OS_SUSPENDED);
     }
-}
-static void set_timer_preiod(INT16 preiod){
-    msgBuff.para.timereq.period = preiod;
 }
 
 /*msg示例*/
-int msg_sample(int num)
+static int msg_sample(INT16 number)
 {
-    set_timer_preiod(num);
+    period = number;
     if (NULL == g_msg_handle_1)
     {
         /*创建任务1,任务名为Task1,入口函数task1_entry*/
@@ -147,7 +147,8 @@ int msg_sample(int num)
 /*lua调用入口函数*/
 int test_msg(void *L)
 {
-    int num = luaL_checknumber(L,1); //获取第一个参数,参数类型为number
+    lua_Number num = luaL_checknumber(L,1); //获取第一个参数,参数类型为number
+    OPENAT_lua_print("period num:%d",num);
     msg_sample(num);
     return 0;
 }
