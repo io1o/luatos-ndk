@@ -41,6 +41,15 @@ int test_fun4(void *L)
     return 1;
 }
 
+/*测试函数：NDK死机测试*/
+int test_dump(void *L)
+{
+    int *ptr = NULL;
+    *ptr = 1000;
+    return 0;
+}
+
+
 /*测试函数：建立task并不断发送消息给lua虚拟机*/
 HANDLE task_handle = 0;
 

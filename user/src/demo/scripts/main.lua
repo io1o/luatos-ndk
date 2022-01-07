@@ -9,7 +9,10 @@ VERSION = "1.0.0"
 require "log"
 LOG_LEVEL = log.LOGLEVEL_TRACE
 require "sys"
+require "ril"
 
+-- 打印死机信息
+ril.request("AT*EXINFO?")
 rtos.sleep(3000)
 --[[
 dl模块接口定义
@@ -28,7 +31,8 @@ dl模块接口定义
       返回值：nil
 ]]
 
-local function common_test()
+-- 常规测试
+sys.taskInit(function ()
   local handle = dl.open("/lua/user.lib","user_main")
   if handle then
       --添加测试demo
@@ -48,19 +52,21 @@ local function common_test()
 
       -- user.test_uart()
       -- user.send_msg_to_lua_test()
-      -- user.test_msg(10000)
+      -- user.test_msg(20000)
       -- user.test_timer()
       -- user.test_task()
       -- 点亮LED灯,uart2发lightLED:2,1,10,启动LED,亮2秒，灭1秒，闪10次
       -- pmd.ldoset(1,pmd.LDO_VLCD)
       -- user.test_light_led()
 
+      -- NDK死机测试
+      -- sys.wait(3000)
+      -- user.test_dump()
+
       -- dl.close(handle)
   end
-end
+end)
 
--- 常规测试
-common_test()
 -- cjson测试
 require "testJson"
 

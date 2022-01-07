@@ -53,6 +53,7 @@ luaL_Reg user_lib[] = {
     {"test_task",test_task},
     {"test_timer",test_timer},
     {"test_msg",test_msg},
+    {"test_dump",test_dump},
 
     {"test_light_led",test_light_led},
     {"send_msg_to_lua_test",send_msg_to_lua_test},
