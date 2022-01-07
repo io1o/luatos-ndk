@@ -971,9 +971,42 @@ void    OPENAT_free(void *ptr);
 
 ## lua虚拟机接口
 
-### 1. 获取参数
+> 如下接口说明仅为常用lua虚拟机接口说明，如您想更为详细的了解lua虚拟机的接口，可以参考[Lua 5.3 参考手册](https://www.bookstack.cn/books/lua-5.3)。
 
-### 1.1 lua_gettop
+### 1. 打开 Lua库
+
+### 1.1 luaI_openlib 
+
+- 接口功能
+
+  打开 Lua库
+
+- 接口定义
+
+  void luaI_openlib (void *L, 
+
+  const char *libname, 
+
+  const luaL_Reg *l, 
+
+  int nup);
+
+- 参数描述
+
+  |  参数   |                 解释                 |
+  | :-----: | :----------------------------------: |
+  |    L    | `lua_state`对象，包含数据栈和调用栈  |
+  | libname | 封装lua库名，用于调用该lua库中的函数 |
+  |    l    |            函数注册表地址            |
+  |   nup   |        upvalues个数，默认传0         |
+
+- 返回值
+
+​		无
+
+### 2. 获取参数
+
+### 2.1 lua_gettop
 
 - 接口功能
 
@@ -995,7 +1028,7 @@ void    OPENAT_free(void *ptr);
 
 ​		栈顶元素值
 
-### 1.2 luaL_optinteger
+### 2.2 luaL_optinteger
 
 - 接口功能
 
@@ -1023,7 +1056,7 @@ void    OPENAT_free(void *ptr);
 
 ​		返回获取的整数值
 
-### 1.3 luaL_optnumber
+### 2.3 luaL_optnumber
 
 - 接口功能
 
@@ -1051,7 +1084,7 @@ void    OPENAT_free(void *ptr);
 
 ​		返回获取到的数值
 
-### 1.4 luaL_optlstring
+### 2.4 luaL_optlstring
 
 - 接口功能
 
@@ -1082,7 +1115,7 @@ void    OPENAT_free(void *ptr);
 
 ​		`string`类型参数值
 
-### 1.5 luaL_checktype
+### 2.5 luaL_checktype
 
 - 接口功能
 
@@ -1110,7 +1143,7 @@ void    OPENAT_free(void *ptr);
 
   无
 
-### 1.6 luaL_checkinteger
+### 2.6 luaL_checkinteger
 
 - 接口功能
 
@@ -1135,7 +1168,7 @@ void    OPENAT_free(void *ptr);
 
 ​		返回这个(或转换后的)整数值
 
-### 1.7 luaL_checknumber
+### 2.7 luaL_checknumber
 
 - 接口功能
 
@@ -1160,7 +1193,7 @@ void    OPENAT_free(void *ptr);
 
 ​		返回这个数字
 
-### 1.8 luaL_checklstring
+### 2.8 luaL_checklstring
 
 - 接口功能
 
@@ -1189,9 +1222,9 @@ void    OPENAT_free(void *ptr);
 
 ​		返回这个字符串
 
-### 2. 表
+### 3. 表
 
-### 2.1 lua_createtable
+### 3.1 lua_createtable
 
 - 接口功能
 
@@ -1219,7 +1252,7 @@ void    OPENAT_free(void *ptr);
 
 ​		无
 
-### 2.2 lua_gettable
+### 3.2 lua_gettable
 
 - 接口功能
 
@@ -1244,7 +1277,7 @@ void    OPENAT_free(void *ptr);
 
 ​		无
 
-### 2.3 setfieldInt
+### 3.3 setfieldInt
 
 - 接口功能
 
@@ -1272,7 +1305,7 @@ void    OPENAT_free(void *ptr);
 
 ​		无
 
-### 2.4 setfieldBool
+### 3.4 setfieldBool
 
 - 接口功能
 
@@ -1300,7 +1333,7 @@ void    OPENAT_free(void *ptr);
 
   无
 
-### 2.5 setfieldString
+### 3.5 setfieldString
 
 - 接口功能
 
@@ -1331,9 +1364,9 @@ void    OPENAT_free(void *ptr);
 
 ​		无
 
-### 3. 压栈
+### 4. 压栈
 
-### 3.1 lua_pushinteger
+### 4.1 lua_pushinteger
 
 - 接口功能
 
@@ -1358,7 +1391,7 @@ void    OPENAT_free(void *ptr);
 
 ​		无
 
-### 3.2 lua_pushnumber
+### 4.2 lua_pushnumber
 
 - 接口功能
 
@@ -1383,7 +1416,7 @@ void    OPENAT_free(void *ptr);
 
 ​		无
 
-### 3.3 lua_pushlstring
+### 4.3 lua_pushlstring
 
 - 接口功能
 
@@ -1411,7 +1444,7 @@ void    OPENAT_free(void *ptr);
 
 ​		无
 
-### 3.4 lua_pushboolean
+### 4.4 lua_pushboolean
 
 - 接口功能
 
@@ -1436,9 +1469,9 @@ void    OPENAT_free(void *ptr);
 
 ​		无
 
-### 4. 类型判断
+### 5. 类型判断
 
-### 4.1 lua_isnumber
+### 5.1 lua_isnumber
 
 - 接口功能
 
@@ -1465,7 +1498,7 @@ void    OPENAT_free(void *ptr);
 
 ​		否返回 0 
 
-### 4.2 lua_isstring
+### 5.2 lua_isstring
 
 - 接口功能
 
@@ -1492,7 +1525,7 @@ void    OPENAT_free(void *ptr);
 
 ​		否返回 0 
 
-### 4.3 lua_iscfunction
+### 5.3 lua_iscfunction
 
 - 接口功能
 
@@ -1519,7 +1552,7 @@ void    OPENAT_free(void *ptr);
 
 ​		否返回 0 
 
-### 4.4 lua_typename
+### 5.4 lua_typename
 
 - 接口功能
 
