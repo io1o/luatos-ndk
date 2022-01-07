@@ -364,7 +364,10 @@ VERSION = "1.0.0"
 require "log"
 LOG_LEVEL = log.LOGLEVEL_TRACE
 require "sys"
+require "ril"
 
+-- 打印死机信息
+ril.request("AT*EXINFO?")
 rtos.sleep(3000)
 --[[
 dl模块接口定义
@@ -383,7 +386,8 @@ dl模块接口定义
       返回值：nil
 ]]
 
-local function common_test()
+-- 常规测试
+sys.taskInit(function ()
   local handle = dl.open("/lua/user.lib","user_main")
   if handle then
       --添加测试demo
@@ -403,19 +407,21 @@ local function common_test()
 
       -- user.test_uart()
       -- user.send_msg_to_lua_test()
-      -- user.test_msg(10000)
+      -- user.test_msg(20000)
       -- user.test_timer()
       -- user.test_task()
       -- 点亮LED灯,uart2发lightLED:2,1,10,启动LED,亮2秒，灭1秒，闪10次
       -- pmd.ldoset(1,pmd.LDO_VLCD)
       -- user.test_light_led()
 
+      -- NDK死机测试
+      -- sys.wait(3000)
+      -- user.test_dump()
+
       -- dl.close(handle)
   end
-end
+end)
 
--- 常规测试
-common_test()
 -- cjson测试
 require "testJson"
 
@@ -451,9 +457,42 @@ table return:  100 table return false
 [I]-[testJson.decode KEY4] VALUE4
 [I]-[testJson.decode KEY5] VALU5_1 VALU5_2
 [I]-[testJson.decode KEY6] 1 2 3
+
+AT*EXINFO?
+*EXINFO:poweron=3
+*EXINFO:poweron=3
+OK
+AT*EXINFO? true OK nil
 ```
 
 > 本运行结果仅展示cJSON示例结果，其他测试可自行打开演示。
 
 此外，如需删除该测试demo，可相应修改user/src目录下main.c文件中的入口注册函数，并删除user/src目录下Makefile文件中的demo路径即可。
 
+## 死机调试
+
+可以通过AT指令`AT*EXINFO?`查询死机信息，根据死机信息可以判定死机位置，便于调试和解决问题；测试demo中有添加了该AT指令，如果死机过程中没有死机信息上报，可手动发指令查询。
+
+NDK死机信息：
+
+```
+AT*EXINFO?
+*EXINFO:poweron=4,assert=func=/lua/user.lib,pc=5ba-line=0-ra=0
+*EXINFO:poweron=4,assert=func=/lua/user.lib,pc=5ba-line=0-ra=0
+OK
+AT*EXINFO? true OK nil
+```
+
+如上示`assert=func=/lua/user.lib`信息表明，死机位置位于`user.lib`文件中，可以根据`pc=5ba-line=0-ra=0`信息，在`out/user.map`文件中找到`5ba`所指位置处，定位导致死机的代码。
+
+CORE死机信息：
+
+```
+AT*EXINFO?
+*EXINFO:poweron=4,assert=func=-line=0-ra=0
+*EXINFO:poweron=4,assert=func=-line=0-ra=0
+OK
+AT*EXINFO? true OK nil
+```
+
+如上示未标明`/lua/user.lib`类似信息，即为底层死机，建议联系开发者解决。
