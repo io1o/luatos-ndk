@@ -1,6 +1,6 @@
-DIRS := cJSON
+DIRS := 
 SRCS :=	$(wildcard *.c)
-INCS := cJSON
+INCS := 
 
 PACKAGE_INC_PATHS := 	$(BASE_INC_PATHS)
 

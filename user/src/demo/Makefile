@@ -1,9 +1,9 @@
-DIRS := source
+DIRS := lib
 SRCS :=	$(wildcard *.c)
 INCS := 
 
 PACKAGE_INC_PATHS := 	$(BASE_INC_PATHS)
-BASE_INC_PATHS += 	$(BUILD_ROOT)/src/demo/include
+BASE_INC_PATHS += 	
 
 export BASE_INC_PATHS
 
