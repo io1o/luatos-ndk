@@ -9,7 +9,7 @@ int test_timer(void *L);
 int test_msg(void *L);
 int send_msg_to_lua_test(void *L);
 
-int test_light_led(void* L);
+int test_open_pwm(void* L);
 int test_dump(void *L);
 
 #endif

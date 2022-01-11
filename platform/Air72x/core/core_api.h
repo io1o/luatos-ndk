@@ -48,6 +48,9 @@ void   OPENAT_assert(                                           /* 断言接口 
                             char *func,                         /* 函数名称 */
                             unsigned int line                   /* 行数 */
                             );
+INT64 OPENAT_get_system_tick(                                   /* 获取系统tick接口 */
+                            VOID
+                            );
 
 /*math操作相关接口*/
 double floor (double);

@@ -40,6 +40,9 @@ void  (*OPENAT_assert)(                                           /* 断言接口 */
                             char *func,                         /* 函数名称 */
                             unsigned int line                   /* 行数 */
                             ) = (void*) 0xFFFFFFFF;
+INT64 (*OPENAT_get_system_tick)(                                   /* 获取系统tick接口 */
+                            VOID
+                            ) = (void*) 0xFFFFFFFF;
 double (*floor)(double) = (void*) 0xFFFFFFFF;
 BOOL (*OPENAT_config_gpio)(
                             E_AMOPENAT_GPIO_PORT port,          /* GPIO编号 */

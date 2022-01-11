@@ -55,9 +55,11 @@ sys.taskInit(function ()
       -- user.test_msg(20000)
       -- user.test_timer()
       -- user.test_task()
-      -- 点亮LED灯,uart2发lightLED:2,1,10,启动LED,亮2秒，灭1秒，闪10次
-      -- pmd.ldoset(1,pmd.LDO_VLCD)
-      -- user.test_light_led()
+      --[[GPIO18输出PWM;
+      -- uart2发openPWM:200,500;
+      -- 启动输出PWM,高电平时间/低电平时间,单位us;
+      -- uart2发closePWM，关闭PWM]]
+      user.test_open_pwm()
 
       -- NDK死机测试
       -- sys.wait(3000)

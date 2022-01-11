@@ -55,7 +55,7 @@ luaL_Reg user_lib[] = {
     {"test_msg",test_msg},
     {"test_dump",test_dump},
 
-    {"test_light_led",test_light_led},
+    {"test_open_pwm",test_open_pwm},
     {"send_msg_to_lua_test",send_msg_to_lua_test},
     {NULL,NULL}
 };
