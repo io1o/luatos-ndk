@@ -59,7 +59,7 @@ sys.taskInit(function ()
       -- uart2发openPWM:200,500;
       -- 启动输出PWM,高电平时间/低电平时间,单位us;
       -- uart2发closePWM，关闭PWM]]
-      user.test_open_pwm()
+      -- user.test_open_pwm()
 
       -- NDK死机测试
       -- sys.wait(3000)
