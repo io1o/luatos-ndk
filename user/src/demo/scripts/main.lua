@@ -72,6 +72,8 @@ end)
 -- cjson测试
 require "testJson"
 
+--加载RTT coremark
+rtt.coremark()
 local function dl_msg_pro(msg)
     print(msg.msg,msg.num,msg.data,msg.result)
 end
