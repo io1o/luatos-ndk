@@ -28,7 +28,7 @@ def transform(args):
 	#tr_h.write("#pragma once \n")
 	#  void (*OPENAT_lua_print)(char * fmt, ...) = (void*) 0xffffffff;
 	for temp in tmp1arr:
-		new_function = temp[0] + "(*" + temp[1].strip() + ')' + temp[2] + " = (void*) 0xFFFFFFFF;"
+		new_function = temp[0] + "(*" + temp[1].strip() + ')' + temp[2] + " = (void*) 0xFFFFFFCC;"
 		new_head = "extern " + temp[0] + "(*" + temp[1].strip() + ')' + temp[2] + ";"
 
 		tr_h.write(new_head + "\r\n")

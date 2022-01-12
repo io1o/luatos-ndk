@@ -28,6 +28,7 @@ python38 %TRANS% "move" -f "%CORE_TRAN_MAIN%\core_api.c" -d %USER_SRC%
 set CMAKE_LINKER=%PROJECT_ROOT%/platform/Air72x/compiler/win32/gcc-arm-none-eabi/bin/arm-none-eabi-ld.exe
 set CMAKE_C_COMPILER=%PROJECT_ROOT%/platform/Air72x/compiler/win32/gcc-arm-none-eabi/bin/arm-none-eabi-gcc.exe
 set CMAKE_OBJDUMP_COMPILER=%PROJECT_ROOT%/platform/Air72x/compiler/win32/gcc-arm-none-eabi/bin/arm-none-eabi-objdump.exe
+set CMAKE_READELF_COMPILER=%PROJECT_ROOT%/platform/Air72x/compiler/win32/gcc-arm-none-eabi/bin/arm-none-eabi-readelf.exe
 set CMAKE_OBJCOPY_COMPILER=%PROJECT_ROOT%/platform/Air72x/compiler/win32/gcc-arm-none-eabi/bin/arm-none-eabi-objcopy.exe
 set CCOPTION="-mcpu=cortex-a5 -mtune=generic-armv7-a -mfpu=neon-vfpv4  -mthumb -mfloat-abi=hard -mno-unaligned-access  -g -Os -Wall -std=c11 -c" 
 goto BUILD
@@ -44,6 +45,7 @@ cd user
 gnumake LR=%CMAKE_LINKER% CC=%CMAKE_C_COMPILER% CCOPTION=%CCOPTION%
 copy %PROJECT_ROOT%\user\out\lib\user.lib %PROJECT_ROOT%\out\user_tmp.lib
 %CMAKE_OBJDUMP_COMPILER% -S %PROJECT_ROOT%\out\user_tmp.lib > %PROJECT_ROOT%\out\user.map
+%CMAKE_READELF_COMPILER% -s %PROJECT_ROOT%\out\user_tmp.lib >> %PROJECT_ROOT%\out\user.map
 %CMAKE_OBJCOPY_COMPILER% -R .debug* %PROJECT_ROOT%\out\user_tmp.lib %PROJECT_ROOT%\out\user.lib
 del %PROJECT_ROOT%\out\user_tmp.lib
 gnumake clean
