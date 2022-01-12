@@ -30,7 +30,6 @@ int    strncasecmp(const char *, const char *, size_t);
 int    sscanf(const char * buf, const char * fmt, ...);
 int    snprintf(char * buf, size_t len, const char *fmt, ...);
 int    fprintf(void *err, const char *fmt, ...);
-int    vprintf(const char *fmt, ...);
 int    vsnprintf(char *buf, size_t size, const char *fmt, ...);
 int    printf(const char *fmt, ...);
 
@@ -171,12 +170,6 @@ BOOL OPENAT_SendHighPriorityMessage(                            /* 发送高优�
 
 BOOL OPENAT_available_message(                                  /* 检测消息队列中是否有消息 */
                             HANDLE hTask                        /* 线程句柄，create_task接口返回值 */
-                            );
-
-BOOL OPENAT_send_internal_message(                              /* 发送消息接口，添加到消息队列尾部 */
-                            int msg_id,
-                            void* pMessage,                     /* 存储消息指针 */
-                            int message_length
                             );
 
 

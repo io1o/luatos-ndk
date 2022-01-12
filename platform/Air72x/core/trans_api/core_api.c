@@ -23,7 +23,6 @@ int   (*strncasecmp)(const char *, const char *, size_t) = (void*) 0xFFFFFFCC;
 int   (*sscanf)(const char * buf, const char * fmt, ...) = (void*) 0xFFFFFFCC;
 int   (*snprintf)(char * buf, size_t len, const char *fmt, ...) = (void*) 0xFFFFFFCC;
 int   (*fprintf)(void *err, const char *fmt, ...) = (void*) 0xFFFFFFCC;
-int   (*vprintf)(const char *fmt, ...) = (void*) 0xFFFFFFCC;
 int   (*vsnprintf)(char *buf, size_t size, const char *fmt, ...) = (void*) 0xFFFFFFCC;
 int   (*printf)(const char *fmt, ...) = (void*) 0xFFFFFFCC;
 void* (*memchr)(const void *, int, size_t) = (void*) 0xFFFFFFCC;
@@ -131,11 +130,6 @@ BOOL (*OPENAT_SendHighPriorityMessage)(                            /* 发送高优先
                             ) = (void*) 0xFFFFFFCC;
 BOOL (*OPENAT_available_message)(                                  /* 检测消息队列中是否有消息 */
                             HANDLE hTask                        /* 线程句柄，create_task接口返回值 */
-                            ) = (void*) 0xFFFFFFCC;
-BOOL (*OPENAT_send_internal_message)(                              /* 发送消息接口，添加到消息队列尾部 */
-                            int msg_id,
-                            void* pMessage,                     /* 存储消息指针 */
-                            int message_length
                             ) = (void*) 0xFFFFFFCC;
 HANDLE (*OPENAT_create_timer)(                                     /* 创建定时器接口 */
                             PTIMER_EXPFUNC pFunc,               /* 定时器到时处理函数 */

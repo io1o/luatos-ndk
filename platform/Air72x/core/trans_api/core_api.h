@@ -23,7 +23,6 @@ extern int   (*strncasecmp)(const char *, const char *, size_t);
 extern int   (*sscanf)(const char * buf, const char * fmt, ...);
 extern int   (*snprintf)(char * buf, size_t len, const char *fmt, ...);
 extern int   (*fprintf)(void *err, const char *fmt, ...);
-extern int   (*vprintf)(const char *fmt, ...);
 extern int   (*vsnprintf)(char *buf, size_t size, const char *fmt, ...);
 extern int   (*printf)(const char *fmt, ...);
 extern void* (*memchr)(const void *, int, size_t);
@@ -131,11 +130,6 @@ extern BOOL (*OPENAT_SendHighPriorityMessage)(                            /* ·¢Ë
                             );
 extern BOOL (*OPENAT_available_message)(                                  /* ¼ì²âÏûÏ¢¶ÓÁÐÖÐÊÇ·ñÓÐÏûÏ¢ */
                             HANDLE hTask                        /* Ïß³Ì¾ä±ú£¬create_task½Ó¿Ú·µ»ØÖµ */
-                            );
-extern BOOL (*OPENAT_send_internal_message)(                              /* ·¢ËÍÏûÏ¢½Ó¿Ú£¬Ìí¼Óµ½ÏûÏ¢¶ÓÁÐÎ²²¿ */
-                            int msg_id,
-                            void* pMessage,                     /* ´æ´¢ÏûÏ¢Ö¸Õë */
-                            int message_length
                             );
 extern HANDLE (*OPENAT_create_timer)(                                     /* ´´½¨¶¨Ê±Æ÷½Ó¿Ú */
                             PTIMER_EXPFUNC pFunc,               /* ¶¨Ê±Æ÷µ½Ê±´¦Àíº¯Êý */
