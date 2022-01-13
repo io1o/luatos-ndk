@@ -187,7 +187,7 @@ lib库消息上报
 
   无
 
-# 三、使用说明
+# 四、使用说明
 
 1. 编译core版本
 
@@ -208,32 +208,13 @@ lib库消息上报
 
 5. 运行结果
 
-   ```
-fun3 exe number=21  4
-   fun4 exe string=test
-test_print is ok
-   ret_number 21
-ret_string test
-   ret1_string test user string param = 123456789 9
-   ret2_number 1000
-   ret3_boolean true
-   table return:  100 table return false
-   ---------------------
-   [I]-[testJson.encode cjson ] table: 0x80bc3958
-   [I]-[testJson.encode] {"KEY6":[1,2,3],"KEY3":"VALUE3","KEY4":"VALUE4","KEY2":"VALUE2","KEY1":"VALUE1","KEY5":{"KEY5_2":"VALU5_2","KEY5_1":"VALU5_1"}}
-   [I]-[testJson.decode KEY1] VALUE1
-   [I]-[testJson.decode KEY2] VALUE2
-   [I]-[testJson.decode KEY3] VALUE3
-   [I]-[testJson.decode KEY4] VALUE4
-   [I]-[testJson.decode KEY5] VALU5_1 VALU5_2
-   [I]-[testJson.decode KEY6] 1 2 3
-   ```
-   
+   ![image-20220113205307312](doc/image-20220113205307312.png) 
+
    
 
 
 
-# 四、代码示例
+# 五、代码示例
 
 **添加RTT COREMARK:RT-Thread 上的 MCU/CPU 性能测试小工具**
 
@@ -371,7 +352,7 @@ ret_string test
 
 
 
-# 五、调试说明
+# 六、调试说明
 
 - **如何查询哪些接口未定义**
 
