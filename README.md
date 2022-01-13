@@ -209,25 +209,24 @@ lib库消息上报
 5. 运行结果
 
    ```
-[2022-01-13 20:31:16.112] fun3 exe number=21  4
-   [2022-01-13 20:31:16.112] fun4 exe string=test
-[2022-01-13 20:31:16.112] test_print is ok
-   [2022-01-13 20:31:16.112] ret_number 21
-[2022-01-13 20:31:16.112] ret_string test
-   [2022-01-13 20:31:16.112] ret1_string test user string param = 123456789 9
-   [2022-01-13 20:31:16.112] ret2_number 1000
-   [2022-01-13 20:31:16.112] ret3_boolean true
-   [2022-01-13 20:31:16.112] table return:  100 table return false
-   [2022-01-13 20:31:16.112] ---------------------
-   [2022-01-13 20:31:16.112] [I]-[testJson.encode cjson ] table: 0x80bc3958
-   [2022-01-13 20:31:16.112] [I]-[testJson.encode] {"KEY6":[1,2,3],"KEY3":"VALUE3","KEY4":"VALUE4","KEY2":"VALUE2","KEY1":"VALUE1","KEY5":{"KEY5_2":"VALU5_2
-   [2022-01-13 20:31:16.112] ","KEY5_1":"VALU5_1"}}
-   [2022-01-13 20:31:16.112] [I]-[testJson.decode KEY1] VALUE1
-   [2022-01-13 20:31:16.112] [I]-[testJson.decode KEY2] VALUE2
-   [2022-01-13 20:31:16.112] [I]-[testJson.decode KEY3] VALUE3
-   [2022-01-13 20:31:16.112] [I]-[testJson.decode KEY4] VALUE4
-   [2022-01-13 20:31:16.112] [I]-[testJson.decode KEY5] VALU5_1 VALU5_2
-   [2022-01-13 20:31:16.112] [I]-[testJson.decode KEY6] 1 2 3
+fun3 exe number=21  4
+   fun4 exe string=test
+test_print is ok
+   ret_number 21
+ret_string test
+   ret1_string test user string param = 123456789 9
+   ret2_number 1000
+   ret3_boolean true
+   table return:  100 table return false
+   ---------------------
+   [I]-[testJson.encode cjson ] table: 0x80bc3958
+   [I]-[testJson.encode] {"KEY6":[1,2,3],"KEY3":"VALUE3","KEY4":"VALUE4","KEY2":"VALUE2","KEY1":"VALUE1","KEY5":{"KEY5_2":"VALU5_2","KEY5_1":"VALU5_1"}}
+   [I]-[testJson.decode KEY1] VALUE1
+   [I]-[testJson.decode KEY2] VALUE2
+   [I]-[testJson.decode KEY3] VALUE3
+   [I]-[testJson.decode KEY4] VALUE4
+   [I]-[testJson.decode KEY5] VALU5_1 VALU5_2
+   [I]-[testJson.decode KEY6] 1 2 3
    ```
    
    
