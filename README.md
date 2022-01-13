@@ -86,7 +86,7 @@ NDK主要针对LuatOS闭源版本（例如LuatOS-Air/LuatOS-HMI/LuatOS-iRTU等)�
 
 **可以参考代码示例**
 
-#### dl.open
+**dl.open**
 
 加载静态库并执行入口函数
 
@@ -105,7 +105,7 @@ NDK主要针对LuatOS闭源版本（例如LuatOS-Air/LuatOS-HMI/LuatOS-iRTU等)�
 
   handle：库的句柄
 
-#### dl.close
+**dl.close**
 
 卸载动态库
 
@@ -123,7 +123,7 @@ NDK主要针对LuatOS闭源版本（例如LuatOS-Air/LuatOS-HMI/LuatOS-iRTU等)�
 
   nil
 
-#### MSG_DL_INFO
+**MSG_DL_INFO**
 
 lib库消息上报
 
@@ -141,7 +141,7 @@ lib库消息上报
 
 **可以参考代码示例**
 
-#### luaL_checklstring
+**luaL_checklstring**
 
 获取字符串类型参数
 
@@ -163,7 +163,7 @@ lib库消息上报
 
   const char*类型的字符串
 
-#### luaL_checkinteger
+**luaL_checkinteger**
 
 获取lua_Integer类型参数
 
@@ -184,7 +184,7 @@ lib库消息上报
 
   lua_Integer类型的数值
 
-#### lua_pushstring
+**lua_pushstring**
 
 返回字符串类型参数
 
@@ -205,7 +205,7 @@ lib库消息上报
 
   无
 
-#### lua_pushnumber
+**lua_pushnumber**
 
 返回lua_Integer类型参数
 
@@ -226,7 +226,7 @@ lib库消息上报
 
   无
 
-#### lua_pushinteger
+**lua_pushinteger**
 
 返回lua_Integer类型参数
 
@@ -251,11 +251,11 @@ lib库消息上报
 
 - 底层固件选择支持NDK的固件库
 
-  通过http://erp.openluat.com/firm_customized服务器定制支持NDK功能的固件，版本号>=3208
+  通过http://erp.openluat.com/firm_customized服务器定制支持NDK功能的固件，版本号>=3209
 
 - 通过增加脚本文件按钮，选择lua脚本和NDK\out目录下的user.lib，如下图所示：
 
-  ![image-20220113142224133](doc\download.png)
+  ![image-20220113160937615](doc\download.png)
 
 - 点击下载即可。
 
@@ -472,15 +472,13 @@ AT*EXINFO? true OK nil
 
 此外，如需删除该测试demo，可相应修改user/src目录下main.c文件中的入口注册函数，并删除user/src目录下Makefile文件中的demo路径即可。
 
+## 4. 添加RTT COREMARK示例
 
-
-# 五、添加RTT COREMARK示例
-
-## 1.  COREMARK概述
+### 1.  COREMARK概述
 
 RT-Thread 上的 MCU/CPU 性能测试小工具
 
-## 2. 下载COREMARK代码
+### 2. 下载COREMARK代码
 
 链接：https://github.com/RT-Thread/rtthread-apps.git
 
@@ -488,7 +486,7 @@ coremark代码如下所示：
 
 ![image-20220112201214628](doc\image-20220112201214628.png) 
 
-##  3. 移植coremark代码
+### 3. 移植coremark代码
 
 1. 在ndk user\src\demo\lib\路径下创建coremark文件夹。
 
@@ -616,7 +614,7 @@ coremark代码如下所示：
 
 
 
-# 六、调试
+# 五、调试
 
 ## 1. 如何查询哪些接口未定义
 
@@ -639,7 +637,7 @@ static void undefTest(void)
 
 2. 打开map文件搜索UND如下所示:
 
-   ![image-20220113105037823](E:\8910\ndk\doc\image-20220113105037823.png) 
+   ![image-20220113105037823](doc\image-20220113105037823.png) 
 
    对于user.lib来说，编译器添加的接口也属于未定义接口，所以我们只要排除编译器添加的接口，剩下的都是我们需要去实现的。下面的接口就是编译器添加的接口。
 
