@@ -249,10 +249,13 @@ lib库消息上报
 
 # 三、固件下载
 
-- 底层固件选择支持NDK的固件库。
+- 底层固件选择支持NDK的固件库
+
+  通过http://erp.openluat.com/firm_customized服务器定制支持NDK功能的固件，版本号>=3208
+
 - 通过增加脚本文件按钮，选择lua脚本和NDK\out目录下的user.lib，如下图所示：
 
-![9988651c-2776-415c-8bb3-405357786099](doc/download.png)
+  ![image-20220113142224133](doc\download.png)
 
 - 点击下载即可。
 
@@ -262,7 +265,7 @@ lib库消息上报
 
 # 四、代码示例
 
-## C库demo
+## 1. C库demo
 
 ```c
 /*编译成user.lib*/
@@ -305,7 +308,7 @@ int user_main(void *L)
 
 ```
 
-## lua脚本demo
+## 2. lua脚本demo
 
 ```lua
 PROJECT = "DL_TEST"
@@ -345,7 +348,7 @@ string hello
 len 100
 ```
 
-## 测试demo
+## 3. 测试demo
 
 目前支持的测试demo，包括常规测试和cJSON测试：
 
@@ -469,7 +472,204 @@ AT*EXINFO? true OK nil
 
 此外，如需删除该测试demo，可相应修改user/src目录下main.c文件中的入口注册函数，并删除user/src目录下Makefile文件中的demo路径即可。
 
-## 死机调试
+
+
+# 五、添加RTT COREMARK示例
+
+## 1.  COREMARK概述
+
+RT-Thread 上的 MCU/CPU 性能测试小工具
+
+## 2. 下载COREMARK代码
+
+链接：https://github.com/RT-Thread/rtthread-apps.git
+
+coremark代码如下所示：
+
+![image-20220112201214628](doc\image-20220112201214628.png) 
+
+##  3. 移植coremark代码
+
+1. 在ndk user\src\demo\lib\路径下创建coremark文件夹。
+
+2. 将core_list_join.c core_main.c core_matrix.c core_portme.c core_state.c coremark.h移到user\src\demo\lib\coremark目录下
+
+3. user\src\demo\lib\coremark目录下添加makefile文件，将coremark里面的c代码参与编译,内容如下:
+
+   ```
+   DIRS := 
+   SRCS :=	$(wildcard *.c)
+   INCS := 
+   
+   PACKAGE_INC_PATHS := $(BASE_INC_PATHS) 
+   BASE_INC_PATHS += 	
+   export BASE_INC_PATHS
+   include $(MAKE_INCLUDE)
+   ```
+
+   user\src\demo\lib\coremark目录如下所示：
+
+   ![image-20220112201731146](doc\image-20220112201731146.png) 
+
+4. 修改user\src\demo\lib目录下的makefile，将coremark加入编译工程中修改如下所示：
+
+   左边是修改前，右边是修改后
+
+   ![image-20220112202111141](doc\image-20220112202111141.png)
+
+5. 运行ndk下start.bat.
+
+   运行结果如下所示，coremark代码已经参与编译了，但是还有很多错误
+
+   ![image-20220112202359127](doc\image-20220112202359127.png) 
+
+6. 添加rttread.h文件，并解决编译错误：(注：下方截图右边都是修改后的)
+
+   - core_list_join.c core_matrix.c core_state.c core_util.c不做任何修改
+
+   - core_main.c 修改如下
+
+     ![image-20220112203007304](doc\image-20220112203007304.png) 
+
+   - coremark.h 修改如下:![image-20220112203327180](图片\image-20220112203327180.png)
+
+   
+
+   - 其余的所有适配都放到rttread.h. 结果如下所示
+
+     ![image-20220112203629390](doc\image-20220112203629390.png) 
+
+   - 再次编译start.bat文件，生成了user.lib 结果如下：
+
+     ![image-20220112203838452](doc\image-20220112203838452.png) 
+
+7. 在user\src\demo\lib\coremark目录下新建lua_coremark.c 将coremark接口封装成lua接口给脚本调用。代码如下所示：
+
+   ```
+   #include "core_api.h"
+   
+   int lua_coremask(void *L)
+   {
+   	/*coremark入口函数*/
+       extern int core_mark(void);
+       core_mark();
+   
+       return 0;
+   }
+   
+   luaL_Reg rtt_lib[] = {
+       {"coremark",lua_coremask},
+       {NULL, NULL}
+   };
+   
+   ```
+
+8. 在user\src\main.c中注册rtt_lib. 然后再次运行start.bat
+
+   ```
+   #include "core_api.h"
+   
+   /*入口函数*/
+   int user_main(void *L)
+   {
+   
+   	/*rtt coremark*/
+   	extern luaL_Reg rtt_lib[];
+   	luaI_openlib(L, "rtt", rtt_lib, 0);
+   
+   }
+   ```
+
+9. 编写main.lua运行rtt.coremake()
+
+   ```
+   PROJECT = "COREMARK"
+   VERSION = "1.0.0"
+   
+   --加载日志功能模块，并且设置日志输出等级
+   --如果关闭调用log模块接口输出的日志，等级设置为log.LOG_SILENT即可
+   require "log"
+   LOG_LEVEL = log.LOGLEVEL_TRACE
+   require "sys"
+   
+   
+   --通过dl.open接口加载user.lib文件，并执行user_main入口函数
+   --user_main入口函数会注册rtt coremark，然后使用rtt.coremark()进行接口调用
+   local handle = dl.open("/lua/user.lib","user_main")
+   if handle then  
+       rtt.coremark()
+       dl.close(handle)
+   end
+   
+   --启动系统框架
+   sys.init(0, 0)
+   sys.run()
+   ```
+
+10. 将main.lua和user.lib一起下载到模块中
+
+    ![image-20220112205344286](doc\image-20220112205344286.png)
+
+11. 运行结果如下：
+
+    ![image-20220112205435585](doc\image-20220112205435585.png) 
+
+
+
+# 六、调试
+
+## 1. 如何查询哪些接口未定义
+
+由于最终编译的user.lib库未参与链接，所以会未定义的函数并不会报错。虽然运行的时候会有错误提示，但是调试效率太低。
+
+例如下面代码： undefFun1和undefFun2、undefFun3都是未定义的函数。但实际上编译并没有报错。
+
+```
+static void undefTest(void)
+{
+  undefFun1();
+  undefFun2();
+  undefFun3();
+}
+```
+
+如何查找未定义函数：
+
+1. 编译结束会在out目录下生成对应的map文件
+
+2. 打开map文件搜索UND如下所示:
+
+   ![image-20220113105037823](E:\8910\ndk\doc\image-20220113105037823.png) 
+
+   对于user.lib来说，编译器添加的接口也属于未定义接口，所以我们只要排除编译器添加的接口，剩下的都是我们需要去实现的。下面的接口就是编译器添加的接口。
+
+   ```
+   {"memset"},
+   {"memcpy"},
+   {"__aeabi_idiv"},
+   {"__aeabi_idivmod"},
+   {"__divsi3"},
+   {"__aeabi_uidivmod"},
+   {"__aeabi_uidiv"},
+   {"__aeabi_ldivmod"},
+   {"__aeabi_uldivmod"},
+   {"__aeabi_drsub"},
+   {"__subdf3"},
+   {"__aeabi_dadd"},
+   {"__floatunsidf"},
+   {"__floatsidf"},
+   {"__extendsfdf2"},
+   {"__floatundidf"},
+   {"__floatdidf"},
+   {"__fixdfdi"},
+   {"__fixunsdfdi"},
+   {"__udivmoddi4"},
+   {"__udivsi3"},
+   ```
+
+3. 排除编译器提供的接口，我们就能明显的发现undefFun1和undefFun2、undefFun3都是未定义接口。
+
+## 2. 如何调试死机问题
 
 可以通过AT指令`AT*EXINFO?`查询死机信息，根据死机信息可以判定死机位置，便于调试和解决问题；测试demo中有添加了该AT指令，如果死机过程中没有死机信息上报，可手动发指令查询。
 
@@ -495,4 +695,18 @@ OK
 AT*EXINFO? true OK nil
 ```
 
-如上示未标明`/lua/user.lib`类似信息，即为底层死机，建议联系开发者解决。
+如上示未标明`/lua/user.lib`类似信息，即为底层死机
+
+## 3. 常见的异常信息
+
+1.  [E]-[coroutine.resume] /lua/main.lua:36: dl.open fail relocate_section 620 unknown name: '                     undefFun1'
+
+   导致的原因: user.lib中undefFun1接口未定义
+
+2.  [E]-[coroutine.resume]/lua/main.lua:36: dl.open fail 
+
+   可能是dl.open 库的路径传入不对
+
+3.  [E]-[coroutine.resume] /lua/main.lua:36: dl.sym fail 
+
+   可能是dl.open 入口函数名传入不对
