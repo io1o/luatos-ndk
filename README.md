@@ -255,7 +255,7 @@ lib库消息上报
 
 - 通过增加脚本文件按钮，选择lua脚本和NDK\out目录下的user.lib，如下图所示：
 
-  ![image-20220113160937615](doc\download.png)
+  ![image-20220113160937615](doc/download.png)
 
 - 点击下载即可。
 
@@ -484,7 +484,7 @@ RT-Thread 上的 MCU/CPU 性能测试小工具
 
 coremark代码如下所示：
 
-![image-20220112201214628](doc\image-20220112201214628.png) 
+![image-20220112201214628](doc/image-20220112201214628.png) 
 
 ### 3. 移植coremark代码
 
@@ -507,19 +507,19 @@ coremark代码如下所示：
 
    user\src\demo\lib\coremark目录如下所示：
 
-   ![image-20220112201731146](doc\image-20220112201731146.png) 
+   ![image-20220112201731146](doc/image-20220112201731146.png) 
 
 4. 修改user\src\demo\lib目录下的makefile，将coremark加入编译工程中修改如下所示：
 
    左边是修改前，右边是修改后
 
-   ![image-20220112202111141](doc\image-20220112202111141.png)
+   ![image-20220112202111141](doc/image-20220112202111141.png)
 
 5. 运行ndk下start.bat.
 
    运行结果如下所示，coremark代码已经参与编译了，但是还有很多错误
 
-   ![image-20220112202359127](doc\image-20220112202359127.png) 
+   ![image-20220112202359127](doc/image-20220112202359127.png) 
 
 6. 添加rttread.h文件，并解决编译错误：(注：下方截图右边都是修改后的)
 
@@ -527,19 +527,19 @@ coremark代码如下所示：
 
    - core_main.c 修改如下
 
-     ![image-20220112203007304](doc\image-20220112203007304.png) 
+     ![image-20220112203007304](doc/image-20220112203007304.png) 
 
-   - coremark.h 修改如下:![image-20220112203327180](doc\image-20220112203327180.png)
+   - coremark.h 修改如下:![image-20220112203327180](doc/image-20220112203327180.png)
 
    
 
    - 其余的所有适配都放到rttread.h. 结果如下所示
 
-     ![image-20220112203629390](doc\image-20220112203629390.png) 
+     ![image-20220112203629390](doc/image-20220112203629390.png) 
 
    - 再次编译start.bat文件，生成了user.lib 结果如下：
 
-     ![image-20220112203838452](doc\image-20220112203838452.png) 
+     ![image-20220112203838452](doc/image-20220112203838452.png) 
 
 7. 在user\src\demo\lib\coremark目录下新建lua_coremark.c 将coremark接口封装成lua接口给脚本调用。代码如下所示：
 
@@ -606,11 +606,11 @@ coremark代码如下所示：
 
 10. 将main.lua和user.lib一起下载到模块中
 
-    ![image-20220112205344286](doc\image-20220112205344286.png)
+    ![image-20220112205344286](doc/image-20220112205344286.png)
 
 11. 运行结果如下：
 
-    ![image-20220112205435585](doc\image-20220112205435585.png) 
+    ![image-20220112205435585](doc/image-20220112205435585.png) 
 
 
 
@@ -637,7 +637,7 @@ static void undefTest(void)
 
 2. 打开map文件搜索UND如下所示:
 
-   ![image-20220113105037823](doc\image-20220113105037823.png) 
+   ![image-20220113105037823](doc/image-20220113105037823.png) 
 
    对于user.lib来说，编译器添加的接口也属于未定义接口，所以我们只要排除编译器添加的接口，剩下的都是我们需要去实现的。下面的接口就是编译器添加的接口。
 
