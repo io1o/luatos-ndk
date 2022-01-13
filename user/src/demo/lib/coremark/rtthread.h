@@ -54,7 +54,6 @@ static unsigned int start_time_val = 0;
 static unsigned int stop_time_val = 0;
 static void start_time(void) {
 	start_time_val =  rt_tick_get();
-	OPENAT_lua_print("zwb start_time %d", start_time_val); 
 }
 /* Function : stop_time
 	This function will be called right after ending the timed portion of the benchmark.
@@ -64,7 +63,6 @@ static void start_time(void) {
 */
 static void stop_time(void) {
 	stop_time_val =  rt_tick_get();    
-	OPENAT_lua_print("zwb stop_time %d", stop_time_val); 
 }
 /* Function : get_time
 	Return an abstract "ticks" number that signifies time on the system.
@@ -78,7 +76,7 @@ static void stop_time(void) {
 #define MYTIMEDIFF(fin,ini) ((fin)-(ini))
 static CORE_TICKS get_time(void) {
 	CORE_TICKS elapsed=(CORE_TICKS)(MYTIMEDIFF(stop_time_val, start_time_val));
-	OPENAT_lua_print("zwb gettime %d", elapsed);
+	
 	return elapsed;
 }
 #ifdef __cplusplus
