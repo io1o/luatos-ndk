@@ -43,7 +43,9 @@ NDK主要针对LuatOS闭源版本（例如LuatOS-Air/LuatOS-HMI/LuatOS-iRTU等)�
 
 3. 下载固件
 
-   ![image-20220113203331983](doc/image-20220113203331983.png)
+   使用vscode，LuatIDE插件将out\user.lib、user\src\demo\scripts\main.lua testJson.lua和LuatOS-Air_V3209_RDA8910_RND_0x150000_TMP.pac 一起下载到模块中
+
+   ![image-20220114134158331](doc/image-20220114134158331.png)
 
 5. 运行结果
 
@@ -167,7 +169,8 @@ NDK主要针对LuatOS闭源版本（例如LuatOS-Air/LuatOS-HMI/LuatOS-iRTU等)�
    LOG_LEVEL = log.LOGLEVEL_TRACE
    require "sys"
    
-   
+   --加个延迟防止开机太快log丢失
+   rtos.sleep(1000)
    --通过dl.open接口加载user.lib文件，并执行user_main入口函数
    --user_main入口函数会注册rtt coremark，然后使用rtt.coremark()进行接口调用
    local handle = dl.open("/lua/user.lib","user_main")
@@ -181,13 +184,13 @@ NDK主要针对LuatOS闭源版本（例如LuatOS-Air/LuatOS-HMI/LuatOS-iRTU等)�
    sys.run()
    ```
 
-10. 将main.lua和user.lib一起下载到模块中
+10. 使用vscode，LuatIDE插件将out\user.lib、main.lua和LuatOS-Air_V3209_RDA8910_RND_0x150000_TMP.pac 一起下载到模块中
 
-    ![image-20220112205344286](doc/image-20220112205344286.png)
+    ![image-20220114134956269](doc/image-20220114134956269.png)
 
 11. 运行结果如下：
 
-    ![image-20220112205435585](doc/image-20220112205435585.png) 
+    ![image-20220114142404616](doc/image-20220114142404616.png)
 
 
 

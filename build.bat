@@ -25,11 +25,11 @@ if not exist %USER_INC% mkdir %USER_INC%
 python38 %TRANS% "move" -f "%CORE_INC%\cs_types.h" "%CORE_INC%\am_openat_drv.h" "%CORE_TRAN_MAIN%\core_api.h" "%CORE_INC%\am_openat_common.h" "%CORE_INC%\am_openat_system.h" "%CORE_INC%\lua_type.h" "%CORE_INC%\std_type.h" "%CORE_INC%\luaconf.h" -d %USER_INC%
 python38 %TRANS% "move" -f "%CORE_TRAN_MAIN%\core_api.c" -d %USER_SRC%
 
-set CMAKE_LINKER=%PROJECT_ROOT%/platform/Air72x/compiler/win32/gcc-arm-none-eabi/bin/arm-none-eabi-ld.exe
-set CMAKE_C_COMPILER=%PROJECT_ROOT%/platform/Air72x/compiler/win32/gcc-arm-none-eabi/bin/arm-none-eabi-gcc.exe
-set CMAKE_OBJDUMP_COMPILER=%PROJECT_ROOT%/platform/Air72x/compiler/win32/gcc-arm-none-eabi/bin/arm-none-eabi-objdump.exe
-set CMAKE_READELF_COMPILER=%PROJECT_ROOT%/platform/Air72x/compiler/win32/gcc-arm-none-eabi/bin/arm-none-eabi-readelf.exe
-set CMAKE_OBJCOPY_COMPILER=%PROJECT_ROOT%/platform/Air72x/compiler/win32/gcc-arm-none-eabi/bin/arm-none-eabi-objcopy.exe
+set CMAKE_LINKER=%PROJECT_ROOT%/platform/Air72x/toolchain/win32/gcc-arm-none-eabi/bin/arm-none-eabi-ld.exe
+set CMAKE_C_COMPILER=%PROJECT_ROOT%/platform/Air72x/toolchain/win32/gcc-arm-none-eabi/bin/arm-none-eabi-gcc.exe
+set CMAKE_OBJDUMP_COMPILER=%PROJECT_ROOT%/platform/Air72x/toolchain/win32/gcc-arm-none-eabi/bin/arm-none-eabi-objdump.exe
+set CMAKE_READELF_COMPILER=%PROJECT_ROOT%/platform/Air72x/toolchain/win32/gcc-arm-none-eabi/bin/arm-none-eabi-readelf.exe
+set CMAKE_OBJCOPY_COMPILER=%PROJECT_ROOT%/platform/Air72x/toolchain/win32/gcc-arm-none-eabi/bin/arm-none-eabi-objcopy.exe
 set CCOPTION="-mcpu=cortex-a5 -mtune=generic-armv7-a -mfpu=neon-vfpv4  -mthumb -mfloat-abi=hard -mno-unaligned-access  -g -Os -Wall -std=c11 -c" 
 goto BUILD
 
