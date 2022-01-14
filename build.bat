@@ -6,7 +6,7 @@ set PROJECT_ROOT=%CD%
 set TRANS=%PROJECT_ROOT%\tools\transform.py
 set USER_INC=%PROJECT_ROOT%\user\include
 set USER_SRC=%PROJECT_ROOT%\user\src
-
+set MAKE_DIR=%PROJECT_ROOT%\platform\Air72x\toolchain\GnuWin32\bin
 call tools\launch.bat
 
 if "%PLATFROM%"=="FLOAT" (
@@ -42,13 +42,13 @@ goto BUILD
 :BUILD
 if not exist %PROJECT_OUT% mkdir %PROJECT_OUT%
 cd user
-gnumake LR=%CMAKE_LINKER% CC=%CMAKE_C_COMPILER% CCOPTION=%CCOPTION%
+%MAKE_DIR%\gnumake LR=%CMAKE_LINKER% CC=%CMAKE_C_COMPILER% CCOPTION=%CCOPTION%
 copy %PROJECT_ROOT%\user\out\lib\user.lib %PROJECT_ROOT%\out\user_tmp.lib
 %CMAKE_OBJDUMP_COMPILER% -S %PROJECT_ROOT%\out\user_tmp.lib > %PROJECT_ROOT%\out\user.map
 %CMAKE_READELF_COMPILER% -s %PROJECT_ROOT%\out\user_tmp.lib >> %PROJECT_ROOT%\out\user.map
 %CMAKE_OBJCOPY_COMPILER% -R .debug* %PROJECT_ROOT%\out\user_tmp.lib %PROJECT_ROOT%\out\user.lib
 del %PROJECT_ROOT%\out\user_tmp.lib
-gnumake clean
+%MAKE_DIR%\gnumake clean
 
 :: 删除转换后的头文件
 if "%PLATFROM%"=="RDA8910" (
