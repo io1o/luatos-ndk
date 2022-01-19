@@ -80,6 +80,33 @@ extern UINT32 (*OPENAT_write_uart)(                                       /* Êµ¼
 extern BOOL (*OPENAT_close_uart)(
                             E_AMOPENAT_UART_PORT port           /* UART ±àºÅ */
                             );
+extern BOOL (*OPENAT_open_i2c)(E_AMOPENAT_I2C_PORT port, 
+                              T_AMOPENAT_I2C_PARAM *cfg);
+extern UINT32 (*OPENAT_read_i2c)(E_AMOPENAT_I2C_PORT port, 
+                                UINT8 slaveAddr, 
+                                CONST UINT16 *pRegAddr, 
+                                UINT8* buf,
+                                UINT32 bufLen);
+extern UINT32 (*OPENAT_write_i2c)(E_AMOPENAT_I2C_PORT port, 
+                                UINT8 slaveAddr, 
+                                CONST UINT16 *pRegAddr, 
+                                CONST UINT8* buf,
+                                UINT32 bufLen);
+extern BOOL (*OPENAT_close_i2c)(E_AMOPENAT_I2C_PORT port);
+extern BOOL (*OPENAT_OpenSPI)( E_AMOPENAT_SPI_PORT port, T_AMOPENAT_SPI_PARAM *cfg);
+extern UINT32 (*OPENAT_ReadSPI)(E_AMOPENAT_SPI_PORT port, CONST UINT8 * buf, UINT32 bufLen);
+extern UINT32 (*OPENAT_WriteSPI)(E_AMOPENAT_SPI_PORT port, CONST UINT8 * buf, UINT32 bufLen, BOOLEAN type);
+extern UINT32 (*OPENAT_RwSPI)(E_AMOPENAT_SPI_PORT port, CONST UINT8* txBuf, CONST UINT8* rxBuf,UINT32 bufLen);
+extern BOOL (*OPENAT_CloseSPI)( E_AMOPENAT_SPI_PORT port);
+extern BOOL (*OPENAT_InitADC)(
+    E_AMOPENAT_ADC_CHANNEL channel  /* ADC±àºÅ */,
+    E_AMOPENAT_ADC_CFG_MODE mode);
+extern BOOL (*OPENAT_ReadADC)(
+    E_AMOPENAT_ADC_CHANNEL channel,  /* ADC±àºÅ */
+    kal_uint32*               adcValue,   /* adcÖµ */
+    kal_uint32*               voltage    /* µçÑ¹Öµ*/);
+extern BOOL (*OPENAT_CloseADC)(
+    E_AMOPENAT_ADC_CHANNEL channel  /* ADC±àºÅ */);
 extern BOOL (*OPENAT_create_task)(                                        /* ´´½¨Ïß³Ì½Ó¿Ú */
                             HANDLE* handlePtr,
                             PTASK_MAIN pTaskEntry,              /* Ïß³ÌÖ÷º¯Êý */

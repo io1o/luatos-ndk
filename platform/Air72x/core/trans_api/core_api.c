@@ -80,6 +80,33 @@ UINT32 (*OPENAT_write_uart)(                                       /* 实际写入长
 BOOL (*OPENAT_close_uart)(
                             E_AMOPENAT_UART_PORT port           /* UART 编号 */
                             ) = (void*) 0xFFFFFFCC;
+BOOL (*OPENAT_open_i2c)(E_AMOPENAT_I2C_PORT port, 
+                              T_AMOPENAT_I2C_PARAM *cfg) = (void*) 0xFFFFFFCC;
+UINT32 (*OPENAT_read_i2c)(E_AMOPENAT_I2C_PORT port, 
+                                UINT8 slaveAddr, 
+                                CONST UINT16 *pRegAddr, 
+                                UINT8* buf,
+                                UINT32 bufLen) = (void*) 0xFFFFFFCC;
+UINT32 (*OPENAT_write_i2c)(E_AMOPENAT_I2C_PORT port, 
+                                UINT8 slaveAddr, 
+                                CONST UINT16 *pRegAddr, 
+                                CONST UINT8* buf,
+                                UINT32 bufLen) = (void*) 0xFFFFFFCC;
+BOOL (*OPENAT_close_i2c)(E_AMOPENAT_I2C_PORT port) = (void*) 0xFFFFFFCC;
+BOOL (*OPENAT_OpenSPI)( E_AMOPENAT_SPI_PORT port, T_AMOPENAT_SPI_PARAM *cfg) = (void*) 0xFFFFFFCC;
+UINT32 (*OPENAT_ReadSPI)(E_AMOPENAT_SPI_PORT port, CONST UINT8 * buf, UINT32 bufLen) = (void*) 0xFFFFFFCC;
+UINT32 (*OPENAT_WriteSPI)(E_AMOPENAT_SPI_PORT port, CONST UINT8 * buf, UINT32 bufLen, BOOLEAN type) = (void*) 0xFFFFFFCC;
+UINT32 (*OPENAT_RwSPI)(E_AMOPENAT_SPI_PORT port, CONST UINT8* txBuf, CONST UINT8* rxBuf,UINT32 bufLen) = (void*) 0xFFFFFFCC;
+BOOL (*OPENAT_CloseSPI)( E_AMOPENAT_SPI_PORT port) = (void*) 0xFFFFFFCC;
+BOOL (*OPENAT_InitADC)(
+    E_AMOPENAT_ADC_CHANNEL channel  /* ADC编号 */,
+    E_AMOPENAT_ADC_CFG_MODE mode) = (void*) 0xFFFFFFCC;
+BOOL (*OPENAT_ReadADC)(
+    E_AMOPENAT_ADC_CHANNEL channel,  /* ADC编号 */
+    kal_uint32*               adcValue,   /* adc值 */
+    kal_uint32*               voltage    /* 电压值*/) = (void*) 0xFFFFFFCC;
+BOOL (*OPENAT_CloseADC)(
+    E_AMOPENAT_ADC_CHANNEL channel  /* ADC编号 */) = (void*) 0xFFFFFFCC;
 BOOL (*OPENAT_create_task)(                                        /* 创建线程接口 */
                             HANDLE* handlePtr,
                             PTASK_MAIN pTaskEntry,              /* 线程主函数 */
