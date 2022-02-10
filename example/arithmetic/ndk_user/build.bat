@@ -1,12 +1,16 @@
 @echo off
 
-set PROJECT_ROOT=%CD%
+@REM 获取当前文件的路径
+set PROJECT_ROOT=%~dp0
+@REM 将工作路径切换到当前路径
+cd %PROJECT_ROOT%
 if "%1" == "" (
     @REM 如果没有传入NDK的路径，就往上三级目录
     @REM 下面几行是获取当前路径的上一级路径的
     cd..
     cd..
     cd..
+    @REM 保存默认的NDK路径
     set NDK_PATH=%CD%
     cd %PROJECT_ROOT%
 ) else (
