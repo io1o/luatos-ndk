@@ -1,7 +1,7 @@
 @echo off
-set PROJECT_ROOT=%CD%
-
-call :add_path %PROJECT_ROOT%\tools\python38
+@REM set PROJECT_ROOT=%CD%
+@REM echo asfasfafa
+call :add_path %~dp0\python38
 
 exit /B 0
 
