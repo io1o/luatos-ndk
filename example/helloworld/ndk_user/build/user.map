@@ -1,0 +1,243 @@
+
+D:\CodeMenu\vscode_luat_ide\luatos-ndk\example\helloworld\ndk_user\out\user_tmp.lib:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <helloworld>:
+
+
+/*测试函数：封装lua库，供lua直接调用*/
+
+int helloworld(void *L)
+{
+   0:	b508      	push	{r3, lr}
+	OPENAT_lua_print("ndk example:hello world!");
+   2:	4b03      	ldr	r3, [pc, #12]	; (10 <helloworld+0x10>)
+   4:	4803      	ldr	r0, [pc, #12]	; (14 <helloworld+0x14>)
+   6:	681b      	ldr	r3, [r3, #0]
+   8:	4798      	blx	r3
+	return 0; //代表有三个返回值
+}
+   a:	2000      	movs	r0, #0
+   c:	bd08      	pop	{r3, pc}
+   e:	bf00      	nop
+	...
+
+00000018 <user_main>:
+	{"helloworld", helloworld},
+	{NULL, NULL}};
+	
+/*入口函数*/
+int user_main(void *L)
+{
+  18:	b510      	push	{r4, lr}
+	/*C函数注册*/
+	luaI_openlib(L, "user", user_lib, 0);
+  1a:	4b04      	ldr	r3, [pc, #16]	; (2c <user_main+0x14>)
+  1c:	4a04      	ldr	r2, [pc, #16]	; (30 <user_main+0x18>)
+  1e:	681c      	ldr	r4, [r3, #0]
+  20:	4904      	ldr	r1, [pc, #16]	; (34 <user_main+0x1c>)
+  22:	2300      	movs	r3, #0
+  24:	47a0      	blx	r4
+	return 1;
+}
+  26:	2001      	movs	r0, #1
+  28:	bd10      	pop	{r4, pc}
+  2a:	bf00      	nop
+  2c:	00000000 	.word	0x00000000
+  30:	00000290 	.word	0x00000290
+  34:	00000019 	.word	0x00000019
+
+Symbol table '.symtab' contains 190 entries:
+   Num:    Value  Size Type    Bind   Vis      Ndx Name
+     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 00000000     0 SECTION LOCAL  DEFAULT    1 
+     2: 00000000     0 SECTION LOCAL  DEFAULT    3 
+     3: 00000000     0 SECTION LOCAL  DEFAULT    4 
+     4: 00000000     0 SECTION LOCAL  DEFAULT    6 
+     5: 00000000     0 SECTION LOCAL  DEFAULT    7 
+     6: 00000000     0 SECTION LOCAL  DEFAULT    8 
+     7: 00000000     0 SECTION LOCAL  DEFAULT   10 
+     8: 00000000     0 SECTION LOCAL  DEFAULT   12 
+     9: 00000000     0 SECTION LOCAL  DEFAULT   13 
+    10: 00000000     0 SECTION LOCAL  DEFAULT   15 
+    11: 00000000     0 SECTION LOCAL  DEFAULT   17 
+    12: 00000000     0 SECTION LOCAL  DEFAULT   18 
+    13: 00000000     0 SECTION LOCAL  DEFAULT   19 
+    14: 00000000     0 FILE    LOCAL  DEFAULT  ABS core_api.c
+    15: 00000000     0 NOTYPE  LOCAL  DEFAULT    4 $d
+    16: 00000000     0 FILE    LOCAL  DEFAULT  ABS main.c
+    17: 00000000     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    18: 00000010     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    19: 00000018     0 NOTYPE  LOCAL  DEFAULT    1 $t
+    20: 0000002c     0 NOTYPE  LOCAL  DEFAULT    1 $d
+    21: 00000290     0 NOTYPE  LOCAL  DEFAULT    4 $d
+    22: 00000000     0 NOTYPE  LOCAL  DEFAULT    3 $d
+    23: 00000054     4 OBJECT  GLOBAL DEFAULT    4 lua_resume
+    24: 00000014     4 OBJECT  GLOBAL DEFAULT    4 lua_getupvalue
+    25: 0000028c     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_lua_print
+    26: 00000270     4 OBJECT  GLOBAL DEFAULT    4 strcpy
+    27: 00000124     4 OBJECT  GLOBAL DEFAULT    4 lua_insert
+    28: 000000d8     4 OBJECT  GLOBAL DEFAULT    4 lua_touserdata
+    29: 000000ac     4 OBJECT  GLOBAL DEFAULT    4 lua_pushlightuserdata
+    30: 0000021c     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_get_system_tick
+    31: 00000180     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_start_precise_time
+    32: 00000138     4 OBJECT  GLOBAL DEFAULT    4 lua_atpanic
+    33: 000001b8     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_current_task
+    34: 00000114     4 OBJECT  GLOBAL DEFAULT    4 lua_isnumber
+    35: 0000023c     4 OBJECT  GLOBAL DEFAULT    4 printf
+    36: 0000027c     4 OBJECT  GLOBAL DEFAULT    4 stdout
+    37: 00000224     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_free
+    38: 00000184     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_loop_start_timer
+    39: 0000003c     4 OBJECT  GLOBAL DEFAULT    4 lua_getallocf
+    40: 0000000c     4 OBJECT  GLOBAL DEFAULT    4 lua_sethook
+    41: 00000234     4 OBJECT  GLOBAL DEFAULT    4 memmove
+    42: 00000060     4 OBJECT  GLOBAL DEFAULT    4 lua_load
+    43: 000000e0     4 OBJECT  GLOBAL DEFAULT    4 lua_objlen
+    44: 00000248     4 OBJECT  GLOBAL DEFAULT    4 snprintf
+    45: 00000068     4 OBJECT  GLOBAL DEFAULT    4 lua_pcall
+    46: 00000178     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_timer_remaining
+    47: 000000a0     4 OBJECT  GLOBAL DEFAULT    4 lua_getfield
+    48: 00000004     4 OBJECT  GLOBAL DEFAULT    4 lua_gethookmask
+    49: 00000040     4 OBJECT  GLOBAL DEFAULT    4 lua_concat
+    50: 00000290    16 OBJECT  GLOBAL DEFAULT    4 user_lib
+    51: 000000dc     4 OBJECT  GLOBAL DEFAULT    4 lua_tocfunction
+    52: 0000002c     4 OBJECT  GLOBAL DEFAULT    4 setfieldString
+    53: 00000044     4 OBJECT  GLOBAL DEFAULT    4 lua_next
+    54: 00000218     4 OBJECT  GLOBAL DEFAULT    4 floor
+    55: 000001a8     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_sleep
+    56: 000001e8     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_write_i2c
+    57: 00000134     4 OBJECT  GLOBAL DEFAULT    4 lua_gettop
+    58: 000001dc     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_ReadSPI
+    59: 000000d4     4 OBJECT  GLOBAL DEFAULT    4 lua_tothread
+    60: 000000ec     4 OBJECT  GLOBAL DEFAULT    4 lua_tointeger
+    61: 00000154     4 OBJECT  GLOBAL DEFAULT    4 luaL_checkstack
+    62: 0000008c     4 OBJECT  GLOBAL DEFAULT    4 lua_getmetatable
+    63: 00000158     4 OBJECT  GLOBAL DEFAULT    4 luaL_checklstring
+    64: 000000c8     4 OBJECT  GLOBAL DEFAULT    4 lua_pushnumber
+    65: 000001e0     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_OpenSPI
+    66: 00000128     4 OBJECT  GLOBAL DEFAULT    4 lua_remove
+    67: 00000080     4 OBJECT  GLOBAL DEFAULT    4 lua_setfield
+    68: 00000000     4 OBJECT  GLOBAL DEFAULT    4 lua_gethookcount
+    69: 00000034     4 OBJECT  GLOBAL DEFAULT    4 setfieldInt
+    70: 000001fc     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_read_uart
+    71: 00000240     4 OBJECT  GLOBAL DEFAULT    4 vsnprintf
+    72: 00000028     4 OBJECT  GLOBAL DEFAULT    4 lua_setlevel
+    73: 000001bc     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_delete_task
+    74: 000000c0     4 OBJECT  GLOBAL DEFAULT    4 lua_pushlstring
+    75: 00000190     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_create_timerTask
+    76: 0000017c     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_stop_timer
+    77: 00000110     4 OBJECT  GLOBAL DEFAULT    4 lua_isstring
+    78: 0000012c     4 OBJECT  GLOBAL DEFAULT    4 lua_pushvalue
+    79: 00000020     4 OBJECT  GLOBAL DEFAULT    4 lua_getinfo
+    80: 000000cc     4 OBJECT  GLOBAL DEFAULT    4 lua_pushnil
+    81: 0000014c     4 OBJECT  GLOBAL DEFAULT    4 luaL_error
+    82: 000000f0     4 OBJECT  GLOBAL DEFAULT    4 lua_tonumber
+    83: 00000038     4 OBJECT  GLOBAL DEFAULT    4 lua_setallocf
+    84: 00000130     4 OBJECT  GLOBAL DEFAULT    4 lua_settop
+    85: 00000250     4 OBJECT  GLOBAL DEFAULT    4 strncasecmp
+    86: 000001b4     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_suspend_task
+    87: 000000b4     4 OBJECT  GLOBAL DEFAULT    4 lua_pushcclosure
+    88: 00000001    24 FUNC    GLOBAL DEFAULT    1 helloworld
+    89: 000001d4     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_RwSPI
+    90: 000000b8     4 OBJECT  GLOBAL DEFAULT    4 lua_pushfstring
+    91: 0000015c     4 OBJECT  GLOBAL DEFAULT    4 luaL_checknumber
+    92: 00000260     4 OBJECT  GLOBAL DEFAULT    4 strtol
+    93: 000000e4     4 OBJECT  GLOBAL DEFAULT    4 lua_tolstring
+    94: 000001c8     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_ReadADC
+    95: 00000018     4 OBJECT  GLOBAL DEFAULT    4 lua_setlocal
+    96: 00000104     4 OBJECT  GLOBAL DEFAULT    4 lua_type
+    97: 0000010c     4 OBJECT  GLOBAL DEFAULT    4 lua_iscfunction
+    98: 000001f4     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_close_uart
+    99: 000000b0     4 OBJECT  GLOBAL DEFAULT    4 lua_pushboolean
+   100: 00000220     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_assert
+   101: 00000118     4 OBJECT  GLOBAL DEFAULT    4 lua_xmove
+   102: 00000244     4 OBJECT  GLOBAL DEFAULT    4 fprintf
+   103: 00000264     4 OBJECT  GLOBAL DEFAULT    4 strcat
+   104: 00000084     4 OBJECT  GLOBAL DEFAULT    4 lua_settable
+   105: 00000074     4 OBJECT  GLOBAL DEFAULT    4 lua_setmetatable
+   106: 00000238     4 OBJECT  GLOBAL DEFAULT    4 memchr
+   107: 00000208     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_close_gpio
+   108: 000000d0     4 OBJECT  GLOBAL DEFAULT    4 lua_topointer
+   109: 00000140     4 OBJECT  GLOBAL DEFAULT    4 lua_close
+   110: 00000280     4 OBJECT  GLOBAL DEFAULT    4 stdin
+   111: 00000078     4 OBJECT  GLOBAL DEFAULT    4 lua_rawseti
+   112: 00000288     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_msg_to_lua
+   113: 0000009c     4 OBJECT  GLOBAL DEFAULT    4 lua_rawget
+   114: 0000026c     4 OBJECT  GLOBAL DEFAULT    4 strstr
+   115: 0000005c     4 OBJECT  GLOBAL DEFAULT    4 lua_dump
+   116: 00000168     4 OBJECT  GLOBAL DEFAULT    4 luaL_optlstring
+   117: 00000254     4 OBJECT  GLOBAL DEFAULT    4 strncmp
+   118: 00000090     4 OBJECT  GLOBAL DEFAULT    4 lua_newuserdata
+   119: 00000268     4 OBJECT  GLOBAL DEFAULT    4 strncpy
+   120: 0000022c     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_malloc
+   121: 000000f4     4 OBJECT  GLOBAL DEFAULT    4 lua_lessthan
+   122: 00000030     4 OBJECT  GLOBAL DEFAULT    4 setfieldBool
+   123: 00000228     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_realloc
+   124: 0000020c     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_read_gpio
+   125: 00000230     4 OBJECT  GLOBAL DEFAULT    4 memcmp
+   126: 000001a4     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_wait_message
+   127: 0000024c     4 OBJECT  GLOBAL DEFAULT    4 sscanf
+   128: 00000058     4 OBJECT  GLOBAL DEFAULT    4 lua_yield
+   129: 00000174     4 OBJECT  GLOBAL DEFAULT    4 luaI_openlib
+   130: 000001c0     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_create_task
+   131: 0000006c     4 OBJECT  GLOBAL DEFAULT    4 lua_call
+   132: 000001ac     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_get_task_info
+   133: 00000144     4 OBJECT  GLOBAL DEFAULT    4 lua_newstate
+   134: 00000198     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_available_message
+   135: 00000050     4 OBJECT  GLOBAL DEFAULT    4 lua_status
+   136: 000001d8     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_WriteSPI
+   137: 00000048     4 OBJECT  GLOBAL DEFAULT    4 lua_error
+   138: 000001b0     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_resume_task
+   139: 00000214     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_config_gpio
+   140: 000001e4     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_close_i2c
+   141: 0000011c     4 OBJECT  GLOBAL DEFAULT    4 lua_checkstack
+   142: 000000fc     4 OBJECT  GLOBAL DEFAULT    4 lua_equal
+   143: 0000025c     4 OBJECT  GLOBAL DEFAULT    4 strcmp
+   144: 000000a4     4 OBJECT  GLOBAL DEFAULT    4 lua_gettable
+   145: 00000210     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_set_gpio
+   146: 000000bc     4 OBJECT  GLOBAL DEFAULT    4 lua_pushstring
+   147: 00000148     4 OBJECT  GLOBAL DEFAULT    4 luaL_argerror
+   148: 00000258     4 OBJECT  GLOBAL DEFAULT    4 sprintf
+   149: 000001d0     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_CloseSPI
+   150: 00000008     4 OBJECT  GLOBAL DEFAULT    4 lua_gethook
+   151: 00000284     4 OBJECT  GLOBAL DEFAULT    4 stderr
+   152: 000001f8     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_write_uart
+   153: 000001ec     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_read_i2c
+   154: 00000160     4 OBJECT  GLOBAL DEFAULT    4 luaL_checkinteger
+   155: 0000018c     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_create_hir_timer
+   156: 00000064     4 OBJECT  GLOBAL DEFAULT    4 lua_cpcall
+   157: 000001c4     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_CloseADC
+   158: 00000024     4 OBJECT  GLOBAL DEFAULT    4 lua_getstack
+   159: 00000200     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_config_uart
+   160: 00000204     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_gpioPulse
+   161: 00000120     4 OBJECT  GLOBAL DEFAULT    4 lua_replace
+   162: 0000004c     4 OBJECT  GLOBAL DEFAULT    4 lua_gc
+   163: 0000013c     4 OBJECT  GLOBAL DEFAULT    4 lua_newthread
+   164: 00000070     4 OBJECT  GLOBAL DEFAULT    4 lua_setfenv
+   165: 00000010     4 OBJECT  GLOBAL DEFAULT    4 lua_setupvalue
+   166: 00000019    32 FUNC    GLOBAL DEFAULT    1 user_main
+   167: 0000016c     4 OBJECT  GLOBAL DEFAULT    4 luaL_optnumber
+   168: 00000098     4 OBJECT  GLOBAL DEFAULT    4 lua_rawgeti
+   169: 000001f0     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_open_i2c
+   170: 00000170     4 OBJECT  GLOBAL DEFAULT    4 luaL_optinteger
+   171: 000000a8     4 OBJECT  GLOBAL DEFAULT    4 lua_pushthread
+   172: 00000188     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_start_timer
+   173: 0000007c     4 OBJECT  GLOBAL DEFAULT    4 lua_rawset
+   174: 0000019c     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_SendHighPriorityMe
+   175: 00000194     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_create_timer
+   176: 00000278     4 OBJECT  GLOBAL DEFAULT    4 strlen
+   177: 00000150     4 OBJECT  GLOBAL DEFAULT    4 luaL_checkoption
+   178: 00000164     4 OBJECT  GLOBAL DEFAULT    4 luaL_checktype
+   179: 000001cc     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_InitADC
+   180: 00000274     4 OBJECT  GLOBAL DEFAULT    4 strchr
+   181: 0000001c     4 OBJECT  GLOBAL DEFAULT    4 lua_getlocal
+   182: 000000e8     4 OBJECT  GLOBAL DEFAULT    4 lua_toboolean
+   183: 00000100     4 OBJECT  GLOBAL DEFAULT    4 lua_typename
+   184: 00000088     4 OBJECT  GLOBAL DEFAULT    4 lua_getfenv
+   185: 00000108     4 OBJECT  GLOBAL DEFAULT    4 lua_isuserdata
+   186: 000001a0     4 OBJECT  GLOBAL DEFAULT    4 OPENAT_send_message
+   187: 000000f8     4 OBJECT  GLOBAL DEFAULT    4 lua_rawequal
+   188: 00000094     4 OBJECT  GLOBAL DEFAULT    4 lua_createtable
+   189: 000000c4     4 OBJECT  GLOBAL DEFAULT    4 lua_pushinteger
