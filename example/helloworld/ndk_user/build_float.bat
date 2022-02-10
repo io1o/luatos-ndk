@@ -29,7 +29,7 @@ set MAKE_DIR=%NDK_ROOT%\platform\Air72x\toolchain\GnuWin32\bin
 call %NDK_ROOT%\tools\launch.bat
 
 
-set DFLAG=-DLUA_CORE -DLUA_USE_MTK_NUCLEUS 
+set DFLAG= -DLUA_CORE -DLUA_USE_MTK_NUCLEUS -DLUAT_FLOATPOINT_SUPPORT
 
 goto RDA8910
 :: call tools/launch.bat project debug
