@@ -20,7 +20,7 @@ if "%1" == "" (
 )
 echo %NDK_PATH%
 
-
+ndk_c
 @echo on
 
 set PROJECT_OUT=%PROJECT_ROOT%\build
