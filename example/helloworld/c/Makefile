@@ -51,4 +51,4 @@ export BASE_INC_PATHS
 # export DFLAG
 $(info $(BUILD_ROOT) )
 
-export MAKE_INCLUDE := $(BUILD_ROOT)/env/make.mk
+export MAKE_INCLUDE := $(NDK_ROOT)/env/make.mk
