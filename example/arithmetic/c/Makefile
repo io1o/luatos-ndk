@@ -36,13 +36,16 @@ clean-subdirs:
 
 export BUILD_ROOT := $(dir $(realpath $(MAKEFILE_LIST))).
 
+
 OUT_ROOT := $(BUILD_ROOT)/$(OUT_DIR)
 
 export OUT_INCLUDE := $(BUILD_ROOT)/out/include
 
 export OUT_OBJ := $(BUILD_ROOT)/out/obj
 
-BASE_INC_PATHS += 	$(BUILD_ROOT)/include
+BASE_INC_PATHS += 	$(NDK_ROOT)/platform/Air72x/core
+BASE_INC_PATHS += 	$(NDK_ROOT)/platform/Air72x/core/trans_api
+$(info $(BASE_INC_PATHS) )
 
 export BASE_INC_PATHS
 

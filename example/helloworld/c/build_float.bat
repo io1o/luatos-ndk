@@ -1,8 +1,8 @@
 @echo off
 
-@REM Ëé∑ÂèñÂΩìÂâçÊñá‰ª∂ÁöÑË∑ØÂæÑ
+@REM ªÒ»°µ±«∞Œƒº˛µƒ¬∑æ∂
 set PROJECT_ROOT=%~dp0
-@REM Â∞ÜÂ∑•‰ΩúË∑ØÂæÑÂàáÊç¢Âà∞ÂΩìÂâçË∑ØÂæÑ
+@REM Ω´π§◊˜¬∑æ∂«–ªªµΩµ±«∞¬∑æ∂
 cd %PROJECT_ROOT%
 
 if "%1" == "" (
@@ -12,19 +12,19 @@ if "%1" == "" (
 )
 
 :NDK_USER
-    @REM Â¶ÇÊûúÊ≤°Êúâ‰º†ÂÖ•NDKÁöÑË∑ØÂæÑÔºåÂ∞±ÂæÄ‰∏ä‰∏âÁ∫ßÁõÆÂΩï
-    @REM ‰∏ãÈù¢Âá†Ë°åÊòØËé∑ÂèñÂΩìÂâçË∑ØÂæÑÁöÑ‰∏ä‰∏ÄÁ∫ßË∑ØÂæÑÁöÑ
+    @REM »Áπ˚√ª”–¥´»ÎNDKµƒ¬∑æ∂£¨æÕÕ˘…œ»˝º∂ƒø¬º
+    @REM œ¬√Êº∏–– «ªÒ»°µ±«∞¬∑æ∂µƒ…œ“ªº∂¬∑æ∂µƒ
     cd ..
     cd ..
     cd ..
-    @REM ‰øùÂ≠òÈªòËÆ§ÁöÑNDKË∑ØÂæÑ
+    @REM ±£¥Êƒ¨»œµƒNDK¬∑æ∂
     set NDK_PATH=%CD%
     cd %PROJECT_ROOT%
     goto START
 
 :LUATIDE_USER
-    @REM Â¶ÇÊûúÊúâ‰º†ÂÖ•Â∞±‰ΩøÁî®‰º†ÂÖ•ÂÄº
-    @REM ËøôÈáå‰∏ªË¶ÅÊòØÁªôIDE‰ΩøÁî®ÔºåÂú®IDE‰∏≠ÁºñËØëÁéØÂ¢É‰ºöË¢´ÊîæÂú®APPDATA‰∏≠ÔºåËøô‰∏™Ë∑ØÂæÑÈúÄË¶ÅÂ§ñÁïå‰º†ËøõÊù•
+    @REM »Áπ˚”–¥´»ÎæÕ π”√¥´»Î÷µ
+    @REM ’‚¿Ô÷˜“™ «∏¯IDE π”√£¨‘⁄IDE÷–±‡“Îª∑æ≥ª·±ª∑≈‘⁄APPDATA÷–£¨’‚∏ˆ¬∑æ∂–Ë“™Õ‚ΩÁ¥´Ω¯¿¥
     set NDK_PATH=%1
     goto START
 
@@ -50,11 +50,12 @@ goto RDA8910
 :RDA8910
 set CORE_INC="%NDK_ROOT%\platform\Air72x\core"
 set CORE_TRAN_MAIN="%NDK_ROOT%\platform\Air72x\core\trans_api"
-if not exist %USER_INC% mkdir %USER_INC%
-:: ËΩ¨Êç¢Â§¥Êñá‰ª∂
+@REM if not exist %USER_INC% mkdir %USER_INC%
+:: ◊™ªªÕ∑Œƒº˛
+@REM ’‚“ª––≤ªƒ‹÷±Ω”¥Úø™”√£¨¥Úø™¡À“≤”√≤ª¡À
 :: python38 %TRANS% transform -i "%NDK_ROOT%\platform\8910\core\core_api.h" -o "%NDK_ROOT%\user\include\core_api.h" -oc "%NDK_ROOT%\user\src\core_api.c"
-python38 %TRANS% "move" -f "%CORE_INC%\cs_types.h" "%CORE_INC%\am_openat_drv.h" "%CORE_TRAN_MAIN%\core_api.h" "%CORE_INC%\am_openat_common.h" "%CORE_INC%\am_openat_system.h" "%CORE_INC%\lua_type.h" "%CORE_INC%\std_type.h" "%CORE_INC%\luaconf.h" -d %USER_INC%
-python38 %TRANS% "move" -f "%CORE_TRAN_MAIN%\core_api.c" -d %USER_SRC%
+
+@REM python38 %TRANS% "move" -f "%CORE_INC%\cs_types.h" "%CORE_INC%\am_openat_drv.h" "%CORE_TRAN_MAIN%\core_api.h" "%CORE_INC%\am_openat_common.h" "%CORE_INC%\am_openat_system.h" "%CORE_INC%\lua_type.h" "%CORE_INC%\std_type.h" "%CORE_INC%\luaconf.h" -d %USER_INC%
 
 set CMAKE_LINKER=%NDK_ROOT%/platform/Air72x/toolchain/win32/gcc-arm-none-eabi/bin/arm-none-eabi-ld.exe
 set CMAKE_C_COMPILER=%NDK_ROOT%/platform/Air72x/toolchain/win32/gcc-arm-none-eabi/bin/arm-none-eabi-gcc.exe
@@ -73,7 +74,7 @@ goto BUILD
 :BUILD
 if not exist %PROJECT_OUT% mkdir %PROJECT_OUT%
 cd %PROJECT_ROOT%
-%MAKE_DIR%\gnumake LR=%CMAKE_LINKER% CC=%CMAKE_C_COMPILER% CCOPTION=%CCOPTION%
+%MAKE_DIR%\gnumake LR=%CMAKE_LINKER% CC=%CMAKE_C_COMPILER% CCOPTION=%CCOPTION% NDK_PATH=%NDK_PATH%
 copy %PROJECT_ROOT%\out\lib\user.lib %PROJECT_ROOT%\out\user_tmp.lib
 %CMAKE_OBJDUMP_COMPILER% -S %PROJECT_ROOT%\out\user_tmp.lib > %PROJECT_OUT%\user.map
 %CMAKE_READELF_COMPILER% -s %PROJECT_ROOT%\out\user_tmp.lib >> %PROJECT_OUT%\user.map
@@ -81,10 +82,10 @@ copy %PROJECT_ROOT%\out\lib\user.lib %PROJECT_ROOT%\out\user_tmp.lib
 del %NDK_ROOT%\out\user_tmp.lib
 %MAKE_DIR%\gnumake clean
 
-:: Âà†Èô§ËΩ¨Êç¢ÂêéÁöÑÂ§¥Êñá‰ª∂
-if "%PLATFROM%"=="RDA8910" (
-	python38 %TRANS% clear -f %USER_INC%\core_api.h %USER_SRC%\core_api.c %USER_INC%\cs_types.h %USER_INC%\am_openat_drv.h %USER_INC%\am_openat_common.h %USER_INC%\am_openat_system.h %USER_INC%\lua_type.h %USER_INC%\std_type.h %USER_INC%\luaconf.h
-)
+:: …æ≥˝◊™ªª∫ÛµƒÕ∑Œƒº˛
+@REM if "%PLATFROM%"=="RDA8910" (
+@REM 	python38 %TRANS% clear -f %USER_INC%\core_api.h %USER_SRC%\core_api.c %USER_INC%\cs_types.h %USER_INC%\am_openat_drv.h %USER_INC%\am_openat_common.h %USER_INC%\am_openat_system.h %USER_INC%\lua_type.h %USER_INC%\std_type.h %USER_INC%\luaconf.h
+@REM )
 
 cd ..
 :: rd /s /Q "out/project_debug"
