@@ -80,7 +80,9 @@ copy %PROJECT_ROOT%\out\lib\user.lib %PROJECT_ROOT%\out\user_tmp.lib
 %CMAKE_READELF_COMPILER% -s %PROJECT_ROOT%\out\user_tmp.lib >> %PROJECT_OUT%\user.map
 %CMAKE_OBJCOPY_COMPILER% -R .debug* %PROJECT_ROOT%\out\user_tmp.lib %PROJECT_OUT%\user.lib
 del %NDK_ROOT%\out\user_tmp.lib
-%MAKE_DIR%\gnumake clean
+
+@REM IDE使用时每次调试前都会去调用一下编译，所以不能clean
+@REM %MAKE_DIR%\gnumake clean
 
 :: 删除转换后的头文件
 @REM if "%PLATFROM%"=="RDA8910" (
