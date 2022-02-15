@@ -4,23 +4,33 @@
 set PROJECT_ROOT=%~dp0
 @REM 将工作路径切换到当前路径
 cd %PROJECT_ROOT%
+
 if "%1" == "" (
+    goto NDK_USER
+) else (
+    goto LUATIDE_USER
+)
+
+:NDK_USER
     @REM 如果没有传入NDK的路径，就往上三级目录
     @REM 下面几行是获取当前路径的上一级路径的
-    cd..
-    cd..
-    cd..
+    cd ..
+    cd ..
+    cd ..
     @REM 保存默认的NDK路径
     set NDK_PATH=%CD%
     cd %PROJECT_ROOT%
-) else (
+    goto START
+
+:LUATIDE_USER
     @REM 如果有传入就使用传入值
     @REM 这里主要是给IDE使用，在IDE中编译环境会被放在APPDATA中，这个路径需要外界传进来
     set NDK_PATH=%1
-)
-echo %NDK_PATH%
+    goto START
 
+:START
 
+echo NDK_PATH=%NDK_PATH%
 @echo on
 
 set PROJECT_OUT=%PROJECT_ROOT%\build
