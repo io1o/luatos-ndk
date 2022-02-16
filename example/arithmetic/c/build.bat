@@ -1,8 +1,19 @@
 @echo off
 
-@REM 获取当前文件的路径
+
+
+@REM !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@REM !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@REM wo quan ni du yi bian xia mian de ti shi!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@REM Note: do not write any Chinese in the bat file. As long as you write Chinese, there will be problems in some special cases!!!!!!!
+@REM !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@REM !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@REM !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+@REM Gets the path to the current file
 set PROJECT_ROOT=%~dp0
-@REM 将工作路径切换到当前路径
+@REM Example Switch the working path to the current path
 cd %PROJECT_ROOT%
 
 if "%1" == "" (
@@ -12,19 +23,19 @@ if "%1" == "" (
 )
 
 :NDK_USER
-    @REM 如果没有传入NDK的路径，就往上三级目录
-    @REM 下面几行是获取当前路径的上一级路径的
+    @REM If there is no incoming path to the NDK, go three levels up
+    @REM The following lines are to get the upper level path of the current path
     cd ..
     cd ..
     cd ..
-    @REM 保存默认的NDK路径
+    @REM Save default NDK path
     set NDK_PATH=%CD%
     cd %PROJECT_ROOT%
     goto START
 
 :LUATIDE_USER
-    @REM 如果有传入就使用传入值
-    @REM 这里主要是给IDE使用，在IDE中编译环境会被放在APPDATA中，这个路径需要外界传进来
+    @REM If there is an incoming value, use the incoming value
+    @REM This is mainly for the IDE. In the IDE, the compilation environment will be placed in appdata, and this path needs to be passed in from the outside
     set NDK_PATH=%1
     goto START
 
@@ -51,8 +62,8 @@ goto RDA8910
 set CORE_INC="%NDK_ROOT%\platform\Air72x\core"
 set CORE_TRAN_MAIN="%NDK_ROOT%\platform\Air72x\core\trans_api"
 @REM if not exist %USER_INC% mkdir %USER_INC%
-:: 转换头文件
-@REM 这一行不能直接打开用，打开了也用不了
+:: Conversion header file
+@REM This line cannot be opened directly, nor can it be opened
 :: python38 %TRANS% transform -i "%NDK_ROOT%\platform\8910\core\core_api.h" -o "%NDK_ROOT%\user\include\core_api.h" -oc "%NDK_ROOT%\user\src\core_api.c"
 
 @REM python38 %TRANS% "move" -f "%CORE_INC%\cs_types.h" "%CORE_INC%\am_openat_drv.h" "%CORE_TRAN_MAIN%\core_api.h" "%CORE_INC%\am_openat_common.h" "%CORE_INC%\am_openat_system.h" "%CORE_INC%\lua_type.h" "%CORE_INC%\std_type.h" "%CORE_INC%\luaconf.h" -d %USER_INC%
@@ -81,10 +92,10 @@ copy %PROJECT_ROOT%\out\lib\user.lib %PROJECT_ROOT%\out\user_tmp.lib
 %CMAKE_OBJCOPY_COMPILER% -R .debug* %PROJECT_ROOT%\out\user_tmp.lib %PROJECT_OUT%\user.lib
 del %NDK_ROOT%\out\user_tmp.lib
 
-@REM IDE使用时每次调试前都会去调用一下编译，所以不能clean
+@REM When IDE is used, it will call compilation before debugging every time, so it cannot be cleaned
 @REM %MAKE_DIR%\gnumake clean
 
-:: 删除转换后的头文件
+:: Delete the converted header file
 @REM if "%PLATFROM%"=="RDA8910" (
 @REM 	python38 %TRANS% clear -f %USER_INC%\core_api.h %USER_SRC%\core_api.c %USER_INC%\cs_types.h %USER_INC%\am_openat_drv.h %USER_INC%\am_openat_common.h %USER_INC%\am_openat_system.h %USER_INC%\lua_type.h %USER_INC%\std_type.h %USER_INC%\luaconf.h
 @REM )
