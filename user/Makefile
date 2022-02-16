@@ -42,13 +42,19 @@ export OUT_INCLUDE := $(BUILD_ROOT)/out/include
 
 export OUT_OBJ := $(BUILD_ROOT)/out/obj
 
-BASE_INC_PATHS += 	$(BUILD_ROOT)/include
-
+BASE_INC_PATHS += 	$(NDK_ROOT)/platform/Air72x/core/core_inc
+BASE_INC_PATHS += 	$(NDK_ROOT)/platform/Air72x/core/trans_out
+$(info BASE_INC_PATHS = $(BASE_INC_PATHS) )
 export BASE_INC_PATHS
+
+BASE_SRC_PATHS += 	$(NDK_ROOT)/platform/Air72x/core/trans_out
+$(info  BASE_SRC_PATHS = $(BASE_SRC_PATHS))
+export BASE_SRC_PATHS
+
 
 # override DFLAG
 
 # export DFLAG
 $(info $(BUILD_ROOT) )
 
-export MAKE_INCLUDE := $(BUILD_ROOT)/env/make.mk
+export MAKE_INCLUDE := $(NDK_ROOT)/env/make.mk

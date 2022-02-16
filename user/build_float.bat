@@ -52,7 +52,7 @@ set MAKE_DIR=%NDK_ROOT%\platform\Air72x\toolchain\GnuWin32\bin
 call %NDK_ROOT%\tools\launch.bat
 
 
-set DFLAG=-DLUA_CORE -DLUA_USE_MTK_NUCLEUS 
+set DFLAG= -DLUA_CORE -DLUA_USE_MTK_NUCLEUS -DLUAT_FLOATPOINT_SUPPORT
 
 goto RDA8910
 :: call tools/launch.bat project debug
@@ -91,7 +91,7 @@ copy %PROJECT_ROOT%\out\lib\user.lib %PROJECT_ROOT%\out\user_tmp.lib
 del %NDK_ROOT%\out\user_tmp.lib
 
 @REM When IDE is used, it will call compilation before debugging every time, so it cannot be cleaned
-%MAKE_DIR%\gnumake clean
+@REM %MAKE_DIR%\gnumake clean
 
 :: Delete the converted header file
 @REM if "%PLATFROM%"=="RDA8910" (

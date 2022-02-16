@@ -1,6 +1,8 @@
-DIRS := demo
 SRCS :=	$(wildcard *.c)
 INCS := 
+
+DIRS := $(BASE_SRC_PATHS)\
+		demo
 
 PACKAGE_INC_PATHS := 	$(BASE_INC_PATHS)
 
