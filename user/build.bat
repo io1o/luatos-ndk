@@ -88,10 +88,10 @@ copy %PROJECT_ROOT%\out\lib\user.lib %PROJECT_ROOT%\out\user_tmp.lib
 %CMAKE_OBJDUMP_COMPILER% -S %PROJECT_ROOT%\out\user_tmp.lib > %PROJECT_OUT%\user.map
 %CMAKE_READELF_COMPILER% -s %PROJECT_ROOT%\out\user_tmp.lib >> %PROJECT_OUT%\user.map
 %CMAKE_OBJCOPY_COMPILER% -R .debug* %PROJECT_ROOT%\out\user_tmp.lib %PROJECT_OUT%\user.lib
-del %NDK_ROOT%\out\user_tmp.lib
+rmdir /S/Q %PROJECT_ROOT%\out\
 
 @REM When IDE is used, it will call compilation before debugging every time, so it cannot be cleaned
-%MAKE_DIR%\gnumake clean
+@REM %MAKE_DIR%\gnumake clean
 
 :: Delete the converted header file
 @REM if "%PLATFROM%"=="RDA8910" (
