@@ -10,9 +10,16 @@ def transform(args):
 	pattern = "([\*\w]+[\s|\*]+?)\s?([\w]+)\s*?(\([\s\S]*?\));"
 	c_include = "(\#include\s?[\w\S]+)"
 
+	p,f = os.path.split(args.out)
+	if not os.path.exists(p):
+		os.mkdir(p)
+	p,f = os.path.split(args.out_c)
+	if not os.path.exists(p):
+		os.mkdir(p)
+
 	file = open(args.inter,mode = "r",encoding='utf-8')
-	tr_h = open(args.out,"w")
-	tr_c = open(args.out_c,"w")
+	tr_h = open(args.out,"w+")
+	tr_c = open(args.out_c,"w+")
 
 	if not file:
 		exit(0)
