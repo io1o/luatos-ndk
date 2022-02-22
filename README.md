@@ -28,32 +28,48 @@ NDK主要针对LuatOS闭源版本（例如LuatOS-Air/LuatOS-HMI/LuatOS-iRTU等)�
 
 # 三、使用说明
 
-1. 编译core版本
+### 3.1、使用NDK开发包开发
+
+##### 1、编译core版本
 
    通过 http://erp.openluat.com/firm_customized 服务器定制支持NDK功能的固件，版本号>=3209
 
-2. 编译NDK版本
+##### 2、编译NDK版本
 
-   根据core版本是否支持float功能，选择对应的编译方式。编译结束会在out目录下生成user.lib
+   根据core版本是否支持float功能，选择对应的编译方式。编译结束会在build目录下生成user.lib
 
    ```
-   float版本编译: build.bat FLOAT
+   float版本编译: build_float.bat
    非float版本编译: build.bat 
    ```
 
-3. 下载固件
+##### 3、下载固件
 
-   使用vscode，LuatIDE插件将out\user.lib、user\src\demo\scripts\main.lua testJson.lua和LuatOS-Air_V3209_RDA8910_RND_0x150000_TMP.pac 一起下载到模块中
+   使用luatools将build\user.lib、user\src\demo\scripts\main.lua testJson.lua和LuatOS-Air_V3209_RDA8910_RND_0x150000_TMP.pac 一起下载到模块中
 
-   ![image-20220114134158331](doc/image-20220114134158331.png)
-
-5. 运行结果
+##### 4、运行结果
 
    ![image-20220113205307312](doc/image-20220113205307312.png) 
 
    
 
+### 3.2、使用LuatIDE开发（推荐）
 
+##### 1、编译core版本
+
+通过 http://erp.openluat.com/firm_customized 服务器定制支持NDK功能的固件，版本号>=3209
+
+##### 2、基于demo新建NDK工程
+
+![LuatIDE新建NDK工程](README.assets/LuatIDE新建NDK工程-16455110151201.png)
+
+##### 3、点击调试按钮
+
+![LuatIDE运行NDK工程](README.assets/LuatIDE运行NDK工程.png)
+
+##### 4、运行结果
+
+![LuatIDE运行日志](README.assets/LuatIDE运行日志.png)
 
 # 四、代码示例
 
@@ -67,32 +83,9 @@ NDK主要针对LuatOS闭源版本（例如LuatOS-Air/LuatOS-HMI/LuatOS-iRTU等)�
 
 - 移植coremark代码
 
-1. 在user\src\demo\lib\路径下创建coremark文件夹。
+1. 在examples路径下创建coremark文件夹(参考demo创建对应的工程文件)。
 
-2. 将core_list_join.c core_main.c core_matrix.c core_portme.c core_state.c coremark.h移到user\src\demo\lib\coremark目录下
-
-3. user\src\demo\lib\coremark目录下添加makefile文件，将coremark里面的c代码参与编译,内容如下:
-
-   ```
-   DIRS := 
-   SRCS :=	$(wildcard *.c)
-   INCS := 
-   
-   PACKAGE_INC_PATHS := $(BASE_INC_PATHS) 
-   BASE_INC_PATHS += 	
-   export BASE_INC_PATHS
-   include $(MAKE_INCLUDE)
-   ```
-
-   user\src\demo\lib\coremark目录如下所示：
-
-   ![image-20220112201731146](doc/image-20220112201731146.png) 
-
-4. 修改user\src\demo\lib目录下的makefile，将coremark加入编译工程中修改如下所示：
-
-   左边是修改前，右边是修改后
-
-   ![image-20220112202111141](doc/image-20220112202111141.png)
+2. 将core_list_join.c core_main.c core_matrix.c core_portme.c core_state.c coremark.h移到example\coremark\c\src\目录下 
 
 5. 运行build.bat.
 
@@ -114,13 +107,13 @@ NDK主要针对LuatOS闭源版本（例如LuatOS-Air/LuatOS-HMI/LuatOS-iRTU等)�
 
    - 其余的所有适配都放到rttread.h. 结果如下所示
 
-     ![image-20220112203629390](doc/image-20220112203629390.png) 
+     ![image-20220112201731146](README.assets/image-20220112201731146.png) 
 
    - 再次编译start.bat文件，生成了user.lib 结果如下：
 
      ![image-20220112203838452](doc/image-20220112203838452.png) 
 
-7. 在user\src\demo\lib\coremark目录下新建lua_coremark.c 将coremark接口封装成lua接口给脚本调用。代码如下所示：
+7. 在example\coremark\c\src目录下新建lua_coremark.c 将coremark接口封装成lua接口给脚本调用。代码如下所示：
 
    ```
    #include "core_api.h"
@@ -141,7 +134,7 @@ NDK主要针对LuatOS闭源版本（例如LuatOS-Air/LuatOS-HMI/LuatOS-iRTU等)�
    
    ```
 
-8. 在user\src\main.c中注册rtt_lib. 然后再次运行start.bat
+8. 在example\coremark\c\src\main.c中注册rtt_lib. 然后再次运行start.bat
 
    ```
    #include "core_api.h"
@@ -184,13 +177,8 @@ NDK主要针对LuatOS闭源版本（例如LuatOS-Air/LuatOS-HMI/LuatOS-iRTU等)�
    sys.run()
    ```
 
-10. 使用vscode，LuatIDE插件将out\user.lib、main.lua和LuatOS-Air_V3209_RDA8910_RND_0x150000_TMP.pac 一起下载到模块中
+10. 参考3.2使用LuatIDE开发进行调试
 
-    ![image-20220114134956269](doc/image-20220114134956269.png)
-
-11. 运行结果如下：
-
-    ![image-20220114142404616](doc/image-20220114142404616.png)
 
 
 
