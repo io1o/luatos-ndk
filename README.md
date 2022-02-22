@@ -61,15 +61,15 @@ NDK主要针对LuatOS闭源版本（例如LuatOS-Air/LuatOS-HMI/LuatOS-iRTU等)�
 
 ##### 2、基于demo新建NDK工程
 
-![LuatIDE新建NDK工程](README.assets/LuatIDE新建NDK工程-16455110151201.png)
+![LuatIDE新建NDK工程](doc/LuatIDE新建NDK工程.png)
 
 ##### 3、点击调试按钮
 
-![LuatIDE运行NDK工程](README.assets/LuatIDE运行NDK工程.png)
+![LuatIDE运行NDK工程](doc/LuatIDE运行NDK工程.png)
 
 ##### 4、运行结果
 
-![LuatIDE运行日志](README.assets/LuatIDE运行日志.png)
+![LuatIDE运行日志](doc/LuatIDE运行日志.png)
 
 # 四、代码示例
 
@@ -107,7 +107,7 @@ NDK主要针对LuatOS闭源版本（例如LuatOS-Air/LuatOS-HMI/LuatOS-iRTU等)�
 
    - 其余的所有适配都放到rttread.h. 结果如下所示
 
-     ![image-20220112201731146](README.assets/image-20220112201731146.png) 
+     ![image-20220112201731146](doc/image-20220112201731146.png) 
 
    - 再次编译start.bat文件，生成了user.lib 结果如下：
 
