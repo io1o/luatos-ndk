@@ -4,7 +4,7 @@
 #include "am_openat_system.h"
 #include "std_type.h"
 #include "lua_type.h"
-
+#include "ndk_math.h"
 
 
 
@@ -49,7 +49,274 @@ INT64 OPENAT_get_system_tick(                                   /* 获取系统t
                             );
 
 /*math操作相关接口*/
+/* Reentrant ANSI C functions.	*/
+double atan (double);
+double cos (double);
+double sin (double);
+double tan (double);
+double tanh (double);
+double frexp (double, int *);
+double modf (double, double *);
+double ceil (double);
+double fabs (double);
 double floor (double);
+
+/* Non reentrant ANSI C functions.	*/
+double acos (double);
+double asin (double);
+double atan2 (double, double);
+double cosh (double);
+double sinh (double);
+double exp (double);
+double ldexp (double, int);
+double log (double);
+double log10 (double);
+double pow (double, double);
+double sqrt (double);
+double fmod (double, double);
+
+
+int finite (double);
+int finitef (float);
+int finitel (long double);
+int isinff (float);
+int isnanf (float);
+
+int isinfl (long double);
+int isnanl (long double);
+int isinf (double);
+int isnan (double);
+
+int __isinff (float x);
+int __isinfd (double x);
+int __isnanf (float x);
+int __isnand (double x);
+int __fpclassifyf (float x);
+int __fpclassifyd (double x);
+int __signbitf (float x);
+int __signbitd (double x);
+
+/* Non ANSI double precision functions.  */
+
+double infinity (void);
+double nan (const char *);
+double copysign (double, double);
+double logb (double);
+int ilogb (double);
+
+double asinh (double);
+double cbrt (double);
+double nextafter (double, double);
+double rint (double);
+double scalbn (double, int);
+
+double exp2 (double);
+double scalbln (double, long int);
+double tgamma (double);
+double nearbyint (double);
+long int lrint (double);
+long long int llrint (double);
+double round (double);
+long int lround (double);
+long long int llround (double);
+double trunc (double);
+double remquo (double, double, int *);
+double fdim (double, double);
+double fmax (double, double);
+double fmin (double, double);
+double fma (double, double, double);
+
+
+double log1p (double);
+double expm1 (double);
+
+
+
+double acosh (double);
+double atanh (double);
+double remainder (double, double);
+double gamma (double);
+double lgamma (double);
+double erf (double);
+double erfc (double);
+double log2 (double);
+
+
+double hypot (double, double);
+
+/* Single precision versions of ANSI functions.  */
+
+float atanf (float);
+float cosf (float);
+float sinf (float);
+float tanf (float);
+float tanhf (float);
+float frexpf (float, int *);
+float modff (float, float *);
+float ceilf (float);
+float fabsf (float);
+float floorf (float);
+
+float acosf (float);
+float asinf (float);
+float atan2f (float, float);
+float coshf (float);
+float sinhf (float);
+float expf (float);
+float ldexpf (float, int);
+float logf (float);
+float log10f (float);
+float powf (float, float);
+float sqrtf (float);
+float fmodf (float, float);
+
+/* Other single precision functions.  */
+
+float exp2f (float);
+float scalblnf (float, long int);
+float tgammaf (float);
+float nearbyintf (float);
+long int lrintf (float);
+long long int llrintf (float);
+float roundf (float);
+long int lroundf (float);
+long long int llroundf (float);
+float truncf (float);
+float remquof (float, float, int *);
+float fdimf (float, float);
+float fmaxf (float, float);
+float fminf (float, float);
+float fmaf (float, float, float);
+
+float infinityf (void);
+float nanf (const char *);
+float copysignf (float, float);
+float logbf (float);
+int ilogbf (float);
+
+float asinhf (float);
+float cbrtf (float);
+float nextafterf (float, float);
+float rintf (float);
+float scalbnf (float, int);
+float log1pf (float);
+float expm1f (float);
+
+
+float acoshf (float);
+float atanhf (float);
+float remainderf (float, float);
+float gammaf (float);
+float lgammaf (float);
+float erff (float);
+float erfcf (float);
+float log2f (float);
+float hypotf (float, float);
+
+long double atanl (long double);
+long double cosl (long double);
+long double sinl (long double);
+long double tanl (long double);
+long double tanhl (long double);
+long double frexpl (long double, int *);
+long double modfl (long double, long double *);
+long double ceill (long double);
+long double fabsl (long double);
+long double floorl (long double);
+long double log1pl (long double);
+long double expm1l (long double);
+
+long double acosl (long double);
+long double asinl (long double);
+long double atan2l (long double, long double);
+long double coshl (long double);
+long double sinhl (long double);
+long double expl (long double);
+long double ldexpl (long double, int);
+long double logl (long double);
+long double log10l (long double);
+long double powl (long double, long double);
+long double sqrtl (long double);
+long double fmodl (long double, long double);
+long double hypotl (long double, long double);
+
+long double copysignl (long double, long double);
+long double nanl (const char *);
+int ilogbl (long double);
+long double asinhl (long double);
+long double cbrtl (long double);
+long double nextafterl (long double, long double);
+float nexttowardf (float, long double);
+double nexttoward (double, long double);
+long double nexttowardl (long double, long double);
+long double logbl (long double);
+long double log2l (long double);
+long double rintl (long double);
+long double scalbnl (long double, int);
+long double exp2l (long double);
+long double scalblnl (long double, long);
+long double tgammal (long double);
+long double nearbyintl (long double);
+long int lrintl (long double);
+long long int llrintl (long double);
+long double roundl (long double);
+long lroundl (long double);
+long long int llroundl (long double);
+long double truncl (long double);
+long double remquol (long double, long double, int *);
+long double fdiml (long double, long double);
+long double fmaxl (long double, long double);
+long double fminl (long double, long double);
+long double fmal (long double, long double, long double);
+
+long double acoshl (long double);
+long double atanhl (long double);
+long double remainderl (long double, long double);
+long double lgammal (long double);
+long double erfl (long double);
+long double erfcl (long double);
+
+double drem (double, double);
+float dremf (float, float);
+float dreml (long double, long double);
+
+double gamma_r (double, int *);
+double lgamma_r (double, int *);
+float gammaf_r (float, int *);
+float lgammaf_r (float, int *);
+
+
+double y0 (double);
+double y1 (double);
+double yn (int, double);
+double j0 (double);
+double j1 (double);
+double jn (int, double);
+
+
+float y0f (float);
+float y1f (float);
+float ynf (int, float);
+float j0f (float);
+float j1f (float);
+float jnf (int, float);
+
+
+void sincos (double, double *, double *);
+void sincosf (float, float *, float *);
+void sincosl (long double, long double *, long double *);
+double exp10 (double);
+
+
+double pow10 (double);
+float exp10f (float);
+float pow10f (float);
+float exp10l (float);
+float pow10l (float);
+
+
+/* The gamma functions use a global variable, signgam.	*/
+int signgam (void);
 
 
 /******************************** GPIO操作接口 ********************************/
