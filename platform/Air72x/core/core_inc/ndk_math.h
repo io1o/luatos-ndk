@@ -255,11 +255,11 @@ typedef unsigned __Long __ULong;
 // #if __MISC_VISIBLE || __XSI_VISIBLE
 // /* The gamma functions use a global variable, signgam.  */
 // #ifndef _REENT_ONLY
-// #define signgam (*__signgam())
+#define signgam (*__signgam())
 // extern int *__signgam (void);
 // #endif /* ! defined (_REENT_ONLY) */
-
-// #define __signgam_r(ptr) _REENT_SIGNGAM(ptr)
+#define _REENT_SIGNGAM(ptr)	((ptr)->_gamma_signgam)
+#define __signgam_r(ptr) _REENT_SIGNGAM(ptr)
 // #endif /* __MISC_VISIBLE || __XSI_VISIBLE */
 
 #if __SVID_VISIBLE

@@ -67,8 +67,6 @@ int (*finitef)(float) = (void*) 0xFFFFFFCC;
 int (*finitel)(long double) = (void*) 0xFFFFFFCC;
 int (*isinff)(float) = (void*) 0xFFFFFFCC;
 int (*isnanf)(float) = (void*) 0xFFFFFFCC;
-int (*isinfl)(long double) = (void*) 0xFFFFFFCC;
-int (*isnanl)(long double) = (void*) 0xFFFFFFCC;
 int (*isinf)(double) = (void*) 0xFFFFFFCC;
 int (*isnan)(double) = (void*) 0xFFFFFFCC;
 int (*__isinff)(float x) = (void*) 0xFFFFFFCC;
@@ -234,7 +232,6 @@ double (*erfl)(long double) = (void*) 0xFFFFFFCC;
 double (*erfcl)(long double) = (void*) 0xFFFFFFCC;
 double (*drem)(double, double) = (void*) 0xFFFFFFCC;
 float (*dremf)(float, float) = (void*) 0xFFFFFFCC;
-float (*dreml)(long double, long double) = (void*) 0xFFFFFFCC;
 double (*gamma_r)(double, int *) = (void*) 0xFFFFFFCC;
 double (*lgamma_r)(double, int *) = (void*) 0xFFFFFFCC;
 float (*gammaf_r)(float, int *) = (void*) 0xFFFFFFCC;
@@ -253,14 +250,11 @@ float (*j1f)(float) = (void*) 0xFFFFFFCC;
 float (*jnf)(int, float) = (void*) 0xFFFFFFCC;
 void (*sincos)(double, double *, double *) = (void*) 0xFFFFFFCC;
 void (*sincosf)(float, float *, float *) = (void*) 0xFFFFFFCC;
-void (*sincosl)(long double, long double *, long double *) = (void*) 0xFFFFFFCC;
 double (*exp10)(double) = (void*) 0xFFFFFFCC;
 double (*pow10)(double) = (void*) 0xFFFFFFCC;
 float (*exp10f)(float) = (void*) 0xFFFFFFCC;
 float (*pow10f)(float) = (void*) 0xFFFFFFCC;
-float (*exp10l)(float) = (void*) 0xFFFFFFCC;
-float (*pow10l)(float) = (void*) 0xFFFFFFCC;
-int (*signgam)(void) = (void*) 0xFFFFFFCC;
+int *(*__signgam)(void) = (void*) 0xFFFFFFCC;
 BOOL (*OPENAT_config_gpio)(
                             E_AMOPENAT_GPIO_PORT port,          /* GPIO±‡∫≈ */
                             T_AMOPENAT_GPIO_CFG *cfg            /*  ‰≥ˆªÚ ‰»Î */

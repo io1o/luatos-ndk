@@ -67,8 +67,6 @@ extern int (*finitef)(float);
 extern int (*finitel)(long double);
 extern int (*isinff)(float);
 extern int (*isnanf)(float);
-extern int (*isinfl)(long double);
-extern int (*isnanl)(long double);
 extern int (*isinf)(double);
 extern int (*isnan)(double);
 extern int (*__isinff)(float x);
@@ -234,7 +232,6 @@ extern double (*erfl)(long double);
 extern double (*erfcl)(long double);
 extern double (*drem)(double, double);
 extern float (*dremf)(float, float);
-extern float (*dreml)(long double, long double);
 extern double (*gamma_r)(double, int *);
 extern double (*lgamma_r)(double, int *);
 extern float (*gammaf_r)(float, int *);
@@ -253,14 +250,11 @@ extern float (*j1f)(float);
 extern float (*jnf)(int, float);
 extern void (*sincos)(double, double *, double *);
 extern void (*sincosf)(float, float *, float *);
-extern void (*sincosl)(long double, long double *, long double *);
 extern double (*exp10)(double);
 extern double (*pow10)(double);
 extern float (*exp10f)(float);
 extern float (*pow10f)(float);
-extern float (*exp10l)(float);
-extern float (*pow10l)(float);
-extern int (*signgam)(void);
+extern int *(*__signgam)(void);
 extern BOOL (*OPENAT_config_gpio)(
                             E_AMOPENAT_GPIO_PORT port,          /* GPIO±‡∫≈ */
                             T_AMOPENAT_GPIO_CFG *cfg            /*  ‰≥ˆªÚ ‰»Î */

@@ -82,8 +82,6 @@ int finitel (long double);
 int isinff (float);
 int isnanf (float);
 
-int isinfl (long double);
-int isnanl (long double);
 int isinf (double);
 int isnan (double);
 
@@ -278,7 +276,6 @@ long double erfcl (long double);
 
 double drem (double, double);
 float dremf (float, float);
-float dreml (long double, long double);
 
 double gamma_r (double, int *);
 double lgamma_r (double, int *);
@@ -304,19 +301,17 @@ float jnf (int, float);
 
 void sincos (double, double *, double *);
 void sincosf (float, float *, float *);
-void sincosl (long double, long double *, long double *);
+
 double exp10 (double);
 
 
 double pow10 (double);
 float exp10f (float);
 float pow10f (float);
-float exp10l (float);
-float pow10l (float);
 
 
 /* The gamma functions use a global variable, signgam.	*/
-int signgam (void);
+int *__signgam (void);
 
 
 /******************************** GPIO操作接口 ********************************/
