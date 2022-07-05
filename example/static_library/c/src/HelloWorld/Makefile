@@ -1,4 +1,4 @@
-SRCS := $(wildcard *.c)
+# SRCS := $(wildcard *.c)
 INCS := 
 
 DIRS := $(BASE_SRC_PATHS)
