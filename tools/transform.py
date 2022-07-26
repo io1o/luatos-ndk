@@ -23,6 +23,9 @@ def transform(args):
 
 	if not file:
 		exit(0)
+	# print("dddddd",os.path.basename(args.out))
+	tr_h.write("#ifndef " + os.path.basename(args.out) + " \r\n")
+	tr_h.write("#define " + os.path.basename(args.out) + " \r\n")
 
 	c_head = file.read()
 	#print(c_head)
@@ -32,6 +35,10 @@ def transform(args):
 		tr_c.write(temp + "\n")
 
 	tmp1arr = re.findall(pattern,c_head,re.M|re.I)
+
+
+
+	
 	#tr_h.write("#pragma once \n")
 	#  void (*OPENAT_lua_print)(char * fmt, ...) = (void*) 0xffffffff;
 	for temp in tmp1arr:
@@ -41,6 +48,7 @@ def transform(args):
 		tr_h.write(new_head + "\r\n")
 		tr_c.write(new_function + "\r\n")
 	
+	tr_h.write("#endif \r\n")
 	file.close()
 	tr_h.close()
 	tr_c.close()
