@@ -1,3 +1,5 @@
+#ifndef core_api.h 
+#define core_api.h 
 #include "cs_types.h"
 #include "stdarg.h"
 #include "am_openat_drv.h"
@@ -5,11 +7,32 @@
 #include "std_type.h"
 #include "lua_type.h"
 #include "ndk_math.h"
-extern void (*OPENAT_lua_print)(char * fmt,...);
+#include "lwip_types.h"
+extern long (*CFW_TcpipGetLastError)(void);
+extern int (*lwip_accept)(int s, struct sockaddr *addr, socklen_t *addrlen);
+extern int (*lwip_bind)(int s, const struct sockaddr *name, socklen_t namelen);
+extern int (*lwip_shutdown)(int s, int how);
+extern int (*lwip_getpeername)(int s, struct sockaddr *name, socklen_t *namelen);
+extern int (*lwip_getsockname)(int s, struct sockaddr *name, socklen_t *namelen);
+extern int (*lwip_setsockopt)(int s, int level, int optname, const void *optval, socklen_t optlen);
+extern int (*lwip_getsockopt)(int s, int level, int optname, void *optval, socklen_t *optlen);
+extern int (*lwip_close)(int s);
+extern int (*lwip_connect)(int s, const struct sockaddr *name, socklen_t namelen);
+extern int (*lwip_listen)(int s, int backlog);
+extern ssize_t (*lwip_recv)(int s, void *mem, size_t len, int flags);
+extern ssize_t (*lwip_recvmsg)(int s, struct msghdr *message, int flags);
+extern ssize_t (*lwip_recvfrom)(int s, void *mem, size_t len, int flags, struct sockaddr *from, socklen_t *fromlen);
+extern ssize_t (*lwip_send)(int s, const void *dataptr, size_t size, int flags);
+extern ssize_t (*lwip_sendmsg)(int s, const struct msghdr *message, int flags);
+extern ssize_t (*lwip_sendto)(int s, const void *dataptr, size_t size, int flags, const struct sockaddr *to, socklen_t tolen);
+extern int (*lwip_socket)(int domain, int type, int protocol);
+extern int (*lwip_select)(int maxfdp1, fd_set *readset, fd_set *writeset, fd_set *exceptset, struct timeval *timeout);
+extern int (*lwip_ioctl)(int s, long cmd, void *argp);
 extern bool (*OPENAT_msg_to_lua)(UINT8 msg_id,BOOL result,INT32 num,CHAR* data,UINT32 dataLen);
 extern void (*stderr)(void);
 extern void (*stdin)(void);
 extern void (*stdout)(void);
+extern int (*atoi)(const char *str);
 extern size_t (*strlen)(const char *);
 extern char* (*strchr)(const char *,int);
 extern char* (*strcpy)(char *,const char *);
@@ -32,14 +55,10 @@ extern int   (*memcmp)(const void *, const void *, size_t);
 extern void* (*OPENAT_malloc)(size_t size);
 extern void* (*OPENAT_realloc)(PVOID ptr, UINT32 size);
 extern void  (*OPENAT_free)(void *ptr);
-extern void  (*OPENAT_assert)(                                           /* 断言接口 */
-                            char condition,                     /* 条件 */
-                            char *func,                         /* 函数名称 */
-                            unsigned int line                   /* 行数 */
-                            );
-extern INT64 (*OPENAT_get_system_tick)(                                   /* 获取系统tick接口 */
-                            VOID
-                            );
+extern VOID (*OPENAT_print)(const char * fmt, ...);
+extern VOID (*OPENAT_lua_print)(const char * fmt, ...);
+extern void  (*OPENAT_assert)( char condition,  char *func, unsigned int line);
+extern INT64 (*OPENAT_get_system_tick)(VOID);
 extern double (*atan)(double);
 extern double (*cos)(double);
 extern double (*sin)(double);
@@ -500,3 +519,4 @@ extern int (*lua_sethook)(void *L, lua_Hook func, int mask, int count);
 extern lua_Hook (*lua_gethook)(void *L);
 extern int (*lua_gethookmask)(void *L);
 extern int (*lua_gethookcount)(void *L);
+#endif 

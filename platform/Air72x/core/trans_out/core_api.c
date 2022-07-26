@@ -5,11 +5,32 @@
 #include "std_type.h"
 #include "lua_type.h"
 #include "ndk_math.h"
-void (*OPENAT_lua_print)(char * fmt,...) = (void*) 0xFFFFFFCC;
+#include "lwip_types.h"
+long (*CFW_TcpipGetLastError)(void) = (void*) 0xFFFFFFCC;
+int (*lwip_accept)(int s, struct sockaddr *addr, socklen_t *addrlen) = (void*) 0xFFFFFFCC;
+int (*lwip_bind)(int s, const struct sockaddr *name, socklen_t namelen) = (void*) 0xFFFFFFCC;
+int (*lwip_shutdown)(int s, int how) = (void*) 0xFFFFFFCC;
+int (*lwip_getpeername)(int s, struct sockaddr *name, socklen_t *namelen) = (void*) 0xFFFFFFCC;
+int (*lwip_getsockname)(int s, struct sockaddr *name, socklen_t *namelen) = (void*) 0xFFFFFFCC;
+int (*lwip_setsockopt)(int s, int level, int optname, const void *optval, socklen_t optlen) = (void*) 0xFFFFFFCC;
+int (*lwip_getsockopt)(int s, int level, int optname, void *optval, socklen_t *optlen) = (void*) 0xFFFFFFCC;
+int (*lwip_close)(int s) = (void*) 0xFFFFFFCC;
+int (*lwip_connect)(int s, const struct sockaddr *name, socklen_t namelen) = (void*) 0xFFFFFFCC;
+int (*lwip_listen)(int s, int backlog) = (void*) 0xFFFFFFCC;
+ssize_t (*lwip_recv)(int s, void *mem, size_t len, int flags) = (void*) 0xFFFFFFCC;
+ssize_t (*lwip_recvmsg)(int s, struct msghdr *message, int flags) = (void*) 0xFFFFFFCC;
+ssize_t (*lwip_recvfrom)(int s, void *mem, size_t len, int flags, struct sockaddr *from, socklen_t *fromlen) = (void*) 0xFFFFFFCC;
+ssize_t (*lwip_send)(int s, const void *dataptr, size_t size, int flags) = (void*) 0xFFFFFFCC;
+ssize_t (*lwip_sendmsg)(int s, const struct msghdr *message, int flags) = (void*) 0xFFFFFFCC;
+ssize_t (*lwip_sendto)(int s, const void *dataptr, size_t size, int flags, const struct sockaddr *to, socklen_t tolen) = (void*) 0xFFFFFFCC;
+int (*lwip_socket)(int domain, int type, int protocol) = (void*) 0xFFFFFFCC;
+int (*lwip_select)(int maxfdp1, fd_set *readset, fd_set *writeset, fd_set *exceptset, struct timeval *timeout) = (void*) 0xFFFFFFCC;
+int (*lwip_ioctl)(int s, long cmd, void *argp) = (void*) 0xFFFFFFCC;
 bool (*OPENAT_msg_to_lua)(UINT8 msg_id,BOOL result,INT32 num,CHAR* data,UINT32 dataLen) = (void*) 0xFFFFFFCC;
 void (*stderr)(void) = (void*) 0xFFFFFFCC;
 void (*stdin)(void) = (void*) 0xFFFFFFCC;
 void (*stdout)(void) = (void*) 0xFFFFFFCC;
+int (*atoi)(const char *str) = (void*) 0xFFFFFFCC;
 size_t (*strlen)(const char *) = (void*) 0xFFFFFFCC;
 char* (*strchr)(const char *,int) = (void*) 0xFFFFFFCC;
 char* (*strcpy)(char *,const char *) = (void*) 0xFFFFFFCC;
@@ -32,14 +53,10 @@ int   (*memcmp)(const void *, const void *, size_t) = (void*) 0xFFFFFFCC;
 void* (*OPENAT_malloc)(size_t size) = (void*) 0xFFFFFFCC;
 void* (*OPENAT_realloc)(PVOID ptr, UINT32 size) = (void*) 0xFFFFFFCC;
 void  (*OPENAT_free)(void *ptr) = (void*) 0xFFFFFFCC;
-void  (*OPENAT_assert)(                                           /* 断言接口 */
-                            char condition,                     /* 条件 */
-                            char *func,                         /* 函数名称 */
-                            unsigned int line                   /* 行数 */
-                            ) = (void*) 0xFFFFFFCC;
-INT64 (*OPENAT_get_system_tick)(                                   /* 获取系统tick接口 */
-                            VOID
-                            ) = (void*) 0xFFFFFFCC;
+VOID (*OPENAT_print)(const char * fmt, ...) = (void*) 0xFFFFFFCC;
+VOID (*OPENAT_lua_print)(const char * fmt, ...) = (void*) 0xFFFFFFCC;
+void  (*OPENAT_assert)( char condition,  char *func, unsigned int line) = (void*) 0xFFFFFFCC;
+INT64 (*OPENAT_get_system_tick)(VOID) = (void*) 0xFFFFFFCC;
 double (*atan)(double) = (void*) 0xFFFFFFCC;
 double (*cos)(double) = (void*) 0xFFFFFFCC;
 double (*sin)(double) = (void*) 0xFFFFFFCC;
